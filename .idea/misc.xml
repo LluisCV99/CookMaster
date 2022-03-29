@@ -19,6 +19,10 @@
         <entry key="..\:/Users/VSPC/Downloads/CookMaster/app/src/main/res/layout/nav_header_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/VSPC/Downloads/CookMaster/app/src/main/res/layout/recycler_view_item.xml" value="0.33" />
         <entry key="..\:/Users/VSPC/Downloads/CookMaster/app/src/main/res/menu/main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/pokem/AndroidStudioProjects/CookMaster/app/src/main/res/layout/activity_login.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/pokem/AndroidStudioProjects/CookMaster/app/src/main/res/layout/activity_main.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/pokem/AndroidStudioProjects/CookMaster/app/src/main/res/layout/activity_register.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/pokem/AndroidStudioProjects/CookMaster/app/src/main/res/layout/settings.xml" value="0.21467391304347827" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.298" />
         <entry key="app/src/main/res/drawable/ic_menu_gallery.xml" value="0.14" />
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.298" />
@@ -29,6 +33,7 @@
         <entry key="app/src/main/res/layout/fragment_receptes.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/recycler_view_item.xml" value="0.35625" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.17897435897435898" />
         <entry key="app/src/main/res/menu/main.xml" value="0.35625" />
       </map>

@@ -14,5 +14,21 @@
 
     <string name="recepta_1">Recepta 1</string>
 
-
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="registre">"Si no tens compte registrat aquí"</string>
+    <string name="nom_usuari">"Username"</string>
+    <string name="contrasenya">"Password"</string>
+    <string name="nova_contrasenya">"New password"</string>
+    <string name="rn_contrasenya">"Repeat new password"</string>
+    <string name="r_contrasenya">"Repeat new password"</string>
+    <string name="signup">"Sign Up"</string>
+    <string name="apply">"Apply changes"</string>
+    <string name="delete">"Delete account"</string>
 </resources>

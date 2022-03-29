@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CookMaster" >
+        <activity android:name=".ui.Login.Settings"></activity>
+        <activity android:name=".ui.Login.RegisterActivity"></activity>
+
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.Login.LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.CookMaster.NoActionBar" >
