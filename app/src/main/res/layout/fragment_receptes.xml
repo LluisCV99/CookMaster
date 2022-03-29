@@ -29,11 +29,11 @@
         android:layout_width="409dp"
         android:layout_height="630dp"
         android:layout_marginBottom="4dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:itemCount="7" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <ScrollView
         android:id="@+id/scrollView"
