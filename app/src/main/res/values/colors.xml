@@ -9,5 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimary">#6F7F84</color>
     <color name="gris_lletres">#9da6a9</color>
-
+    <color name="groc">#fff25b</color>
+    <color name="gris_blavos">#6f7f84</color>
+    <color name="gris_fosc">#6d6e6d</color>
+    <color name="rectangle_dia">#e4e4e4</color>
+    <color name="gris_realfosc">#444444</color>
+    <color name="titol_lletres">#4a4a4a</color>
 </resources>

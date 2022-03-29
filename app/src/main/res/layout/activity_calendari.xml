@@ -4,22 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.calendari.calendari">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appB"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.CookMaster.AppBarOverlay">
-
-        <TextView
-            android:id="@+id/titol"
-            android:layout_width="411dp"
-            android:layout_height="43dp"
-            android:background="@color/colorPrimary"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:text="@string/calendari"/>
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"

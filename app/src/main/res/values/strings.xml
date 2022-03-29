@@ -11,9 +11,6 @@
     <string name="menu_receptes">Receptes</string>
     <string name="menu_slideshow">Slideshow</string>
 
-
-    <string name="recepta_1">Recepta 1</string>
-
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -31,4 +28,19 @@
     <string name="signup">"Sign Up"</string>
     <string name="apply">"Apply changes"</string>
     <string name="delete">"Delete account"</string>
+
+    <string name="recepta_1">Recepta 1</string>
+
+    <string name="calendari">Calendari</string>
+    <string name="dia">Dia</string>
+    <string name="dinar">Dinar</string>
+    <string name="sopar">Sopar</string>
+
+    <string name="dilluns">Dilluns</string>
+    <string name="dimarts">Dimarts</string>
+    <string name="dimecres">Dimecres</string>
+    <string name="dijous">Dijous</string>
+    <string name="divendres">Divendres</string>
+    <string name="dissabte">Dissabte</string>
+    <string name="diumenge">Diumenge</string>
 </resources>
