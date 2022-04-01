@@ -104,4 +104,7 @@ public class ReceptesFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
+
 }
