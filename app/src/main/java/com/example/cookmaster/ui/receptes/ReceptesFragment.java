@@ -75,6 +75,20 @@ public class ReceptesFragment extends Fragment {
         llistaReceptes.add(new Receptes("Canelons d'espinacs"));
         llistaReceptes.add(new Receptes("Ensaladilla russa"));
         llistaReceptes.add(new Receptes("Pizza vegetariana"));
+        llistaReceptes.add(new Receptes("Lasanya"));
+        llistaReceptes.add(new Receptes("Sopa de tortuga"));
+        llistaReceptes.add(new Receptes("Macarerons boloñesa"));
+        llistaReceptes.add(new Receptes("Sopa de ceba tendra silvestre"));
+        llistaReceptes.add(new Receptes("Nuguets de pullastra"));
+        llistaReceptes.add(new Receptes("Gambas al allet"));
+        llistaReceptes.add(new Receptes("Vistek"));
+        llistaReceptes.add(new Receptes("Ansaladiya ukrainesa"));
+        llistaReceptes.add(new Receptes("Vietnamita a la planxa"));
+
+
+
+
+
 
 
         ReceptesAdapter adapter=new ReceptesAdapter(llistaReceptes);

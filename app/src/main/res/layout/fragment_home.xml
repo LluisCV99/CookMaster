@@ -41,7 +41,7 @@
             <Space
                 android:id="@+id/espai1"
                 android:layout_width="wrap_content"
-                android:layout_height="75dp" />
+                android:layout_height="200dp" />
         </TableRow>
 
         <TableRow
