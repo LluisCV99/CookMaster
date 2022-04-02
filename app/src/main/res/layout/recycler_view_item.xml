@@ -19,6 +19,7 @@
         android:drawableEnd="@drawable/arrow"
         android:fontFamily="sans-serif"
         android:gravity="center|start"
+        android:onClick="recepta_fragment.xml"
         android:text="@tools:sample/lorem"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/gris_lletres"

@@ -30,6 +30,10 @@
     <string name="delete">"Delete account"</string>
 
     <string name="recepta_1">Recepta 1</string>
+    <string name="preparacio">Preparació:</string>
+    <string name="nom">Nom:</string>
+    <string name="ingredients">Ingredients:</string>
+    <string name="publica">Publica</string>
 
     <string name="calendari">Calendari</string>
     <string name="dia">Dia</string>
