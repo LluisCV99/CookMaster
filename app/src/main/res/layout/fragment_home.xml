@@ -41,7 +41,7 @@
             <Space
                 android:id="@+id/espai1"
                 android:layout_width="wrap_content"
-                android:layout_height="200dp" />
+                android:layout_height="125dp" />
         </TableRow>
 
         <TableRow
@@ -226,7 +226,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="33"
                 android:layout_height="wrap_content"
-                android:text="@string/dinar" />
+                android:text="@string/sopar" />
         </TableRow>
 
 
@@ -287,6 +287,35 @@
                 android:layout_weight="33"
                 android:layout_height="wrap_content"
                 android:text="@string/sopar" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+            <Space
+                android:id="@+id/Espai3"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <Button
+                android:id="@+id/Boto_millora"
+                style="@style/boto_millora"
+                android:layout_height="40dp"
+                android:layout_weight="66"
+                android:text="Placeholder" />
+            <!--El text es placeholder, ja que aquest s'haura d'actualitzar des de la classe -->
+
+            <ImageButton
+                android:id="@+id/Boto_Share"
+                style="@style/boto_millora"
+                android:layout_weight="33"
+                android:layout_height="40dp"
+                android:src="@drawable/share"/>
         </TableRow>
     </TableLayout>
 
