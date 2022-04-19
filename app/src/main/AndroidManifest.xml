@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CookMaster" >
+        <activity android:name=".ui.Login.LoginActivity"></activity>
+        <activity android:name=".ui.Login.RegisterActivity"></activity>
+        <activity android:name=".ui.Login.Settings"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"

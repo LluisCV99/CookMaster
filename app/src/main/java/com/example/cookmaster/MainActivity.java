@@ -1,9 +1,12 @@
 package com.example.cookmaster;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.cookmaster.ui.Login.LoginActivity;
+import com.example.cookmaster.ui.Login.RegisterActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -27,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Intent switchActivityIntent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(switchActivityIntent);
 
         setSupportActionBar(binding.appBarMain.toolbar);
 
