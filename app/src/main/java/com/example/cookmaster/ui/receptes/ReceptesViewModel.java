@@ -10,7 +10,7 @@ public class ReceptesViewModel extends ViewModel {
 
     public ReceptesViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
+
     }
 
     public LiveData<String> getText() {

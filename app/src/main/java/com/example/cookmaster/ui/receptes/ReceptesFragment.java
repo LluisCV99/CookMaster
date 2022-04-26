@@ -16,10 +16,10 @@ import com.example.cookmaster.R;
 import com.example.cookmaster.databinding.FragmentReceptesBinding;
 import com.example.cookmaster.ui.adapters.ReceptesAdapter;
 import com.example.cookmaster.ui.classes.Receptes;
-
 import java.util.ArrayList;
 
-public class ReceptesFragment extends Fragment {
+
+public class ReceptesFragment extends Fragment implements View.OnClickListener{
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -68,11 +68,12 @@ public class ReceptesFragment extends Fragment {
         recyclerView= (RecyclerView) vista.findViewById(R.id.recyclerId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        llistaReceptes.add(new Receptes("Amanida de cigrons"));
-        llistaReceptes.add(new Receptes("Amanida de llenties"));
-        llistaReceptes.add(new Receptes("Amanida de pasta"));
-        llistaReceptes.add(new Receptes("Arros al curry amb pollastre"));
-        llistaReceptes.add(new Receptes("Canelons d'espinacs"));
+
+        llistaReceptes.add(new Receptes("Amanida de cigrons", "150g Cigrons, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",1));
+        llistaReceptes.add(new Receptes("Amanida de llenties", "150g llenties, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",2));
+        llistaReceptes.add(new Receptes("Amanida de pasta", "150g pasta, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",3));
+        llistaReceptes.add(new Receptes("Arros al curry amb pollastre", "150g arros, 75g pollastre, 75g curry","Juntar tots els ingredients i punto",4));
+        llistaReceptes.add(new Receptes("Canelons d'espinacs", "150g espinacs, 75g plaques, 75g llet","Juntar tots els ingredients i punto",5));
         llistaReceptes.add(new Receptes("Ensaladilla russa"));
         llistaReceptes.add(new Receptes("Pizza vegetariana"));
         llistaReceptes.add(new Receptes("Lasanya"));
@@ -86,11 +87,6 @@ public class ReceptesFragment extends Fragment {
         llistaReceptes.add(new Receptes("Vietnamita a la planxa"));
 
 
-
-
-
-
-
         ReceptesAdapter adapter=new ReceptesAdapter(llistaReceptes);
         recyclerView.setAdapter(adapter);
 
@@ -99,6 +95,7 @@ public class ReceptesFragment extends Fragment {
         return vista;
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -106,5 +103,8 @@ public class ReceptesFragment extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View view) {
 
+    }
 }

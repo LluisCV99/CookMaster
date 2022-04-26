@@ -6,10 +6,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cookmaster.R;
 import com.example.cookmaster.ui.classes.Receptes;
+import com.example.cookmaster.ui.receptes.ReceptaFragment;
 
 import java.util.ArrayList;
 
@@ -32,6 +35,8 @@ public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.Recept
     @Override
     public void onBindViewHolder(ReceptesViewHolder holder, int position) {
         holder.txtNom.setText(llistaReceptes.get(position).getNom());
+
+
     }
 
     @Override
@@ -45,6 +50,19 @@ public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.Recept
         public ReceptesViewHolder(View itemView) {
             super(itemView);
             txtNom= (Button) itemView.findViewById(R.id.button);
+            txtNom.setOnClickListener(view -> {
+
+
+            });
+            txtNom.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ReceptaFragment receptaFragment = new ReceptaFragment();
+                    receptaFragment.getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.button, receptaFragment).addToBackStack(null).commit();
+
+                }
+            });
         }
     }
 }
