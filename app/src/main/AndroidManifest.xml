@@ -12,6 +12,7 @@
         <activity android:name=".ui.Login.LoginActivity"></activity>
         <activity android:name=".ui.Login.RegisterActivity"></activity>
         <activity android:name=".ui.Login.Settings"></activity>
+        <activity android:name=".ui.Login.Sortir"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,5 +1,6 @@
 package com.example.cookmaster.ui.Login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,7 +42,8 @@ public class Settings extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent switchActivityIntent = new Intent(getApplicationContext(), Sortir.class);
+                startActivity(switchActivityIntent);
             }
         });
     }

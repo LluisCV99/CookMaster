@@ -97,7 +97,7 @@
         android:clickable="true"
         android:minHeight="48dp"
         android:text="@string/registre"
-        android:textColor="@android:color/holo_blue_light"
+        android:textColor="#039BE5"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

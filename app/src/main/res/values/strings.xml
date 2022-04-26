@@ -28,6 +28,8 @@
     <string name="signup">"Sign Up"</string>
     <string name="apply">"Apply changes"</string>
     <string name="delete">"Delete account"</string>
+    <string name="sortir">"L'usuari s'ha eliminat correctament"</string>
+    <string name="Bsortir">"Surt de l'aplicació"</string>
 
     <string name="recepta_1">Recepta 1</string>
     <string name="preparacio">Preparació:</string>
