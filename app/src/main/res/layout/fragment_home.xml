@@ -6,29 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appB"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.CookMaster.AppBarOverlay">
-
-        <TextView
-            android:id="@+id/titol"
-            android:layout_width="411dp"
-            android:layout_height="43dp"
-            android:background="@color/colorPrimary"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:text="@string/calendari"/>
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.CookMaster.PopupOverlay" />
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <TableLayout
         android:layout_width="match_parent"
@@ -36,12 +13,13 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <Space
                 android:id="@+id/espai1"
                 android:layout_width="wrap_content"
-                android:layout_height="125dp" />
+                android:layout_height="75dp" />
         </TableRow>
 
         <TableRow
@@ -75,7 +53,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <Space
                 android:id="@+id/espai2"
@@ -290,12 +268,13 @@
         </TableRow>
 
         <TableRow
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="184dp">
+
             <Space
                 android:id="@+id/Espai3"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"/>
+                android:layout_height="25dp" />
         </TableRow>
 
         <TableRow
