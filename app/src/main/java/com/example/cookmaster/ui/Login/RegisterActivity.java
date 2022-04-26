@@ -1,5 +1,6 @@
 package com.example.cookmaster.ui.Login;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,9 +13,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cookmaster.R;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class RegisterActivity extends AppCompatActivity{
 
     private LoginViewModel loginViewModel;
+    private LlistaUsuaris llista = new LlistaUsuaris();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,12 @@ public class RegisterActivity extends AppCompatActivity{
         final EditText password2EditText = findViewById(R.id.new_password);
         final Button registerButton = findViewById(R.id.Signup);
 
+        /*try (FileInputStream fis = new FileInputStream("users.dat");
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            llista = (LlistaUsuaris) ois.readObject();
+        }
+        catch (IOException | ClassNotFoundException e) {
+        }*/
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +52,18 @@ public class RegisterActivity extends AppCompatActivity{
                 if(loginViewModel.isNewPasswordValid(passwordEditText.getText().toString(),
                         password2EditText.getText().toString()) &&
                         loginViewModel.isPasswordValid(passwordEditText.getText().toString())){
+                    Usuari user = new Usuari(usernameEditText.getText().toString(),
+                            correuEditText.getText().toString(),passwordEditText.getText().toString());
+                    try{
+                        llista.afegir(user);
+                    } catch(Exception e){}
+                    try (FileOutputStream fout = getApplicationContext().openFileOutput("users.dat", Context.MODE_PRIVATE);
+                         ObjectOutputStream oos = new ObjectOutputStream(fout)) {
+                        oos.writeObject(llista);
+                        oos.flush();
+                    }
+                    catch (IOException e) {
+                    }
                     finish();
                 }
                 else{
