@@ -19,11 +19,11 @@
         <entry key="..\:/Users/VSPC/Downloads/CookMaster/app/src/main/res/layout/nav_header_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/VSPC/Downloads/CookMaster/app/src/main/res/layout/recycler_view_item.xml" value="0.33" />
         <entry key="..\:/Users/VSPC/Downloads/CookMaster/app/src/main/res/menu/main.xml" value="0.36666666666666664" />
+<<<<<<<<< Temporary merge branch 1
+=========
         <entry key="..\:/Users/pokem/AndroidStudioProjects/CookMaster2/app/src/main/res/layout/activity_login.xml" value="0.1" />
-        <entry key="..\:/Users/pokem/AndroidStudioProjects/CookMaster2/app/src/main/res/layout/activity_register.xml" value="0.21467391304347827" />
-        <entry key="..\:/Users/pokem/AndroidStudioProjects/CookMaster2/app/src/main/res/layout/activity_sortir.xml" value="0.2" />
-        <entry key="..\:/Users/pokem/AndroidStudioProjects/CookMaster2/app/src/main/res/layout/settings.xml" value="0.21467391304347827" />
         <entry key="..\:/Users/pokem/AndroidStudioProjects/CookMaster2/app/src/main/res/menu/activity_main_drawer.xml" value="0.1" />
+>>>>>>>>> Temporary merge branch 2
         <entry key="app/src/main/res/drawable/boto_dia.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/boto_dinar.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/boto_sopar.xml" value="0.1665" />
