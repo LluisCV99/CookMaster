@@ -96,13 +96,15 @@
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:layout_marginBottom="19dp"
         android:enabled="true"
-        android:text="Go login"
+        android:text="@string/goback"
         android:textColor="#2f2f2f"
         app:backgroundTint="#cccccc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.936"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/elimina" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

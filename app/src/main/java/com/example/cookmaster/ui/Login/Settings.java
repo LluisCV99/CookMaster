@@ -5,18 +5,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cookmaster.R;
 
 public class Settings extends AppCompatActivity {
+
+    private LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.settings);
+
+        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
+                .get(LoginViewModel.class);
 
         final EditText newusernameEditText = findViewById(R.id.nouUsuari);
         final EditText newpasswordEditText = findViewById(R.id.new_password3);
@@ -35,7 +42,26 @@ public class Settings extends AppCompatActivity {
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if (loginViewModel.isUserNameValid(newusernameEditText.getText().toString())){
+                    if(loginViewModel.isNewPasswordValid(newpasswordEditText.getText().toString(),
+                            newpassword2EditText.getText().toString()) &&
+                            loginViewModel.isPasswordValid(newpasswordEditText.getText().toString())){
+                        Toast.makeText(getApplicationContext(), getString(R.string.canvis), Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), getString(R.string.contrasenya_inc), Toast.LENGTH_LONG).show();
+                    }
+                }
+                else{
+                    if(loginViewModel.isNewPasswordValid(newpasswordEditText.getText().toString(),
+                            newpassword2EditText.getText().toString()) &&
+                            loginViewModel.isPasswordValid(newpasswordEditText.getText().toString())){
+                        Toast.makeText(getApplicationContext(), getString(R.string.canvis), Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), getString(R.string.contrasenya_inc), Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
 

@@ -30,6 +30,9 @@
     <string name="delete">"Delete account"</string>
     <string name="sortir">"L'usuari s'ha eliminat correctament"</string>
     <string name="Bsortir">"Surt de l'aplicació"</string>
+    <string name="contrasenya_inc">"Error al canviar la contrasenya"</string>
+    <string name="canvis">"Els canvis s'han aplicat correctament"</string>
+    <string name="goback">"Go back"</string>
 
     <string name="recepta_1">Recepta 1</string>
     <string name="preparacio">Preparació:</string>
