@@ -15,6 +15,7 @@ import com.example.cookmaster.R;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -39,12 +40,13 @@ public class RegisterActivity extends AppCompatActivity{
         final EditText password2EditText = findViewById(R.id.new_password);
         final Button registerButton = findViewById(R.id.Signup);
 
-        /*try (FileInputStream fis = new FileInputStream("users.dat");
+        try (FileInputStream fis = openFileInput("users");
              ObjectInputStream ois = new ObjectInputStream(fis)) {
             llista = (LlistaUsuaris) ois.readObject();
         }
         catch (IOException | ClassNotFoundException e) {
-        }*/
+            Toast.makeText(getApplicationContext(), "errorio", Toast.LENGTH_LONG).show();
+        }
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,13 +58,17 @@ public class RegisterActivity extends AppCompatActivity{
                             correuEditText.getText().toString(),passwordEditText.getText().toString());
                     try{
                         llista.afegir(user);
-                    } catch(Exception e){}
-                    try (FileOutputStream fout = getApplicationContext().openFileOutput("users.dat", Context.MODE_PRIVATE);
-                         ObjectOutputStream oos = new ObjectOutputStream(fout)) {
+                    } catch(Exception e){
+                        Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+                    }
+                    try{
+                        FileOutputStream fout = openFileOutput("users", Context.MODE_PRIVATE);
+                        ObjectOutputStream oos = new ObjectOutputStream(fout);
                         oos.writeObject(llista);
-                        oos.flush();
+                        oos.close();
                     }
                     catch (IOException e) {
+                        Toast.makeText(getApplicationContext(), "errorio", Toast.LENGTH_LONG).show();
                     }
                     finish();
                 }

@@ -24,9 +24,14 @@ import com.example.cookmaster.databinding.ActivityLoginBinding;
 import com.example.cookmaster.ui.Login.LoginViewModel;
 import com.example.cookmaster.ui.Login.LoginViewModelFactory;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    private LlistaUsuaris llista = new LlistaUsuaris();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,13 @@ public class LoginActivity extends AppCompatActivity {
 
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
+        try (FileInputStream fis = openFileInput("users");
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            llista = (LlistaUsuaris) ois.readObject();
+        }
+        catch (IOException | ClassNotFoundException e) {
+            Toast.makeText(getApplicationContext(), "errorio", Toast.LENGTH_LONG).show();
+        }
         final TextView regi = findViewById(R.id.registre);
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
@@ -70,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
+                    finish();
                 }
                 //setResult(Activity.RESULT_OK);
 
@@ -102,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
+                            passwordEditText.getText().toString(), llista);
                 }
                 return false;
             }
@@ -113,8 +126,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
-                finish();
+                        passwordEditText.getText().toString(), llista);
             }
         });
 

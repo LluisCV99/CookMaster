@@ -43,9 +43,9 @@ public class LoginRepository {
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    public com.example.cookmaster.ui.Login.Result<LoggedInUser> login(String username, String password) {
+    public com.example.cookmaster.ui.Login.Result<LoggedInUser> login(String username, String password, LlistaUsuaris llista) {
         // handle login
-        Result<LoggedInUser> result = dataSource.login(username, password);
+        Result<LoggedInUser> result = dataSource.login(username, password, llista);
         if (result instanceof com.example.cookmaster.ui.Login.Result.Success) {
             setLoggedInUser(((com.example.cookmaster.ui.Login.Result.Success<LoggedInUser>) result).getData());
         }

@@ -12,9 +12,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cookmaster.R;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 public class Settings extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    private LlistaUsuaris llista = new LlistaUsuaris();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,14 @@ public class Settings extends AppCompatActivity {
 
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
+
+        try (FileInputStream fis = openFileInput("users");
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            llista = (LlistaUsuaris) ois.readObject();
+        }
+        catch (IOException | ClassNotFoundException e) {
+            Toast.makeText(getApplicationContext(), "errorio", Toast.LENGTH_LONG).show();
+        }
 
         final EditText newusernameEditText = findViewById(R.id.nouUsuari);
         final EditText newpasswordEditText = findViewById(R.id.new_password3);
@@ -46,6 +59,7 @@ public class Settings extends AppCompatActivity {
                     if(loginViewModel.isNewPasswordValid(newpasswordEditText.getText().toString(),
                             newpassword2EditText.getText().toString()) &&
                             loginViewModel.isPasswordValid(newpasswordEditText.getText().toString())){
+
                         Toast.makeText(getApplicationContext(), getString(R.string.canvis), Toast.LENGTH_LONG).show();
                     }
                     else{

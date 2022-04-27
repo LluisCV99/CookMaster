@@ -43,4 +43,7 @@ public class LlistaUsuaris <Usuari> implements Serializable {
         ArrayList<Usuari> arrlist = new ArrayList<>(llista);
         return arrlist;
     }
+    public String getUsers(Usuari usuari){
+        return usuari.toString();
+    }
 }

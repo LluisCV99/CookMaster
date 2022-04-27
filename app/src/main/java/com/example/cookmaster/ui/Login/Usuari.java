@@ -34,4 +34,9 @@ public class Usuari implements Serializable {
     public void setContrasenya(String contrasenya) {
         this.contrasenya = contrasenya;
     }
+
+    @Override
+    public String toString(){
+        return (this.getUsuari()+","+this.getCorreu()+","+this.getContrasenya());
+    }
 }
