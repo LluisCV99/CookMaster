@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.ui.AppBarConfiguration;
 
@@ -30,6 +31,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
     private AppBarConfiguration appBarConfiguration;
 
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+
     private FragmentHomeBinding binding;
     private HomeViewModel homeViewModel;
 
@@ -38,6 +42,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
+        fragmentManager = getParentFragmentManager();
 
         return binding.getRoot();
     }
@@ -127,15 +133,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 break;
         }
         if(recepta == null){
-            Fragment slideshow = new SlideshowFragment();
-
-
+            SlideshowFragment fragment = (SlideshowFragment) fragmentManager.findFragmentById(R.id.nav_host_fragment_content_main);
+            fragment.chose();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.nav_host_fragment_content_main, fragment, null);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }else{
-            Fragment receptaFragment = new ReceptaFragment();
 
-            FragmentManager fragmentManager = getFragmentManager();
-            assert fragmentManager != null;
-            fragmentManager.beginTransaction().replace(R.id.nav_home, receptaFragment).commit();
         }
     }
 
@@ -144,7 +149,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     public boolean onLongClick(View view) {
         Context context = getContext();
         String state = "false";
-        int duration = Toast.LENGTH_SHORT;
         CharSequence error = "S'ha produit un error";
         CharSequence done = "S'ha eliminat correctament el\n";
         switch (view.getId()){
@@ -167,9 +171,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
         if(!state.equals("false")){
             done += state;
-            Toast.makeText(context, done, duration).show();
+            Toast.makeText(context, done, Toast.LENGTH_LONG).show();
         }else{
-            Toast.makeText(context, error, duration).show();
+            Toast.makeText(context, error, Toast.LENGTH_LONG).show();
         }
 
         view.findViewById(view.getId());
