@@ -57,7 +57,18 @@ public class RegisterActivity extends AppCompatActivity{
                     Usuari user = new Usuari(usernameEditText.getText().toString(),
                             correuEditText.getText().toString(),passwordEditText.getText().toString());
                     try{
-                        llista.afegir(user);
+                        for(int i = 0; i < llista.getSize(); i++) {
+                            String[] credencials = llista.getUsers(llista.getAt(i)).split(",");
+                            if(usernameEditText.getText().toString().equals(credencials[0])){
+                                Toast.makeText(getApplicationContext(), "l'usuari ja esta en us", Toast.LENGTH_LONG).show();
+                                break;
+                            }
+                            if(correuEditText.getText().toString().equals(credencials[1])){
+                                Toast.makeText(getApplicationContext(), "El correu ja esta en us", Toast.LENGTH_LONG).show();
+                                break;
+                            }
+                            llista.afegir(user);
+                        }
                     } catch(Exception e){
                         Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
                     }

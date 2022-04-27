@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import com.example.cookmaster.ui.Login.LoginActivity;
 import com.example.cookmaster.ui.Login.RegisterActivity;
 import com.example.cookmaster.ui.Login.Settings;
+import com.example.cookmaster.ui.Login.Sortir;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private Integer pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Intent switchActivityIntent = new Intent(getApplicationContext(), LoginActivity.class);
+
         startActivity(switchActivityIntent);
 
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -65,5 +68,25 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item ) {
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                Intent switchActivityIntent = new Intent(getApplicationContext(), Settings.class);
+                switchActivityIntent.putExtra("numero", pos);
+                startActivity(switchActivityIntent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            pos = data.getIntExtra("numero",0);
+        }
     }
 }

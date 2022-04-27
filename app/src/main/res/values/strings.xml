@@ -15,7 +15,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">"Welcome! "</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
@@ -33,6 +33,7 @@
     <string name="contrasenya_inc">"Error al canviar la contrasenya"</string>
     <string name="canvis">"Els canvis s'han aplicat correctament"</string>
     <string name="goback">"Go back"</string>
+    <string name="user">"Escriu nom d'usuari"</string>
 
     <string name="recepta_1">Recepta 1</string>
     <string name="preparacio">Preparació:</string>

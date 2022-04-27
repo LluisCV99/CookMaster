@@ -11,6 +11,7 @@ public class Usuari implements Serializable {
         this.contrasenya = contrasenya;
     }
 
+
     public String getUsuari() {
         return usuari;
     }

@@ -82,10 +82,16 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
-                    finish();
+                    for(int i = 0; i < llista.getSize(); i++){
+                        String[] credencials = llista.getUsers(llista.getAt(i)).split(",");
+                        if(usernameEditText.getText().toString().equals(credencials[0]) || usernameEditText.getText().toString().equals(credencials[1])){
+                            Intent intent = new Intent();
+                            intent.putExtra("numero", i);
+                            setResult(RESULT_OK);
+                            finish();
+                        }
+                    }
                 }
-                //setResult(Activity.RESULT_OK);
-
                 //Complete and destroy login activity once successful
             }
         });
