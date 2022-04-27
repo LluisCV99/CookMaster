@@ -69,17 +69,17 @@ public class RegisterActivity extends AppCompatActivity{
                             }
                         }
                         llista.afegir(user);
+                        try{
+                            FileOutputStream fout = openFileOutput("users", Context.MODE_PRIVATE);
+                            ObjectOutputStream oos = new ObjectOutputStream(fout);
+                            oos.writeObject(llista);
+                            oos.close();
+                        }
+                        catch (IOException e) {
+                            Toast.makeText(getApplicationContext(), "errorio", Toast.LENGTH_LONG).show();
+                        }
                     } catch(Exception e){
                         Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
-                    }
-                    try{
-                        FileOutputStream fout = openFileOutput("users", Context.MODE_PRIVATE);
-                        ObjectOutputStream oos = new ObjectOutputStream(fout);
-                        oos.writeObject(llista);
-                        oos.close();
-                    }
-                    catch (IOException e) {
-                        Toast.makeText(getApplicationContext(), "errorio", Toast.LENGTH_LONG).show();
                     }
                     finish();
                 }
