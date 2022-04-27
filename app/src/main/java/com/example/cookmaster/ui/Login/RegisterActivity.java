@@ -67,8 +67,8 @@ public class RegisterActivity extends AppCompatActivity{
                                 Toast.makeText(getApplicationContext(), "El correu ja esta en us", Toast.LENGTH_LONG).show();
                                 break;
                             }
-                            llista.afegir(user);
                         }
+                        llista.afegir(user);
                     } catch(Exception e){
                         Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
                     }

@@ -141,6 +141,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent switchActivityIntent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(switchActivityIntent);
+                try (FileInputStream fis = openFileInput("users");
+                     ObjectInputStream ois = new ObjectInputStream(fis)) {
+                    llista = (LlistaUsuaris) ois.readObject();
+                }
+                catch (IOException | ClassNotFoundException e) {
+                    Toast.makeText(getApplicationContext(), "errorio", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
