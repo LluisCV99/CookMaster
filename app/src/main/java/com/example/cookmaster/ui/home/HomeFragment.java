@@ -19,12 +19,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.cookmaster.R;
 import com.example.cookmaster.databinding.FragmentHomeBinding;
 import com.example.cookmaster.ui.classes.Receptes;
 import com.example.cookmaster.ui.receptes.ReceptaFragment;
+import com.example.cookmaster.ui.receptes.ReceptesFragment;
 import com.example.cookmaster.ui.slideshow.SlideshowFragment;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener {
@@ -132,15 +134,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 //Valoracio i millora
                 break;
         }
-        Context context = getContext();
-        CharSequence vuida = "vuida";
-        CharSequence plena = "P[LENA";
         if(recepta == null){
-            fragmentTransaction = fragmentManager.beginTransaction();
+           Navigation.findNavController(v).navigate(R.id.nav_receptes);
         }else{
 
         }
     }
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
