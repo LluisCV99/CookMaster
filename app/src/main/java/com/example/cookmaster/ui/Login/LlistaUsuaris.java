@@ -3,7 +3,7 @@ package com.example.cookmaster.ui.Login;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class LlistaUsuaris <Usuari> implements Serializable {
+public class LlistaUsuaris implements Serializable {
     protected ArrayList<Usuari> llista;
 
     public LlistaUsuaris() {
@@ -39,11 +39,12 @@ public class LlistaUsuaris <Usuari> implements Serializable {
         return (llista.isEmpty());
     }
 
-    public ArrayList<Usuari> getArrayList() {
-        ArrayList<Usuari> arrlist = new ArrayList<>(llista);
-        return arrlist;
-    }
-    public String getUsers(Usuari usuari){
-        return usuari.toString();
+    public String[] getInfo(int position){
+        Usuari temp = getAt(position);
+        String[] info = new String[3];
+        info[0] = temp.getUsuari();
+        info[1] = temp.getCorreu();
+        info[2] = temp.getContrasenya();
+        return info;
     }
 }

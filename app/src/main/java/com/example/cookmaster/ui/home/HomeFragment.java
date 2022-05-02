@@ -132,13 +132,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 //Valoracio i millora
                 break;
         }
+        Context context = getContext();
+        CharSequence vuida = "vuida";
+        CharSequence plena = "P[LENA";
         if(recepta == null){
-            SlideshowFragment fragment = (SlideshowFragment) fragmentManager.findFragmentById(R.id.nav_host_fragment_content_main);
-            fragment.chose();
             fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.nav_host_fragment_content_main, fragment, null);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
         }else{
 
         }

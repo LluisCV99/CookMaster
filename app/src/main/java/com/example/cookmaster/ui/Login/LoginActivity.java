@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
                     for(int i = 0; i < llista.getSize(); i++){
-                        String[] credencials = llista.getUsers(llista.getAt(i)).split(",");
+                        String[] credencials = llista.getInfo(i);
                         if(usernameEditText.getText().toString().equals(credencials[0]) || usernameEditText.getText().toString().equals(credencials[1])){
                             Intent intent = new Intent();
                             intent.putExtra("numero", i);

@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity{
                             correuEditText.getText().toString(),passwordEditText.getText().toString());
                     try{
                         for(int i = 0; i < llista.getSize(); i++) {
-                            String[] credencials = llista.getUsers(llista.getAt(i)).split(",");
+                            String[] credencials = llista.getInfo(i);
                             if(usernameEditText.getText().toString().equals(credencials[0])){
                                 Toast.makeText(getApplicationContext(), "l'usuari ja esta en us", Toast.LENGTH_LONG).show();
                                 break;

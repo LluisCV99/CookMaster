@@ -17,7 +17,7 @@ public class LoginDataSource {
     public Result<LoggedInUser> login(String username, String password, LlistaUsuaris llista) {
         try {
             for(int i = 0; i < llista.getSize(); i++){
-                String[] credencials = llista.getUsers(llista.getAt(i)).split(",");
+                String[] credencials = llista.getInfo(i);
                 if(username.equals(credencials[0]) || username.equals(credencials[1])){
                     if(password.equals(credencials[2])){
                         LoggedInUser fakeUser =
