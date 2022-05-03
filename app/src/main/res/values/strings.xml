@@ -9,7 +9,7 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_receptes">Receptes</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_novarecepta">Nova Recepta</string>
 
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -35,7 +35,7 @@
     <string name="goback">"Go back"</string>
     <string name="user">"Escriu nom d'usuari"</string>
 
-    <string name="recepta_1">Recepta 1</string>
+    <string name="recepta">Recepta</string>
     <string name="preparacio">Preparació:</string>
     <string name="nom">Nom:</string>
     <string name="ingredients">Ingredients:</string>

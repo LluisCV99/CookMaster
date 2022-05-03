@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cookmaster.R;
@@ -44,25 +45,19 @@ public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.Recept
         return llistaReceptes.size();
     }
 
-    public class ReceptesViewHolder extends RecyclerView.ViewHolder {
+    public static class ReceptesViewHolder extends RecyclerView.ViewHolder {
         Button txtNom;
 
         public ReceptesViewHolder(View itemView) {
             super(itemView);
             txtNom= (Button) itemView.findViewById(R.id.button);
-            txtNom.setOnClickListener(view -> {
-
-
-            });
-            txtNom.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            itemView.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ReceptaFragment receptaFragment = new ReceptaFragment();
-                    receptaFragment.getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.button, receptaFragment).addToBackStack(null).commit();
-
+                    Navigation.findNavController(view).navigate(R.id.nav_recepta);
                 }
             });
+
         }
     }
 }

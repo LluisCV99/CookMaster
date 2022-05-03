@@ -2,17 +2,14 @@ package com.example.cookmaster.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -25,9 +22,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import com.example.cookmaster.R;
 import com.example.cookmaster.databinding.FragmentHomeBinding;
 import com.example.cookmaster.ui.classes.Receptes;
-import com.example.cookmaster.ui.receptes.ReceptaFragment;
-import com.example.cookmaster.ui.receptes.ReceptesFragment;
-import com.example.cookmaster.ui.slideshow.SlideshowFragment;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener {
 

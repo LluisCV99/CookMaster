@@ -19,11 +19,21 @@
         android:id="@+id/nav_receptes"
         android:name="com.example.cookmaster.ui.receptes.ReceptesFragment"
         android:label="@string/menu_receptes"
-        tools:layout="@layout/fragment_receptes" />
+        tools:layout="@layout/fragment_receptes" >
+        <action
+            android:id="@+id/action_nav_receptes_to_nav_recepta"
+            app:destination="@id/nav_recepta" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.cookmaster.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:id="@+id/nav_novarecepta"
+        android:name="com.example.cookmaster.ui.NovaRecepta.NovaReceptaFragment"
+        android:label="@string/menu_novarecepta"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_recepta"
+        android:name="com.example.cookmaster.ui.receptes.ReceptaFragment"
+        android:label="@string/recepta"
+        tools:layout="@layout/recepta_fragment" />
 </navigation>

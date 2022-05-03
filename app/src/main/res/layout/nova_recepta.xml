@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.receptes.ReceptesFragment">
+    tools:context=".ui.NovaRecepta.NovaReceptaFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,20 +32,20 @@
 
         </LinearLayout>
 
-        <EditText
+        <TextView
             android:id="@+id/nom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/nom" />
-        <TextView
+        <EditText
             android:id="@+id/nom_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="Escriu aquí" />
 
-        <EditText
+        <TextView
             android:id="@+id/ingredients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,13 +54,13 @@
             android:minHeight="48dp"
             android:text="@string/ingredients" />
 
-        <TextView
-            android:id="@+id/textView3"
+        <EditText
+            android:id="@+id/ingredients_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="Escriu aquí" />
 
-        <EditText
+        <TextView
             android:id="@+id/preparacio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,11 +68,26 @@
             android:inputType="textPersonName"
             android:text="@string/preparacio" />
 
-        <TextView
-            android:id="@+id/textView4"
+        <EditText
+            android:id="@+id/preparacio_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="Escriu aquí"
+            android:importantForAutofill="no" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:contentDescription="@string/menu_home"
+            android:src="@drawable/cross"
+            app:tint="@null"
+            app:borderWidth="0dp"
+            app:elevation="6dp"
+            app:fabSize="normal" />
 
     </LinearLayout>
 </FrameLayout>
