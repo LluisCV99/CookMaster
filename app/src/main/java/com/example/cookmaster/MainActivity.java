@@ -5,15 +5,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.cookmaster.data.dataStore;
+import com.example.cookmaster.data.*;
 import com.example.cookmaster.ui.Login.LoginActivity;
 import com.example.cookmaster.ui.Login.RegisterActivity;
 import com.example.cookmaster.ui.Login.Settings;
 import com.example.cookmaster.ui.Login.Sortir;
+import com.example.cookmaster.ui.receptes.GestorReceptes;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,18 +27,29 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cookmaster.databinding.ActivityMainBinding;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private Integer pos;
+    public GestorReceptes receptesDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        try{
+            receptesDB = dataLoad.loadReceptes();
+        } catch (IOException | ClassNotFoundException ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+            receptesDB = new GestorReceptes();
+        }
+
 
         Intent switchActivityIntent = new Intent(getApplicationContext(), LoginActivity.class);
 
@@ -89,4 +104,14 @@ public class MainActivity extends AppCompatActivity {
             pos = data.getIntExtra("numero",0);
         }
     }
+
+    @Override
+    protected void onDestroy(){
+        try {
+            dataStore.saveReceptes(receptesDB, getApplicationContext());
+        }catch (IOException ex){
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

@@ -50,6 +50,14 @@ public class ReceptaFragment extends ReceptesFragment {
         return vista;
 
     }
+
+    /*
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
+        Receptes recepta = requireArguments().getParcelable("te")
+    }
+
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();

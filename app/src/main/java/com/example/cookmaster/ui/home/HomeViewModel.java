@@ -8,15 +8,15 @@ import com.example.cookmaster.ui.classes.Receptes;
 
 public class HomeViewModel extends ViewModel {
 
-    private static final MutableLiveData<GestorReceptes> gestorLive = new MutableLiveData<>();
-    private static GestorReceptes gestor;
+    private static final MutableLiveData<GestorHomeReceptes> gestorLive = new MutableLiveData<>();
+    private static GestorHomeReceptes gestor;
 
     public HomeViewModel() {
-        gestor = new GestorReceptes();
+        gestor = new GestorHomeReceptes();
     }
-    public HomeViewModel(GestorReceptes gestor){ this.gestor = gestor;}
+    public HomeViewModel(GestorHomeReceptes gestor){ this.gestor = gestor;}
 
-    LiveData<GestorReceptes> getGestorLive(){return gestorLive;}
+    LiveData<GestorHomeReceptes> getGestorLive(){return gestorLive;}
 
     public Receptes gestio(int dia, int apat){
         Receptes recepta;

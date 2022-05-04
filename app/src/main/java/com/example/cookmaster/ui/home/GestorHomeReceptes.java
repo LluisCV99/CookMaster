@@ -2,14 +2,14 @@ package com.example.cookmaster.ui.home;
 
 import com.example.cookmaster.ui.classes.Receptes;
 
-public class GestorReceptes {
+public class GestorHomeReceptes {
     private final Receptes[][] receptes;
 
-    public GestorReceptes(){
+    public GestorHomeReceptes(){
         this.receptes = new Receptes[2][7];
     }
 
-    public GestorReceptes(Receptes[][] receptes){
+    public GestorHomeReceptes(Receptes[][] receptes){
         this.receptes = receptes;
     }
 

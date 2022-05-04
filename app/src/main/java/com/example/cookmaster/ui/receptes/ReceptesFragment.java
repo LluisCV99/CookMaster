@@ -15,11 +15,13 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
 import com.example.cookmaster.databinding.FragmentReceptesBinding;
 import com.example.cookmaster.ui.adapters.ReceptesAdapter;
 import com.example.cookmaster.ui.classes.Receptes;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class ReceptesFragment extends Fragment implements View.OnClickListener{
@@ -67,28 +69,10 @@ public class ReceptesFragment extends Fragment implements View.OnClickListener{
         binding = FragmentReceptesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        llistaReceptes=new ArrayList<>();
         recyclerView= (RecyclerView) vista.findViewById(R.id.recyclerId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-        llistaReceptes.add(new Receptes("Amanida de cigrons", "150g Cigrons, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",1));
-        llistaReceptes.add(new Receptes("Amanida de llenties", "150g llenties, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",2));
-        llistaReceptes.add(new Receptes("Amanida de pasta", "150g pasta, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",3));
-        llistaReceptes.add(new Receptes("Arros al curry amb pollastre", "150g arros, 75g pollastre, 75g curry","Juntar tots els ingredients i punto",4));
-        llistaReceptes.add(new Receptes("Canelons d'espinacs", "150g espinacs, 75g plaques, 75g llet","Juntar tots els ingredients i punto",5));
-        llistaReceptes.add(new Receptes("Ensaladilla russa"));
-        llistaReceptes.add(new Receptes("Pizza vegetariana"));
-        llistaReceptes.add(new Receptes("Lasanya"));
-        llistaReceptes.add(new Receptes("Sopa de tortuga"));
-        llistaReceptes.add(new Receptes("Macarerons boloñesa"));
-        llistaReceptes.add(new Receptes("Sopa de ceba tendra silvestre"));
-        llistaReceptes.add(new Receptes("Nuguets de pullastra"));
-        llistaReceptes.add(new Receptes("Gambas al allet"));
-        llistaReceptes.add(new Receptes("Vistek"));
-        llistaReceptes.add(new Receptes("Ansaladiya ukrainesa"));
-        llistaReceptes.add(new Receptes("Vietnamita a la planxa"));
-
+        llistaReceptes = ((MainActivity) Objects.requireNonNull(getActivity())).receptesDB.getAll();
 
         ReceptesAdapter adapter=new ReceptesAdapter(llistaReceptes);
         recyclerView.setAdapter(adapter);

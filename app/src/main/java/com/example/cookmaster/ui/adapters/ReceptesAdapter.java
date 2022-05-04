@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -50,10 +51,11 @@ public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.Recept
 
         public ReceptesViewHolder(View itemView) {
             super(itemView);
-            txtNom= (Button) itemView.findViewById(R.id.button);
+            txtNom = (Button) itemView.findViewById(R.id.button);
             itemView.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Toast.makeText(view.getContext(), txtNom.getText(), Toast.LENGTH_SHORT).show();
                     Navigation.findNavController(view).navigate(R.id.nav_recepta);
                 }
             });
