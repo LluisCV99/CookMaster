@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         try {
             String temp = dataStore.saveReceptes(receptesDB, getApplicationContext());
-            Toast.makeText(this, temp, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, temp, Toast.LENGTH_SHORT).show();
         } catch (IOException ex) {
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
         }

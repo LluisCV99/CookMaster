@@ -14,7 +14,10 @@
         <TextView
             android:id="@+id/nom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textSize="30sp"/>
 
         <ImageView
             android:id="@+id/image_recepta"
@@ -30,7 +33,7 @@
             android:text="@string/ingredients" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/ingredients_fill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -43,7 +46,7 @@
             android:text="@string/preparacio" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/preparacio_fill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

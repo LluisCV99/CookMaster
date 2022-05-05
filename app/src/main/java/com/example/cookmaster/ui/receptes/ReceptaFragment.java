@@ -12,52 +12,51 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
 import com.example.cookmaster.databinding.ReceptaFragmentBinding;
 import com.example.cookmaster.ui.adapters.ReceptesAdapter;
 import com.example.cookmaster.ui.classes.Receptes;
 
+import org.jetbrains.annotations.Contract;
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+
 public class ReceptaFragment extends ReceptesFragment {
 
-    public static ReceptaFragment newInstance() {
-        return new ReceptaFragment();
-    }
-
+    private ReceptaViewModel receptaViewModel;
     private ReceptaFragmentBinding binding;
+    private Receptes recepta;
 
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        ReceptaViewModel receptaViewModel =
-                new ViewModelProvider(this).get(ReceptaViewModel.class);
-        View vista=inflater.inflate(R.layout.recepta_fragment, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        receptaViewModel = new ViewModelProvider(this).get(ReceptaViewModel.class);
 
+        recepta = ((MainActivity) requireActivity()).receptesDB.get(getArguments().getString("nomRecepta"));
 
         binding = ReceptaFragmentBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-
-        final TextView textView = binding.nom;
-        final TextView textView1 = binding.ingredients;
-        final TextView textView2 = binding.preparacio;
-
-        receptaViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        receptaViewModel.getText().observe(getViewLifecycleOwner(), textView1::setText);
-        receptaViewModel.getText().observe(getViewLifecycleOwner(), textView2::setText);
-
-        return vista;
-
+        return binding.getRoot();
     }
 
-    /*
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
-        Receptes recepta = requireArguments().getParcelable("te")
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        TextView nom = view.findViewById(R.id.nom);
+        TextView ingredients = view.findViewById(R.id.ingredients_fill);
+        TextView preparacio = view.findViewById(R.id.preparacio_fill);
+
+        nom.setText(recepta.getNom());
+        ingredients.setText(recepta.getIngredients());
+        preparacio.setText(recepta.getPreparacio());
+
     }
 
-     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();

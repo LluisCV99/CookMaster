@@ -1,5 +1,6 @@
 package com.example.cookmaster.ui.adapters;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,8 +56,10 @@ public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.Recept
             itemView.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(view.getContext(), txtNom.getText(), Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(view).navigate(R.id.nav_recepta);
+                    //Toast.makeText(view.getContext(), txtNom.getText(), Toast.LENGTH_SHORT).show();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("nomRecepta", txtNom.getText().toString());
+                    Navigation.findNavController(view).navigate(R.id.nav_recepta, bundle);
                 }
             });
 
