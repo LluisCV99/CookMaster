@@ -18,9 +18,17 @@
 
             <ImageView
                 android:id="@+id/image_recepta"
-                android:layout_width="152dp"
-                android:layout_height="115dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 tools:src="@tools:sample/avatars" />
+
+            <Button
+                android:id="@+id/btnGallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/upFoto"
+                app:tint="@color/boto_share"/>
 
             <Switch
                 android:id="@+id/switch2"

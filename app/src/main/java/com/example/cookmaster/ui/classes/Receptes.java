@@ -1,12 +1,14 @@
 package com.example.cookmaster.ui.classes;
 
+import android.widget.ImageView;
+
 public class Receptes {
     private String nom;
     private String ingredients;
     private String preparacio;
-    private int imgId;
+    private ImageView imgId;
 
-    public Receptes(String nom, String ingredients, String preparacio, int imgId){
+    public Receptes(String nom, String ingredients, String preparacio, ImageView imgId){
         this.nom = nom;
         this.ingredients = ingredients;
         this.preparacio = preparacio;
@@ -23,7 +25,7 @@ public class Receptes {
         return ingredients;
     }
     public String getPreparacio(){return preparacio;}
-    public int getImgId() {
+    public ImageView getImgId() {
         return imgId;
     }
 
@@ -34,7 +36,7 @@ public class Receptes {
         this.ingredients = ingredients;
     }
     public void setPreparacio(String preparacio){this.preparacio = preparacio; }
-    public void setImgId(int imgId) {
+    public void setImgId(ImageView imgId) {
         this.imgId = imgId;
     }
 

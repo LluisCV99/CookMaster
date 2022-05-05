@@ -61,11 +61,11 @@ public class GestorReceptes implements Serializable {
 
 
     private void inici(){
-        add(new Receptes("Amanida de cigrons", "150g Cigrons, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",1));
-        add(new Receptes("Amanida de llenties", "150g llenties, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",2));
-        add(new Receptes("Amanida de pasta", "150g pasta, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",3));
-        add(new Receptes("Arros al curry amb pollastre", "150g arros, 75g pollastre, 75g curry","Juntar tots els ingredients i punto",4));
-        add(new Receptes("Canelons d'espinacs", "150g espinacs, 75g plaques, 75g llet","Juntar tots els ingredients i punto",5));
+        add(new Receptes("Amanida de cigrons", "150g Cigrons, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",null));
+        add(new Receptes("Amanida de llenties", "150g llenties, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",null));
+        add(new Receptes("Amanida de pasta", "150g pasta, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",null));
+        add(new Receptes("Arros al curry amb pollastre", "150g arros, 75g pollastre, 75g curry","Juntar tots els ingredients i punto",null));
+        add(new Receptes("Canelons d'espinacs", "150g espinacs, 75g plaques, 75g llet","Juntar tots els ingredients i punto",null));
         add(new Receptes("Ensaladilla russa"));
         add(new Receptes("Pizza vegetariana"));
         add(new Receptes("Lasanya"));
