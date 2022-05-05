@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 
+import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
 import com.example.cookmaster.databinding.FragmentHomeBinding;
 import com.example.cookmaster.ui.classes.Receptes;
@@ -97,7 +98,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         ImageButton share = view.findViewById(R.id.Boto_Share);
         share.setOnClickListener(this);
 
-
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -122,16 +122,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
             case R.id.sopar_dium: recepta = homeViewModel.gestio(6,1); break;
 
             case R.id.Boto_Share:
-                //Compartir
-                break;
             case R.id.Boto_millora:
-                //Valoracio i millora
+                Toast.makeText(getContext(), "No implementat", Toast.LENGTH_SHORT).show();
                 break;
         }
         if(recepta == null){
-           Navigation.findNavController(v).navigate(R.id.nav_receptes);
+            Bundle bundle = new Bundle();
+            //bundle.putBoolean("select", true);
+            //Navigation.findNavController(v).navigate(R.id.nav_receptes, bundle);
         }else{
-
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("recepta", recepta);
+            Navigation.findNavController(v).navigate(R.id.nav_recepta, bundle);
         }
     }
 
