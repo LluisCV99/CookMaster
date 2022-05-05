@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 
+import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
 import com.example.cookmaster.databinding.FragmentHomeBinding;
 import com.example.cookmaster.ui.classes.Receptes;
@@ -104,34 +105,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     @Override
     public void onClick(View v){
         Receptes recepta = null;
+        boolean rep =false;
         switch (v.getId()){
-            case R.id.dinar_dill: recepta = homeViewModel.gestio(0, 0); break;
-            case R.id.dinar_dim: recepta = homeViewModel.gestio(1,0); break;
-            case R.id.dinar_dime: recepta = homeViewModel.gestio(2,0); break;
-            case R.id.dinar_dij: recepta = homeViewModel.gestio(3,0); break;
-            case R.id.dinar_div: recepta = homeViewModel.gestio(4, 0); break;
-            case R.id.dinar_dis: recepta = homeViewModel.gestio(5,0); break;
-            case R.id.dinar_dium: recepta = homeViewModel.gestio(6,0); break;
+            case R.id.dinar_dill: recepta = homeViewModel.gestio(0, 0); rep = true; break;
+            case R.id.dinar_dim: recepta = homeViewModel.gestio(1,0); rep = true; break;
+            case R.id.dinar_dime: recepta = homeViewModel.gestio(2,0); rep = true; break;
+            case R.id.dinar_dij: recepta = homeViewModel.gestio(3,0); rep = true; break;
+            case R.id.dinar_div: recepta = homeViewModel.gestio(4, 0); rep = true; break;
+            case R.id.dinar_dis: recepta = homeViewModel.gestio(5,0); rep = true; break;
+            case R.id.dinar_dium: recepta = homeViewModel.gestio(6,0); rep = true; break;
 
-            case R.id.sopar_dill: recepta = homeViewModel.gestio(0,1); break;
-            case R.id.sopar_dim: recepta = homeViewModel.gestio(1,1); break;
-            case R.id.sopar_dime: recepta = homeViewModel.gestio(2, 1); break;
-            case R.id.sopar_dij: recepta = homeViewModel.gestio(3,1); break;
-            case R.id.sopar_div: recepta = homeViewModel.gestio(4,1); break;
-            case R.id.sopar_dis: recepta = homeViewModel.gestio(5,1); break;
-            case R.id.sopar_dium: recepta = homeViewModel.gestio(6,1); break;
+            case R.id.sopar_dill: recepta = homeViewModel.gestio(0,1); rep = true; break;
+            case R.id.sopar_dim: recepta = homeViewModel.gestio(1,1); rep = true; break;
+            case R.id.sopar_dime: recepta = homeViewModel.gestio(2, 1); rep = true; break;
+            case R.id.sopar_dij: recepta = homeViewModel.gestio(3,1); rep = true; break;
+            case R.id.sopar_div: recepta = homeViewModel.gestio(4,1); rep = true; break;
+            case R.id.sopar_dis: recepta = homeViewModel.gestio(5,1); rep = true; break;
+            case R.id.sopar_dium: recepta = homeViewModel.gestio(6,1); rep = true; break;
 
             case R.id.Boto_Share:
-                //Compartir
                 break;
             case R.id.Boto_millora:
-                //Valoracio i millora
                 break;
         }
-        if(recepta == null){
-            Navigation.findNavController(v).navigate(R.id.nav_receptes);
-        }else{
-
+        if (rep){
+            if(recepta == null){
+                Navigation.findNavController(v).navigate(R.id.nav_receptes);
+            }else {
+            }
         }
     }
 

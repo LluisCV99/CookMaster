@@ -80,7 +80,7 @@ public class NovaReceptaFragment extends Fragment {
                 String ingredientsRecepta = ingredientsText.getText().toString();
                 String preparacioRecepta = preparacioText.getText().toString();
                 Receptes recepta = new Receptes(nomRecepta,
-                        ingredientsRecepta, preparacioRecepta, imgGallery);
+                        ingredientsRecepta, preparacioRecepta, 0);
                 llista.add(recepta);
                 Toast.makeText(getContext(), nomRecepta, Toast.LENGTH_LONG).show();
             }

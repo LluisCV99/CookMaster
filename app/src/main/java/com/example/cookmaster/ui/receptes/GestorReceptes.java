@@ -1,12 +1,10 @@
 package com.example.cookmaster.ui.receptes;
 
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.example.cookmaster.ui.classes.Receptes;
 
-import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +16,22 @@ public class GestorReceptes implements Serializable {
         inici();
     }
 
-    public HashMap<String, Receptes> get(){return llista;}
+    public HashMap<String, String> get(){
+        HashMap<String, String> map = new HashMap<>();
+        for(Receptes rep : llista.values()){
+            map.put(rep.getNom(), rep.toString());
+        }
+        return map;
+    }
+
+    public void setReceptes(HashMap<String, String> map){
+        String[] cont;
+        for(String s : map.values()){
+            cont = s.split(";");
+            this.add(new Receptes(cont[0], cont[1], cont[2], Integer.parseInt(cont[3])));
+        }
+    }
+
     public void set(HashMap<String, Receptes> map){this.llista = map;}
 
     public int getSize(){
@@ -59,13 +72,12 @@ public class GestorReceptes implements Serializable {
         return new ArrayList<>(llista.values());
     }
 
-
     private void inici(){
-        add(new Receptes("Amanida de cigrons", "150g Cigrons, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",null));
-        add(new Receptes("Amanida de llenties", "150g llenties, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",null));
-        add(new Receptes("Amanida de pasta", "150g pasta, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",null));
-        add(new Receptes("Arros al curry amb pollastre", "150g arros, 75g pollastre, 75g curry","Juntar tots els ingredients i punto",null));
-        add(new Receptes("Canelons d'espinacs", "150g espinacs, 75g plaques, 75g llet","Juntar tots els ingredients i punto",null));
+        add(new Receptes("Amanida de cigrons", "150g Cigrons, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",0));
+        add(new Receptes("Amanida de llenties", "150g llenties, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",0));
+        add(new Receptes("Amanida de pasta", "150g pasta, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",0));
+        add(new Receptes("Arros al curry amb pollastre", "150g arros, 75g pollastre, 75g curry","Juntar tots els ingredients i punto",0));
+        add(new Receptes("Canelons d'espinacs", "150g espinacs, 75g plaques, 75g llet","Juntar tots els ingredients i punto",0));
         add(new Receptes("Ensaladilla russa"));
         add(new Receptes("Pizza vegetariana"));
         add(new Receptes("Lasanya"));

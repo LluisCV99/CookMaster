@@ -2,7 +2,6 @@ package com.example.cookmaster;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -10,12 +9,8 @@ import android.widget.Toast;
 import com.example.cookmaster.data.dataStore;
 import com.example.cookmaster.data.*;
 import com.example.cookmaster.ui.Login.LoginActivity;
-import com.example.cookmaster.ui.Login.RegisterActivity;
 import com.example.cookmaster.ui.Login.Settings;
-import com.example.cookmaster.ui.Login.Sortir;
-import com.example.cookmaster.ui.classes.Receptes;
 import com.example.cookmaster.ui.receptes.GestorReceptes;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -27,9 +22,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cookmaster.databinding.ActivityMainBinding;
-
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,13 +37,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        receptesDB = new GestorReceptes();
 
-        try{
-            receptesDB = dataLoad.loadReceptes(getApplicationContext());
-        } catch (IOException | ClassNotFoundException ex) {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-            receptesDB = new GestorReceptes();
-        }
 
         Intent switchActivityIntent = new Intent(getApplicationContext(), LoginActivity.class);
 
@@ -71,6 +60,17 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        try{
+            HashMap<String, String> map = dataLoad.loadReceptes(getApplicationContext());
+            if(map != null) receptesDB.setReceptes(map);
+
+        } catch (IOException | ClassNotFoundException ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -109,10 +109,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         try {
-            String temp = dataStore.saveReceptes(receptesDB, getApplicationContext());
-            //Toast.makeText(this, temp, Toast.LENGTH_SHORT).show();
+           dataStore.saveReceptes(receptesDB, getApplicationContext());
         } catch (IOException ex) {
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-    }
+}
