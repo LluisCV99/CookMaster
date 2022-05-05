@@ -23,9 +23,6 @@
         <action
             android:id="@+id/action_nav_receptes_to_nav_recepta"
             app:destination="@id/nav_recepta" />
-        <action
-            android:id="@+id/action_nav_receptes_to_nav_home"
-            app:destination="@id/nav_home" />
     </fragment>
 
     <fragment
@@ -39,5 +36,8 @@
         android:name="com.example.cookmaster.ui.receptes.ReceptaFragment"
         android:label="@string/recepta"
         tools:layout="@layout/recepta_fragment" >
+        <argument
+            android:name="recepta"
+            app:argType="string" />
     </fragment>
 </navigation>

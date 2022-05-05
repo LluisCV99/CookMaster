@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,25 +36,7 @@ public class ReceptaFragment extends ReceptesFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         receptaViewModel = new ViewModelProvider(this).get(ReceptaViewModel.class);
 
-        // Arguments per saber quina recepta tractem
-        if(getArguments() != null) {
-
-            if(getArguments().containsKey("nomRecepta")) {
-                recepta = ((MainActivity) requireActivity()).receptesDB.get(getArguments().getString("nomRecepta"));
-            }else if(getArguments().containsKey("recepta")){
-                recepta = (Receptes) getArguments().get("recepta");
-            }
-
-            else {
-                Toast.makeText(getContext(), "Error en rebre recepta", Toast.LENGTH_SHORT).show();
-                return null;
-            }
-        }
-
-        else{
-            Toast.makeText(getContext(), "Error en rebre recepta", Toast.LENGTH_SHORT).show();
-            return null;
-        }
+        recepta = ((MainActivity) requireActivity()).receptesDB.get(getArguments().getString("nomRecepta"));
 
         binding = ReceptaFragmentBinding.inflate(inflater, container, false);
 
@@ -69,13 +50,10 @@ public class ReceptaFragment extends ReceptesFragment {
         TextView nom = view.findViewById(R.id.nom);
         TextView ingredients = view.findViewById(R.id.ingredients_fill);
         TextView preparacio = view.findViewById(R.id.preparacio_fill);
-        ImageView img = view.findViewById(R.id.image_recepta);
 
         nom.setText(recepta.getNom());
         ingredients.setText(recepta.getIngredients());
         preparacio.setText(recepta.getPreparacio());
-        img.setImageAlpha(recepta.getImgId().getImageAlpha());
-
 
     }
 

@@ -29,7 +29,6 @@ public class ReceptesFragment extends Fragment implements View.OnClickListener{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private ReceptesViewModel receptesViewModel;
 
     private String mParam1;
     private String mParam2;
@@ -62,30 +61,24 @@ public class ReceptesFragment extends Fragment implements View.OnClickListener{
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        receptesViewModel = new ViewModelProvider(this).get(ReceptesViewModel.class);
+        ReceptesViewModel receptesViewModel =
+                new ViewModelProvider(this).get(ReceptesViewModel.class);
+        View vista=inflater.inflate(R.layout.fragment_receptes, container, false);
 
 
-        View vista = inflater.inflate(R.layout.fragment_receptes, container, false);
         binding = FragmentReceptesBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
-
-        recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerId);
+        recyclerView= (RecyclerView) vista.findViewById(R.id.recyclerId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         llistaReceptes = ((MainActivity) requireActivity()).receptesDB.getAll();
 
-        ReceptesAdapter adapter = new ReceptesAdapter(llistaReceptes);
+        ReceptesAdapter adapter=new ReceptesAdapter(llistaReceptes);
         recyclerView.setAdapter(adapter);
 
         final TextView textView = binding.textReceptes;
         receptesViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-/*
-        if(getArguments() != null){
-            if(getArguments().containsKey("select") || getArguments().getBoolean("select")){
-
-            }
-        }
-*/
         return vista;
     }
 

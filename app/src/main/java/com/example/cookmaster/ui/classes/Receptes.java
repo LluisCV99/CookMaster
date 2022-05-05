@@ -2,9 +2,7 @@ package com.example.cookmaster.ui.classes;
 
 import android.widget.ImageView;
 
-import java.io.Serializable;
-
-public class Receptes implements Serializable {
+public class Receptes {
     private String nom;
     private String ingredients;
     private String preparacio;
