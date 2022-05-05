@@ -13,6 +13,7 @@ import com.example.cookmaster.ui.Login.LoginActivity;
 import com.example.cookmaster.ui.Login.RegisterActivity;
 import com.example.cookmaster.ui.Login.Settings;
 import com.example.cookmaster.ui.Login.Sortir;
+import com.example.cookmaster.ui.classes.Receptes;
 import com.example.cookmaster.ui.receptes.GestorReceptes;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -44,12 +45,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         try{
-            receptesDB = dataLoad.loadReceptes();
+            receptesDB = dataLoad.loadReceptes(getApplicationContext());
         } catch (IOException | ClassNotFoundException ex) {
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
             receptesDB = new GestorReceptes();
         }
-
 
         Intent switchActivityIntent = new Intent(getApplicationContext(), LoginActivity.class);
 
@@ -106,12 +106,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onStop() {
+        super.onStop();
         try {
-            dataStore.saveReceptes(receptesDB, getApplicationContext());
-        }catch (IOException ex){
+            String temp = dataStore.saveReceptes(receptesDB, getApplicationContext());
+            Toast.makeText(this, temp, Toast.LENGTH_SHORT).show();
+        } catch (IOException ex) {
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-
-}
+    }

@@ -72,7 +72,7 @@ public class ReceptesFragment extends Fragment implements View.OnClickListener{
         recyclerView= (RecyclerView) vista.findViewById(R.id.recyclerId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        llistaReceptes = ((MainActivity) Objects.requireNonNull(getActivity())).receptesDB.getAll();
+        llistaReceptes = ((MainActivity) requireActivity()).receptesDB.getAll();
 
         ReceptesAdapter adapter=new ReceptesAdapter(llistaReceptes);
         recyclerView.setAdapter(adapter);

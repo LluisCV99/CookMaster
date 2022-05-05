@@ -16,11 +16,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
+import com.example.cookmaster.data.dataStore;
 import com.example.cookmaster.databinding.NovaReceptaBinding;
 import com.example.cookmaster.ui.classes.Receptes;
 import com.example.cookmaster.ui.receptes.GestorReceptes;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.IOException;
 
 
 public class NovaReceptaFragment extends Fragment {
@@ -35,6 +39,7 @@ public class NovaReceptaFragment extends Fragment {
 
         binding = NovaReceptaBinding.inflate(inflater, container, false);
 
+        llista = ((MainActivity) requireActivity()).receptesDB;
         return binding.getRoot();
     }
 
@@ -57,15 +62,12 @@ public class NovaReceptaFragment extends Fragment {
                 Receptes recepta = new Receptes(nomRecepta,
                         ingredientsRecepta, preparacioRecepta, 1);
                 llista.add(recepta);
-
-
                 Toast.makeText(getContext(), nomRecepta, Toast.LENGTH_LONG).show();
             }
         });
         }catch (Exception e){
-            Toast.makeText(getContext(), "ha petat", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "ha petat " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
-
     }
 
 
