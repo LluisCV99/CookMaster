@@ -59,8 +59,10 @@ public class NovaReceptaFragment extends Fragment {
         EditText nomText = view.findViewById(R.id.nom_text);
         EditText ingredientsText = view.findViewById(R.id.ingredients_text);
         EditText preparacioText = view.findViewById(R.id.preparacio_text);
+
         imgGallery = view.findViewById(R.id.image_recepta);
         Button btnGallery = view.findViewById(R.id.btnGallery);
+
         btnGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +84,7 @@ public class NovaReceptaFragment extends Fragment {
                 Receptes recepta = new Receptes(nomRecepta,
                         ingredientsRecepta, preparacioRecepta, 0);
                 llista.add(recepta);
-                Toast.makeText(getContext(), nomRecepta, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "S'ha desat correctament!", Toast.LENGTH_LONG).show();
             }
         });
         }catch (Exception e){

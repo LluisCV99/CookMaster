@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.ImageView;
+
 import android.widget.Toast;
 
 import com.example.cookmaster.MainActivity;
@@ -47,13 +49,27 @@ public class ReceptaFragment extends ReceptesFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //Toast.makeText(getContext(), recepta.getImgIdString(), Toast.LENGTH_LONG).show();
         TextView nom = view.findViewById(R.id.nom);
         TextView ingredients = view.findViewById(R.id.ingredients_fill);
         TextView preparacio = view.findViewById(R.id.preparacio_fill);
+        ImageView img = view.findViewById(R.id.image_recepta);
+        /*if (recepta.getImgId()==null){
+
+            //img.setImageDrawable(recepta.getImgIdString());
+        }
+        if (recepta.getImgIdString()==0){
+
+
+        }else{
+
+        }*/
+        img.setImageBitmap(recepta.getImgIdString());
 
         nom.setText(recepta.getNom());
         ingredients.setText(recepta.getIngredients());
         preparacio.setText(recepta.getPreparacio());
+
 
     }
 

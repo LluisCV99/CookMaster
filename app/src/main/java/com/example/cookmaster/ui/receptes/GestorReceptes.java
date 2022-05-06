@@ -1,5 +1,8 @@
 package com.example.cookmaster.ui.receptes;
 
+import android.graphics.Bitmap;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -72,22 +75,37 @@ public class GestorReceptes implements Serializable {
         return new ArrayList<>(llista.values());
     }
 
+
     private void inici(){
-        add(new Receptes("Amanida de cigrons", "150g Cigrons, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",0));
-        add(new Receptes("Amanida de llenties", "150g llenties, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",0));
-        add(new Receptes("Amanida de pasta", "150g pasta, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",0));
-        add(new Receptes("Arros al curry amb pollastre", "150g arros, 75g pollastre, 75g curry","Juntar tots els ingredients i punto",0));
-        add(new Receptes("Canelons d'espinacs", "150g espinacs, 75g plaques, 75g llet","Juntar tots els ingredients i punto",0));
+
+        add(new Receptes("Amanida de cigrons", "—70g de cigró sec o 200g de cigró cuit per persona\n" +
+                "—2 tomàquets del tipus que us agradi: de la pera, raf, canari, cirerol, de branca… És millor que sigui de carn consistent, per poder tallar-lo a bocins petits sense que es desfaci\n" +
+                "—1 pebrot vermell\n" +
+                "—1 pebrot verd del tipus italià\n" +
+                "—1 llauna de tonyina en oli d’oliva\n" +
+                "—1 llauna d’olives farcides d’anxova o un grapat d’olives negres d’Aragó","Renteu totes les hortalisses i eixugueu-les.\n" +
+                "\n" +
+                "Agafeu el pebrot vermell, obriu-lo pel mig i traieu-ne les llavors. Si el pebrot és gros, en tindreu prou amb la meitat i podeu desar el que no feu servir. El talleu a la juliana, en tires no gaire gruixudes però no gaire primes, i després talleu les tires a daus petits.\n" +
+                "\n" +
+                "Feu igual amb el pebrot verd. Com que acostumen a ser més petits i de polpa menys carnosa, segurament el tallareu sencer.\n" +
+                "\n" +
+                "Feu igual amb els tomàquets. És important que no siguin massa madurs perquè no deixin anar massa suc.\n" +
+                "\n" +
+                "Barregeu-ho tot amb els cigrons i afegiu-hi una mica de sal.\n" +
+                "\n" +
+                "Poseu-hi les olives que hàgiu triat.\n" +
+                "\n" +
+                "Aboqueu-hi la tonyina i poseu-hi la quantitat que vulgueu de l’oli d’oliva de la llauna, que li donarà més gust i olor.", "res/drawable/id1.jpg"));
+        add(new Receptes("Amanida de llenties", "150g llenties, 75g tomatic, 75g sal","Juntar tots els ingredients i punto", (ImageView) null));
+        add(new Receptes("Amanida de pasta", "150g pasta, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",(ImageView) null));
+        add(new Receptes("Arros al curry amb pollastre", "150g arros, 75g pollastre, 75g curry","Juntar tots els ingredients i punto",(ImageView) null));
+        add(new Receptes("Canelons d'espinacs", "150g espinacs, 75g plaques, 75g llet","Juntar tots els ingredients i punto",(ImageView) null));
         add(new Receptes("Ensaladilla russa"));
         add(new Receptes("Pizza vegetariana"));
         add(new Receptes("Lasanya"));
-        add(new Receptes("Sopa de tortuga"));
-        add(new Receptes("Macarerons boloñesa"));
-        add(new Receptes("Sopa de ceba tendra silvestre"));
-        add(new Receptes("Nuguets de pullastra"));
-        add(new Receptes("Gambas al allet"));
-        add(new Receptes("Vistek"));
-        add(new Receptes("Ansaladiya ukrainesa"));
-        add(new Receptes("Vietnamita a la planxa"));
+        add(new Receptes("Sopa de peix"));
+        add(new Receptes("Macarrons boloñesa"));
+        add(new Receptes("Sopa de ceba"));
+        add(new Receptes("Ensaladilla rusa"));
     }
 }

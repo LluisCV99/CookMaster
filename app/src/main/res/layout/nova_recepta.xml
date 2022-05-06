@@ -51,7 +51,7 @@
             android:id="@+id/nom_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Escriu aquí" />
+            android:hint="Escriu aquí el nom" />
 
         <TextView
             android:id="@+id/ingredients"
@@ -66,7 +66,7 @@
             android:id="@+id/ingredients_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Escriu aquí" />
+            android:hint="Escriu aquí els ingredients" />
 
         <TextView
             android:id="@+id/preparacio"
@@ -80,7 +80,7 @@
             android:id="@+id/preparacio_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Escriu aquí"
+            android:hint="Escriu aquí la preparació"
             android:importantForAutofill="no" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
