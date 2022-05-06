@@ -1,16 +1,17 @@
 package com.example.cookmaster.ui.receptes;
 
-import android.graphics.Bitmap;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.cookmaster.R;
 import com.example.cookmaster.ui.classes.Receptes;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 public class GestorReceptes implements Serializable {
     private HashMap<String,Receptes> llista;
@@ -28,10 +29,12 @@ public class GestorReceptes implements Serializable {
     }
 
     public void setReceptes(HashMap<String, String> map){
-        String[] cont;
-        for(String s : map.values()){
-            cont = s.split(";");
-            this.add(new Receptes(cont[0], cont[1], cont[2], Integer.parseInt(cont[3])));
+        String cont;
+        String[] str;
+        for(Map.Entry<String, String> s: map.entrySet()){
+            cont = s.getValue();
+            str = cont.split(";");
+            this.add(new Receptes(str[0], str[1], str[2], str[3]));
         }
     }
 
@@ -95,7 +98,7 @@ public class GestorReceptes implements Serializable {
                 "\n" +
                 "Poseu-hi les olives que hàgiu triat.\n" +
                 "\n" +
-                "Aboqueu-hi la tonyina i poseu-hi la quantitat que vulgueu de l’oli d’oliva de la llauna, que li donarà més gust i olor.", "res/drawable/id1.jpg"));
+                "Aboqueu-hi la tonyina i poseu-hi la quantitat que vulgueu de l’oli d’oliva de la llauna, que li donarà més gust i olor.", "R.drawable.id1"));
         add(new Receptes("Amanida de llenties", "150g llenties, 75g tomatic, 75g sal","Juntar tots els ingredients i punto", (ImageView) null));
         add(new Receptes("Amanida de pasta", "150g pasta, 75g tomatic, 75g sal","Juntar tots els ingredients i punto",(ImageView) null));
         add(new Receptes("Arros al curry amb pollastre", "150g arros, 75g pollastre, 75g curry","Juntar tots els ingredients i punto",(ImageView) null));

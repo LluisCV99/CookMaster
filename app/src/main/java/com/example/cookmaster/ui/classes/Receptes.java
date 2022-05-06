@@ -1,23 +1,15 @@
 package com.example.cookmaster.ui.classes;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
-
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.res.ResourcesCompat;
-
-import com.example.cookmaster.R;
-
-import javax.xml.transform.Source;
 
 public class Receptes {
     private String nom;
     private String ingredients;
     private String preparacio;
-    private String imgIdString;
+    private String imgIdInt;
 
-    private ImageView imgId=null;
+    private ImageView imgId;
 
     public Receptes(String nom, String ingredients, String preparacio, ImageView imgId){
         this.nom = nom;
@@ -26,11 +18,11 @@ public class Receptes {
         this.imgId = imgId;
     }
 
-    public Receptes(String nom, String ingredients, String preparacio, String imgIdString){
+    public Receptes(String nom, String ingredients, String preparacio, String imgIdInt){
         this.nom = nom;
         this.ingredients = ingredients;
         this.preparacio = preparacio;
-        this.imgIdString = imgIdString;
+        this.imgIdInt = imgIdInt;
     }
 
     public Receptes(String nom) {
@@ -51,9 +43,14 @@ public class Receptes {
         return imgId.getDrawable();
     }
 
-    public Bitmap getImgIdString() {
-        return Bitmap.createBitmap((Source) imgIdString);
+    public int getImgIdInt() {
+        return Integer.parseInt(imgIdInt);
 
+    }
+
+    @Override
+    public String toString(){
+        return nom + ";" + ingredients + ";" + preparacio + ";" + imgIdInt;
     }
 
 

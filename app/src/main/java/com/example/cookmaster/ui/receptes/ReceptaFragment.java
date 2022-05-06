@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,18 +13,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ImageView;
 
-import android.widget.Toast;
-
 import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
 import com.example.cookmaster.databinding.ReceptaFragmentBinding;
-import com.example.cookmaster.ui.adapters.ReceptesAdapter;
 import com.example.cookmaster.ui.classes.Receptes;
-
-import org.jetbrains.annotations.Contract;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 
 public class ReceptaFragment extends ReceptesFragment {
 
@@ -54,17 +45,13 @@ public class ReceptaFragment extends ReceptesFragment {
         TextView ingredients = view.findViewById(R.id.ingredients_fill);
         TextView preparacio = view.findViewById(R.id.preparacio_fill);
         ImageView img = view.findViewById(R.id.image_recepta);
-        /*if (recepta.getImgId()==null){
 
-            //img.setImageDrawable(recepta.getImgIdString());
-        }
-        if (recepta.getImgIdString()==0){
-
+        if (recepta.getImgIdInt()==0){
+            img.setImageDrawable(recepta.getImgId());
 
         }else{
-
-        }*/
-        img.setImageBitmap(recepta.getImgIdString());
+            img.setImageResource(recepta.getImgIdInt());
+        }
 
         nom.setText(recepta.getNom());
         ingredients.setText(recepta.getIngredients());
