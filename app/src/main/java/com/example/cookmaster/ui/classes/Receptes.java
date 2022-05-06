@@ -7,15 +7,17 @@ public class Receptes {
     private String nom;
     private String ingredients;
     private String preparacio;
-    private String imgIdInt;
+    private String imgIdInt="0";
+    private boolean fetaPerUser = false;
 
-    private ImageView imgId;
+    private ImageView imgId=null;
 
     public Receptes(String nom, String ingredients, String preparacio, ImageView imgId){
         this.nom = nom;
         this.ingredients = ingredients;
         this.preparacio = preparacio;
         this.imgId = imgId;
+        this.fetaPerUser = true;
     }
 
     public Receptes(String nom, String ingredients, String preparacio, String imgIdInt){
@@ -43,10 +45,9 @@ public class Receptes {
         return imgId.getDrawable();
     }
 
-    public int getImgIdInt() {
-        return Integer.parseInt(imgIdInt);
+    public int getImgIdInt() { return Integer.parseInt(imgIdInt);}
 
-    }
+    public boolean getFetaUser(){ return fetaPerUser;}
 
     @Override
     public String toString(){

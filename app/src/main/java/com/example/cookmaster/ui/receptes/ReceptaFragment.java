@@ -45,12 +45,60 @@ public class ReceptaFragment extends ReceptesFragment {
         TextView ingredients = view.findViewById(R.id.ingredients_fill);
         TextView preparacio = view.findViewById(R.id.preparacio_fill);
         ImageView img = view.findViewById(R.id.image_recepta);
-
-        if (recepta.getImgIdInt()==0){
+        if(recepta.getFetaUser()){
             img.setImageDrawable(recepta.getImgId());
+        }else {
 
-        }else{
-            img.setImageResource(recepta.getImgIdInt());
+            switch (recepta.getImgIdInt()) {
+
+                case 1:
+                    img.setImageResource(R.drawable.id1);
+                    break;
+
+                case 2:
+                    img.setImageResource(R.drawable.id2);
+                    break;
+
+                case 3:
+                    img.setImageResource(R.drawable.id3);
+                    break;
+
+                case 4:
+                    img.setImageResource(R.drawable.id4);
+                    break;
+
+                case 5:
+                    img.setImageResource(R.drawable.id5);
+                    break;
+
+                case 6:
+                    img.setImageResource(R.drawable.id6);
+                    break;
+
+                case 7:
+                    img.setImageResource(R.drawable.id7);
+                    break;
+
+                case 8:
+                    img.setImageResource(R.drawable.id8);
+                    break;
+
+                case 9:
+                    img.setImageResource(R.drawable.id9);
+                    break;
+
+                case 10:
+                    img.setImageResource(R.drawable.id10);
+                    break;
+
+                case 11:
+                    img.setImageResource(R.drawable.id11);
+                    break;
+
+                default:
+
+                    break;
+            }
         }
 
         nom.setText(recepta.getNom());
