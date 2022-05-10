@@ -13,12 +13,12 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="384dp"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/button_border"
         android:drawableEnd="@drawable/arrow"
         android:fontFamily="sans-serif"
-        android:gravity="center|start"
+        android:gravity="start"
         android:onClick="recepta_fragment.xml"
         android:text="@tools:sample/lorem"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"

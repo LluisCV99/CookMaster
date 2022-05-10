@@ -1,5 +1,6 @@
 package com.example.cookmaster.ui.adapters;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,11 @@ public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.Recept
 
     @Override
     public ReceptesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item,null,false);
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        View view = inflater.inflate(R.layout.recycler_view_item, parent, false);
+        //View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item,null,false);
         return new ReceptesViewHolder(view);
     }
 

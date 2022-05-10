@@ -39,7 +39,7 @@ public class Receptes {
         return ingredients;
     }
 
-    public String getPreparacio(){return preparacio;}
+    public String getPreparacio(){return preparacio + "\n\n\n";}
 
     public Drawable getImgId() {
         return imgId.getDrawable();
@@ -51,7 +51,7 @@ public class Receptes {
 
     @Override
     public String toString(){
-        return nom + ";" + ingredients + ";" + preparacio + ";" + imgIdInt;
+        return getNom() + ";" + getIngredients() + ";" + getPreparacio() + ";" + imgIdInt;
     }
 
 

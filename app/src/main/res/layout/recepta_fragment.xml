@@ -8,17 +8,19 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="383dp"
-        android:layout_height="677dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBaseline_toTopOf="@+id/layout_botons">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -32,7 +34,8 @@
             <ImageView
                 android:id="@+id/image_recepta"
                 android:layout_width="175dp"
-                android:layout_height="175dp" />
+                android:layout_height="175dp"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:id="@+id/ingredients"
@@ -67,34 +70,31 @@
         </LinearLayout>
     </ScrollView>
 
-    <ImageButton
-        android:id="@+id/button4"
-        android:layout_width="213dp"
-        android:layout_height="38dp"
-        android:layout_weight="1"
-        android:background="@color/colorPrimary"
-        android:scaleType="fitCenter"
-        android:src="@drawable/cor"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="1.0" />
+    <LinearLayout
+        android:id="@+id/layout_botons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <ImageButton
-        android:id="@+id/button5"
-        android:layout_width="201dp"
-        android:layout_height="38dp"
-        android:layout_weight="1"
-        android:background="@color/boto_share"
-        android:scaleType="fitCenter"
-        android:src="@drawable/share"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="1.0" />
+        <ImageButton
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:scaleType="fitCenter"
+            android:src="@drawable/cor"
+            app:backgroundTint="@null" />
+
+        <ImageButton
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@color/boto_share"
+            android:scaleType="fitCenter"
+            android:src="@drawable/share"
+            app:backgroundTint="@null" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
