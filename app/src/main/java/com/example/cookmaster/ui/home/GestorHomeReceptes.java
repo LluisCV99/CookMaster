@@ -2,32 +2,35 @@ package com.example.cookmaster.ui.home;
 
 import com.example.cookmaster.ui.classes.Receptes;
 
+import java.util.HashMap;
+
 public class GestorHomeReceptes {
-    private final Receptes[][] receptes;
+    private final HashMap<Integer, String> receptes;
 
     public GestorHomeReceptes(){
-        this.receptes = new Receptes[2][7];
+        this.receptes = new HashMap<>();
     }
 
-    public GestorHomeReceptes(Receptes[][] receptes){
+    public GestorHomeReceptes(HashMap<Integer, String> receptes){
         this.receptes = receptes;
     }
 
-    public Receptes[][] getReceptes(){return receptes;}
+    public void getReceptes(){}
 
-    public void setRecepta(int dia, int apat, Receptes recepta){
-        receptes[apat][dia] = recepta;
+    public void setRecepta(int id, String recepta){
+        receptes.put(id, recepta);
     }
 
-    public Receptes getRecepta(int dia, int apat) {
-        return receptes[apat][dia];
+    public String getRecepta(int id) {
+        return receptes.get(id);
     }
 
-    public boolean dayCheck(int dia, int apat){
-        return !(receptes[apat][dia] == null);
+    //true: Hi ha recepta
+    public boolean dayCheck(int id){
+        return receptes.containsKey(id);
     }
 
-    public void deleteRecepta(int dia, int apat){
-        receptes[apat][dia] = null;
+    public void deleteRecepta(int id){
+        receptes.remove(id);
     }
 }
