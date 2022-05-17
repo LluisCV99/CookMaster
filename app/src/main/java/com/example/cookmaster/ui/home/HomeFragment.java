@@ -34,10 +34,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     private FragmentHomeBinding binding;
     private HomeViewModel homeViewModel;
 
-    boolean args;
-    int id;
-    String recepta;
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -45,13 +41,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         fragmentManager = getParentFragmentManager();
-
-        recepta = null;
-        if(getArguments() != null){
-            args = true;
-            if(getArguments().containsKey("dia")){this.id = getArguments().getInt("id");}
-            if(getArguments().containsKey("nomRecepta")){ this.recepta = getArguments().getString("nomRecepta");}
-        }else args = false;
 
         return binding.getRoot();
     }
@@ -109,28 +98,40 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         ImageButton share = view.findViewById(R.id.Boto_Share);
         share.setOnClickListener(this);
 
-        if(args){
-            homeViewModel.gestio(id, ((MainActivity) requireActivity()).receptesDB.get(recepta).getNom());
-        }
 
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v){
-        String recepta = "";
-        int id = v.getId();
+        Receptes recepta = null;
+        boolean rep =false;
+        switch (v.getId()){
+            case R.id.dinar_dill: recepta = homeViewModel.gestio(0, 0); rep = true; break;
+            case R.id.dinar_dim: recepta = homeViewModel.gestio(1,0); rep = true; break;
+            case R.id.dinar_dime: recepta = homeViewModel.gestio(2,0); rep = true; break;
+            case R.id.dinar_dij: recepta = homeViewModel.gestio(3,0); rep = true; break;
+            case R.id.dinar_div: recepta = homeViewModel.gestio(4, 0); rep = true; break;
+            case R.id.dinar_dis: recepta = homeViewModel.gestio(5,0); rep = true; break;
+            case R.id.dinar_dium: recepta = homeViewModel.gestio(6,0); rep = true; break;
 
-        if (id != R.id.Boto_Share && id != R.id.Boto_millora){
-            Bundle bundle = new Bundle();
-            recepta = homeViewModel.get(id);
-            if(recepta.equals("")){
-                bundle.putBoolean("select", true);
-                bundle.putInt("dia", id);
-                Navigation.findNavController(v).navigate(R.id.nav_receptes, bundle);
+            case R.id.sopar_dill: recepta = homeViewModel.gestio(0,1); rep = true; break;
+            case R.id.sopar_dim: recepta = homeViewModel.gestio(1,1); rep = true; break;
+            case R.id.sopar_dime: recepta = homeViewModel.gestio(2, 1); rep = true; break;
+            case R.id.sopar_dij: recepta = homeViewModel.gestio(3,1); rep = true; break;
+            case R.id.sopar_div: recepta = homeViewModel.gestio(4,1); rep = true; break;
+            case R.id.sopar_dis: recepta = homeViewModel.gestio(5,1); rep = true; break;
+            case R.id.sopar_dium: recepta = homeViewModel.gestio(6,1); rep = true; break;
+
+            case R.id.Boto_Share:
+                break;
+            case R.id.Boto_millora:
+                break;
+        }
+        if (rep){
+            if(recepta == null){
+                Navigation.findNavController(v).navigate(R.id.nav_receptes);
             }else {
-                bundle.putString("nomRecepta", homeViewModel.get(id));
-                Navigation.findNavController(v).navigate(R.id.nav_recepta, bundle);
             }
         }
     }
@@ -140,24 +141,38 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     @Override
     public boolean onLongClick(View view) {
         Context context = getContext();
-        int id = view.getId();
-        boolean state = false;
+        String state = "false";
         CharSequence error = "S'ha produit un error";
         CharSequence done = "S'ha eliminat correctament el\n";
-        System.out.println("2");
-        state = homeViewModel.delete(id);
-        if(homeViewModel.get(id).equals("")) {
-            Toast.makeText(context,"null" , Toast.LENGTH_SHORT).show();
+        switch (view.getId()){
+            case R.id.dinar_dill: state = homeViewModel.delete(0, 0); break;
+            case R.id.dinar_dim: state = homeViewModel.delete(1,0); break;
+            case R.id.dinar_dime: state = homeViewModel.delete(2,0); break;
+            case R.id.dinar_dij: state = homeViewModel.delete(3,0); break;
+            case R.id.dinar_div: state = homeViewModel.delete(4, 0); break;
+            case R.id.dinar_dis: state = homeViewModel.delete(5,0); break;
+            case R.id.dinar_dium: state = homeViewModel.delete(6,0); break;
+
+            case R.id.sopar_dill: state = homeViewModel.delete(0,1); break;
+            case R.id.sopar_dim: state = homeViewModel.delete(1,1); break;
+            case R.id.sopar_dime: state = homeViewModel.delete(2, 1); break;
+            case R.id.sopar_dij: state = homeViewModel.delete(3,1); break;
+            case R.id.sopar_div: state = homeViewModel.delete(4,1); break;
+            case R.id.sopar_dis: state = homeViewModel.delete(5,1); break;
+            case R.id.sopar_dium: state = homeViewModel.delete(6,1); break;
+        }
+
+        if(!state.equals("false")){
+            done += state;
+            Toast.makeText(context, done, Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(context, error, Toast.LENGTH_LONG).show();
         }
 
         view.findViewById(view.getId());
-
         return true;
     }
 
-    public void updateButton(){
-
-    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

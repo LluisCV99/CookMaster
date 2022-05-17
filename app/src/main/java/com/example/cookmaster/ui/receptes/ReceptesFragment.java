@@ -26,29 +26,46 @@ import java.util.Objects;
 
 public class ReceptesFragment extends Fragment implements View.OnClickListener{
 
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+
+    private String mParam1;
+    private String mParam2;
 
     private FragmentReceptesBinding binding;
 
     RecyclerView recyclerView;
     ArrayList<Receptes> llistaReceptes;
 
+    public ReceptesFragment() {
+    }
+
+    public static ReceptesFragment newInstance(String param1, String param2) {
+        ReceptesFragment fragment = new ReceptesFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        /*
-         * Monta el fragment
-         */
-        ReceptesViewModel receptesViewModel = new ViewModelProvider(this).get(ReceptesViewModel.class);
-        View vista = inflater.inflate(R.layout.fragment_receptes, container, false);
-        binding = FragmentReceptesBinding.inflate(inflater, container, false);
+        ReceptesViewModel receptesViewModel =
+                new ViewModelProvider(this).get(ReceptesViewModel.class);
+        View vista=inflater.inflate(R.layout.fragment_receptes, container, false);
 
-        /*
-         * Monta l'escroller
-         */
-        recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerId);
+
+        binding = FragmentReceptesBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        recyclerView= (RecyclerView) vista.findViewById(R.id.recyclerId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         llistaReceptes = ((MainActivity) requireActivity()).receptesDB.getAll();
-        ReceptesAdapter adapter = new ReceptesAdapter(llistaReceptes, savedInstanceState);
+
+        ReceptesAdapter adapter=new ReceptesAdapter(llistaReceptes);
         recyclerView.setAdapter(adapter);
 
         final TextView textView = binding.textReceptes;

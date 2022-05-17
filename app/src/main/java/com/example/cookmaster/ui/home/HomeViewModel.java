@@ -18,19 +18,45 @@ public class HomeViewModel extends ViewModel {
 
     LiveData<GestorHomeReceptes> getGestorLive(){return gestorLive;}
 
-    public String get(int id){
-        return gestor.dayCheck(id) ? gestor.getRecepta(id) : "";
+    public Receptes gestio(int dia, int apat){
+        Receptes recepta;
+        if(gestor.dayCheck(dia, apat)){
+            recepta = gestor.getRecepta(dia, apat);
+            return recepta;
+        }else{
+            /*
+            // TODO: Canviar el fragment a NovaReceptaFragment (modificar per que es pugui sel·leccionar una recepta)
+            gestor.setRecepta(dia, apat, recepta);
+            gestorLive.setValue(gestor);
+             */
+            return null;
+        }
     }
 
-    public void gestio(int id, String recepta){
-        gestor.setRecepta(id, recepta);
+    public void gestio(int dia, int apat, Receptes recepta){
+        gestor.setRecepta(dia, apat, recepta);
         gestorLive.setValue(gestor);
     }
 
-    public boolean delete(int id){
-        gestor.deleteRecepta(id);
+    public String delete(int dia, int apat){
+        gestor.deleteRecepta(dia, apat);
         gestorLive.setValue(gestor);
-        return gestor.dayCheck(id);
+        if(!(gestor.dayCheck(dia, apat))){
+            return "false";
+        }
+        String ret;
+        if(apat == 0){ ret = "dinar ";}
+        else{ ret = "sopar ";}
+        switch (dia){
+            case 0: ret += "dilluns"; break;
+            case 1: ret += "dimarts"; break;
+            case 2: ret += "dimecres"; break;
+            case 3: ret += "dijous"; break;
+            case 4: ret += "divendres"; break;
+            case 5: ret += "dissabte"; break;
+            case 6: ret += "diumenge"; break;
+        }
+        return ret;
     }
 
 }
