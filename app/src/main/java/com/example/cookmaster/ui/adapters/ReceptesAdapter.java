@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.BundleCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,27 +25,34 @@ import java.util.ArrayList;
 public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.ReceptesViewHolder>{
 
     ArrayList<Receptes> llistaReceptes;
+    int[] dia;
+    boolean recepta;
 
-    public ReceptesAdapter(ArrayList<Receptes> llistaReceptes) {
-        this.llistaReceptes=llistaReceptes;
+    public ReceptesAdapter(ArrayList<Receptes> llistaReceptes, boolean recepta, int[] dia) {
+        this.llistaReceptes = llistaReceptes;
+        this.dia = dia;
+        this.recepta = recepta;
     }
 
 
 
+    @NonNull
     @Override
     public ReceptesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View view = inflater.inflate(R.layout.recycler_view_item, parent, false);
-        //View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item,null,false);
         return new ReceptesViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ReceptesViewHolder holder, int position) {
         holder.txtNom.setText(llistaReceptes.get(position).getNom());
-
+        holder.recepta = this.recepta;
+        if(!recepta){
+            holder.dia = this.dia;
+        }
 
     }
 
@@ -54,6 +63,8 @@ public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.Recept
 
     public static class ReceptesViewHolder extends RecyclerView.ViewHolder {
         Button txtNom;
+        int[] dia;
+        boolean recepta;
 
         public ReceptesViewHolder(View itemView) {
             super(itemView);
@@ -61,10 +72,14 @@ public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.Recept
             itemView.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Toast.makeText(view.getContext(), txtNom.getText(), Toast.LENGTH_SHORT).show();
                     Bundle bundle = new Bundle();
                     bundle.putString("nomRecepta", txtNom.getText().toString());
-                    Navigation.findNavController(view).navigate(R.id.nav_recepta, bundle);
+                    if (recepta) {
+                        Navigation.findNavController(view).navigate(R.id.nav_recepta, bundle);
+                    }else{
+                        bundle.putIntArray("dia", dia);
+                        Navigation.findNavController(view).navigate(R.id.nav_home, bundle);
+                    }
                 }
             });
 

@@ -26,13 +26,14 @@ import com.example.cookmaster.ui.classes.Receptes;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener {
 
-    private AppBarConfiguration appBarConfiguration;
-
     FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
 
     private FragmentHomeBinding binding;
     private HomeViewModel homeViewModel;
+
+    private int[] dia;
+    private String recepta;
+    private boolean args;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -41,6 +42,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         fragmentManager = getParentFragmentManager();
+
+        if(getArguments() != null){
+            this.args = true;
+            this.dia = getArguments().getIntArray("dia");
+            this.recepta = getArguments().getString("nomRecepta");
+        }else args = false;
 
         return binding.getRoot();
     }
@@ -98,6 +105,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         ImageButton share = view.findViewById(R.id.Boto_Share);
         share.setOnClickListener(this);
 
+        if(args){
+            homeViewModel.gestio(dia[0], dia[1], ((MainActivity) requireActivity()).receptesDB.get(recepta));
+            this.dia = null;
+            this.recepta = null;
+        }
 
     }
 
@@ -105,23 +117,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     @Override
     public void onClick(View v){
         Receptes recepta = null;
-        boolean rep =false;
+        boolean rep = false;
+        int[] dia = new int[2];
         switch (v.getId()){
-            case R.id.dinar_dill: recepta = homeViewModel.gestio(0, 0); rep = true; break;
-            case R.id.dinar_dim: recepta = homeViewModel.gestio(1,0); rep = true; break;
-            case R.id.dinar_dime: recepta = homeViewModel.gestio(2,0); rep = true; break;
-            case R.id.dinar_dij: recepta = homeViewModel.gestio(3,0); rep = true; break;
-            case R.id.dinar_div: recepta = homeViewModel.gestio(4, 0); rep = true; break;
-            case R.id.dinar_dis: recepta = homeViewModel.gestio(5,0); rep = true; break;
-            case R.id.dinar_dium: recepta = homeViewModel.gestio(6,0); rep = true; break;
+            //Apat dia
+            case R.id.dinar_dill: rep = true; break;
+            case R.id.dinar_dim: dia[1] = 1; rep = true; break;
+            case R.id.dinar_dime: dia[1] = 2; rep = true; break;
+            case R.id.dinar_dij: dia[1] = 3; rep = true; break;
+            case R.id.dinar_div: dia[1] = 4; rep = true; break;
+            case R.id.dinar_dis: dia[1] = 5; rep = true; break;
+            case R.id.dinar_dium: dia[1] = 6; rep = true; break;
 
-            case R.id.sopar_dill: recepta = homeViewModel.gestio(0,1); rep = true; break;
-            case R.id.sopar_dim: recepta = homeViewModel.gestio(1,1); rep = true; break;
-            case R.id.sopar_dime: recepta = homeViewModel.gestio(2, 1); rep = true; break;
-            case R.id.sopar_dij: recepta = homeViewModel.gestio(3,1); rep = true; break;
-            case R.id.sopar_div: recepta = homeViewModel.gestio(4,1); rep = true; break;
-            case R.id.sopar_dis: recepta = homeViewModel.gestio(5,1); rep = true; break;
-            case R.id.sopar_dium: recepta = homeViewModel.gestio(6,1); rep = true; break;
+            case R.id.sopar_dill: dia[0] = 1; rep = true; break;
+            case R.id.sopar_dim: dia[0] = 1; dia[1] = 1; rep = true; break;
+            case R.id.sopar_dime: dia[0] = 1; dia[1] = 2; rep = true; break;
+            case R.id.sopar_dij: dia[0] = 1; dia[1] = 3; rep = true; break;
+            case R.id.sopar_div: dia[0] = 1; dia[1] = 4; rep = true; break;
+            case R.id.sopar_dis: dia[0] = 1; dia[1] = 5; rep = true; break;
+            case R.id.sopar_dium: dia[0] = 1; dia[1] = 6; rep = true; break;
 
             case R.id.Boto_Share:
                 break;
@@ -129,9 +143,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 break;
         }
         if (rep){
+            recepta = homeViewModel.gestio(dia[0], dia[1]);
+            Bundle bundle = new Bundle();
             if(recepta == null){
-                Navigation.findNavController(v).navigate(R.id.nav_receptes);
+                bundle.putBoolean("recepta", false);
+                bundle.putIntArray("dia", dia);
+                Navigation.findNavController(v).navigate(R.id.nav_receptes, bundle);
             }else {
+                bundle.putString("nomRecepta", recepta.getNom());
+                Navigation.findNavController(v).navigate(R.id.nav_recepta, bundle);
             }
         }
     }

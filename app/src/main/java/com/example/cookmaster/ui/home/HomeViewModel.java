@@ -24,11 +24,6 @@ public class HomeViewModel extends ViewModel {
             recepta = gestor.getRecepta(dia, apat);
             return recepta;
         }else{
-            /*
-            // TODO: Canviar el fragment a NovaReceptaFragment (modificar per que es pugui sel·leccionar una recepta)
-            gestor.setRecepta(dia, apat, recepta);
-            gestorLive.setValue(gestor);
-             */
             return null;
         }
     }

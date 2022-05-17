@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "42808691485",
+    "project_id": "cook-master-ub",
+    "storage_bucket": "cook-master-ub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42808691485:android:7a232f76d07f0a692caff4",
+        "android_client_info": {
+          "package_name": "com.example.cookmaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42808691485-3ktkm88mgitir4bokrqjpkaakgq5pqu7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMPv0oCUAx856b8E_v5Z_6HPgS0Bh5Kjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42808691485-3ktkm88mgitir4bokrqjpkaakgq5pqu7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
