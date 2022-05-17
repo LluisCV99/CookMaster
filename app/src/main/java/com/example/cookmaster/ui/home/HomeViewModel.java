@@ -12,9 +12,9 @@ public class HomeViewModel extends ViewModel {
     private static GestorHomeReceptes gestor;
 
     public HomeViewModel() {
-        gestor = new GestorHomeReceptes();
+        gestor = GestorHomeReceptes.getInstance();
     }
-    public HomeViewModel(GestorHomeReceptes gestor){ this.gestor = gestor;}
+    public HomeViewModel(GestorHomeReceptes gestor){ HomeViewModel.gestor = gestor;}
 
     LiveData<GestorHomeReceptes> getGestorLive(){return gestorLive;}
 

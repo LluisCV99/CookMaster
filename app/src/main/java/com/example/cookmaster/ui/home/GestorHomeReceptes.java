@@ -3,9 +3,17 @@ package com.example.cookmaster.ui.home;
 import com.example.cookmaster.ui.classes.Receptes;
 
 public class GestorHomeReceptes {
+    private static GestorHomeReceptes gestorHomeReceptes;
     private final Receptes[][] receptes;
 
-    public GestorHomeReceptes(){
+
+    public static GestorHomeReceptes getInstance(){
+        if(gestorHomeReceptes == null){
+            gestorHomeReceptes = new GestorHomeReceptes();
+        }
+        return gestorHomeReceptes;
+    }
+    private GestorHomeReceptes(){
         this.receptes = new Receptes[2][7];
     }
 
