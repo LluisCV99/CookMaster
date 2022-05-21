@@ -17,4 +17,7 @@
     <color name="titol_lletres">#4a4a4a</color>
     <color name="boto_share">#4D4D4D</color>
 
+    <color name="red">@android:color/holo_red_dark</color>
+    <color name="green">@android:color/holo_green_dark</color>
+
 </resources>

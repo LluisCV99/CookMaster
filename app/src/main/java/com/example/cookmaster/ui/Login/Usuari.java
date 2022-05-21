@@ -3,21 +3,25 @@ package com.example.cookmaster.ui.Login;
 import java.io.Serializable;
 
 public class Usuari implements Serializable {
-    String usuari, correu, contrasenya;
+    String username;
+    String correu;
+    String contrasenya;
+    String id;
 
-    public Usuari(String usuari, String correu, String contrasenya) {
-        this.usuari = usuari;
+    public Usuari(String username, String correu, String contrasenya, String id) {
+        this.username = username;
         this.correu = correu;
         this.contrasenya = contrasenya;
+        this.id = id;
     }
 
 
-    public String getUsuari() {
-        return usuari;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUsuari(String usuari) {
-        this.usuari = usuari;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getCorreu() {
@@ -38,6 +42,6 @@ public class Usuari implements Serializable {
 
     @Override
     public String toString(){
-        return (this.getUsuari()+","+this.getCorreu()+","+this.getContrasenya());
+        return (id + ", " + username + ", " + contrasenya + "," + correu);
     }
 }

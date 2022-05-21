@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private Integer pos;
+    private CookMaster cookMaster;
     public GestorReceptes receptesDB;
 
     @Override
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         receptesDB = new GestorReceptes();
-
+        cookMaster = CookMaster.getInstance();
 
         Intent switchActivityIntent = new Intent(getApplicationContext(), LoginActivity.class);
 

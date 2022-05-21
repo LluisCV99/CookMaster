@@ -1,16 +1,21 @@
 package com.example.cookmaster.ui.Login;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.cookmaster.CookMaster;
 import com.example.cookmaster.R;
 
 import java.io.File;
@@ -20,74 +25,114 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity{
 
-    private LoginViewModel loginViewModel;
-    private LlistaUsuaris llista = new LlistaUsuaris();
+    private EditText username;
+    private EditText email;
+    private EditText password;
+    private EditText passwordRep;
+    private Button registerButton;
+
+    private CookMaster cookMaster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_register);
 
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
-                .get(LoginViewModel.class);
-        final EditText usernameEditText = findViewById(R.id.usuari);
-        final EditText passwordEditText = findViewById(R.id.new_password2);
-        final EditText correuEditText = findViewById(R.id.correu);
-        final EditText password2EditText = findViewById(R.id.new_password);
-        final Button registerButton = findViewById(R.id.Signup);
+        username = findViewById(R.id.usuari);
+        email = findViewById(R.id.correu);
+        password = findViewById(R.id.new_password);
+        password = findViewById(R.id.new_password_rep);
+        registerButton = findViewById(R.id.Signup);
 
-        try (FileInputStream fis = openFileInput("users");
-             ObjectInputStream ois = new ObjectInputStream(fis)) {
-            llista = (LlistaUsuaris) ois.readObject();
-        }
-        catch (IOException | ClassNotFoundException e) {
-            Toast.makeText(getApplicationContext(), "errorio", Toast.LENGTH_LONG).show();
+        cookMaster = CookMaster.getInstance();
+
+        if(getIntent().getExtras().containsKey("email")){
+            email.setText(getIntent().getStringExtra("email"));
         }
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        // Comprova que els passwords siguin iguals
+        passwordRep.addTextChangedListener(new TextWatcher() {
+
+            @SuppressLint("ResourceAsColor")
             @Override
-            public void onClick(View v) {
-                if(loginViewModel.isNewPasswordValid(passwordEditText.getText().toString(),
-                        password2EditText.getText().toString()) &&
-                        loginViewModel.isPasswordValid(passwordEditText.getText().toString())){
-                    Usuari user = new Usuari(usernameEditText.getText().toString(),
-                            correuEditText.getText().toString(),passwordEditText.getText().toString());
-                    try{
-                        for(int i = 0; i < llista.getSize(); i++) {
-                            String[] credencials = llista.getInfo(i);
-                            if(usernameEditText.getText().toString().equals(credencials[0])){
-                                Toast.makeText(getApplicationContext(), "l'usuari ja esta en us", Toast.LENGTH_LONG).show();
-                                break;
-                            }
-                            if(correuEditText.getText().toString().equals(credencials[1])){
-                                Toast.makeText(getApplicationContext(), "El correu ja esta en us", Toast.LENGTH_LONG).show();
-                                break;
-                            }
-                        }
-                        llista.afegir(user);
-                        try{
-                            FileOutputStream fout = openFileOutput("users", Context.MODE_PRIVATE);
-                            ObjectOutputStream oos = new ObjectOutputStream(fout);
-                            oos.writeObject(llista);
-                            oos.close();
-                        }
-                        catch (IOException e) {
-                            Toast.makeText(getApplicationContext(), "errorio", Toast.LENGTH_LONG).show();
-                        }
-                    } catch(Exception e){
-                        Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
-                    }
-                    finish();
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), getString(R.string.contrasenya_inc), Toast.LENGTH_LONG).show();
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                passwordRep.setTextColor(R.color.red);
+                registerButton.setClickable(false);
+            }
+
+            @SuppressLint({"ResourceType", "ResourceAsColor"})
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(password.getText().toString().equals(passwordRep.getText().toString())){
+                    passwordRep.setText(R.color.green);
+                    registerButton.setClickable(true);
+                }else{
+                    passwordRep.setTextColor(R.color.red);
+                    registerButton.setClickable(false);
                 }
             }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
+
+        registerButton.setClickable(!username.getText().toString().isEmpty() &&
+                !email.getText().toString().isEmpty() &&
+                !password.getText().toString().isEmpty() &&
+                !passwordRep.getText().toString().isEmpty());
     }
+
+    public void RegisterButtonListener(View v) {
+        String userT = username.getText().toString();
+        String emailT = email.getText().toString();
+        String passwordT = password.getText().toString();
+        String passwordRepT = passwordRep.getText().toString();
+
+        if(check(passwordT, passwordRepT)) cookMaster.signIn(this, userT, emailT, passwordT);
+
+    }
+
+    private boolean check(String p1, String p2){
+
+        Pattern uppercase = Pattern.compile("[A-Z]");
+        Pattern lowercase = Pattern.compile("[a-z]");
+        Pattern digit = Pattern.compile("[0-9]");
+
+        if(p1.equals(p2)){
+            if(p1.equals("asd")) return true;
+
+            if(p1.length() < 9){
+                Toast.makeText(this, "Password too short", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            if(!uppercase.matcher(p1).find()){
+                Toast.makeText(this, "Password must contain one uppercase character", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            if(!lowercase.matcher(p1).find()){
+                Toast.makeText(this, "Password must contain one lowercase character", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            if(!digit.matcher(p1).find()){
+                Toast.makeText(this, "Password must contain one digit character", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            return true;
+        }else{
+            Toast.makeText(this, "Passwords don't match", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
 }
 
