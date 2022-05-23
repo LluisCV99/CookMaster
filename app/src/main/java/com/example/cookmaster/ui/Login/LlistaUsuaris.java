@@ -42,7 +42,7 @@ public class LlistaUsuaris implements Serializable {
     public String[] getInfo(int position){
         Usuari temp = getAt(position);
         String[] info = new String[3];
-        info[0] = temp.getUsuari();
+        info[0] = temp.getUsername();
         info[1] = temp.getCorreu();
         info[2] = temp.getContrasenya();
         return info;

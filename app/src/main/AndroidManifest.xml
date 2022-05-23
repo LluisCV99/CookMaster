@@ -17,10 +17,9 @@
         <activity android:name=".ui.Login.Settings" />
         <activity android:name=".ui.Login.Sortir" />
         <activity
-                android:name=".ui.Login.LoginActivity"
+                android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.CookMaster.NoActionBar"
-            tools:ignore="DuplicateActivity">
+            android:theme="@style/Theme.CookMaster.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
