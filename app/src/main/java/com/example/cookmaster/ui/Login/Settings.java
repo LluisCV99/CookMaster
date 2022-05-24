@@ -34,8 +34,6 @@ public class Settings extends AppCompatActivity {
         Intent data = getIntent();
         pos = data.getIntExtra("numero",0);
 
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
-                .get(LoginViewModel.class);
 
         try (FileInputStream fis = openFileInput("users");
              ObjectInputStream ois = new ObjectInputStream(fis)) {
@@ -62,24 +60,6 @@ public class Settings extends AppCompatActivity {
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(loginViewModel.isNewPasswordValid(newpasswordEditText.getText().toString(),
-                        newpassword2EditText.getText().toString()) &&
-                        loginViewModel.isPasswordValid(newpasswordEditText.getText().toString())){
-                    ((Usuari) llista.getAt(pos)).setContrasenya(newpasswordEditText.getText().toString());
-                    try{
-                        FileOutputStream fout = openFileOutput("users", Context.MODE_PRIVATE);
-                        ObjectOutputStream oos = new ObjectOutputStream(fout);
-                        oos.writeObject(llista);
-                        oos.close();
-                        Toast.makeText(getApplicationContext(), getString(R.string.canvis), Toast.LENGTH_LONG).show();
-                    }
-                    catch (IOException e) {
-                        Toast.makeText(getApplicationContext(), "errorio", Toast.LENGTH_LONG).show();
-                    }
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), getString(R.string.contrasenya_inc), Toast.LENGTH_LONG).show();
-                }
             }
         });
 

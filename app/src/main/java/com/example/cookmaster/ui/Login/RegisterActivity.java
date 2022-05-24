@@ -2,6 +2,7 @@ package com.example.cookmaster.ui.Login;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -45,47 +46,11 @@ public class RegisterActivity extends AppCompatActivity{
         username = findViewById(R.id.usuari);
         email = findViewById(R.id.correu);
         password = findViewById(R.id.new_password);
-        password = findViewById(R.id.new_password_rep);
+        passwordRep = findViewById(R.id.new_password_rep);
         registerButton = findViewById(R.id.Signup);
 
         cookMaster = CookMaster.getInstance();
 
-        if(getIntent().getExtras().containsKey("email")){
-            email.setText(getIntent().getStringExtra("email"));
-        }
-
-        // Comprova que els passwords siguin iguals
-        passwordRep.addTextChangedListener(new TextWatcher() {
-
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                passwordRep.setTextColor(R.color.red);
-                registerButton.setClickable(false);
-            }
-
-            @SuppressLint({"ResourceType", "ResourceAsColor"})
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(password.getText().toString().equals(passwordRep.getText().toString())){
-                    passwordRep.setText(R.color.green);
-                    registerButton.setClickable(true);
-                }else{
-                    passwordRep.setTextColor(R.color.red);
-                    registerButton.setClickable(false);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        registerButton.setClickable(!username.getText().toString().isEmpty() &&
-                !email.getText().toString().isEmpty() &&
-                !password.getText().toString().isEmpty() &&
-                !passwordRep.getText().toString().isEmpty());
     }
 
     public void RegisterButtonListener(View v) {
@@ -93,7 +58,6 @@ public class RegisterActivity extends AppCompatActivity{
         String emailT = email.getText().toString();
         String passwordT = password.getText().toString();
         String passwordRepT = passwordRep.getText().toString();
-
         if(check(passwordT, passwordRepT)) cookMaster.signIn(this, userT, emailT, passwordT);
 
     }
@@ -105,9 +69,8 @@ public class RegisterActivity extends AppCompatActivity{
         Pattern digit = Pattern.compile("[0-9]");
 
         if(p1.equals(p2)){
-            if(p1.equals("asd")) return true;
 
-            if(p1.length() < 9){
+            if(p1.length() < 6){
                 Toast.makeText(this, "Password too short", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -133,6 +96,9 @@ public class RegisterActivity extends AppCompatActivity{
             return false;
         }
     }
-
+    public void goLogin(){
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
 }
 

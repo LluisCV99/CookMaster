@@ -14,10 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
@@ -153,6 +151,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 bundle.putString("nomRecepta", recepta.getNom());
                 Navigation.findNavController(v).navigate(R.id.nav_recepta, bundle);
             }
+        }else{
+            Toast.makeText(this.getContext(), "avam", Toast.LENGTH_SHORT).show();
         }
     }
 

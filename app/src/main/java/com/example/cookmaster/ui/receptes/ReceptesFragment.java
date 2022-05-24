@@ -4,16 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +18,6 @@ import com.example.cookmaster.databinding.FragmentReceptesBinding;
 import com.example.cookmaster.ui.adapters.ReceptesAdapter;
 import com.example.cookmaster.ui.classes.Receptes;
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class ReceptesFragment extends Fragment implements View.OnClickListener{

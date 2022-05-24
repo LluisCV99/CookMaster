@@ -14,27 +14,26 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-import java.util.Objects;
-import java.util.concurrent.Executor;
-
 public class CookMaster {
     private static CookMaster cookMaster;
     private Usuari usuari;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     
     public static CookMaster getInstance(){
-        if(cookMaster == null) return new CookMaster();
+        if(cookMaster == null) {
+            cookMaster = new CookMaster();
+        }
         return cookMaster;
     }
-
 
     public void logIn(LoginActivity loginActivity, String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
           if(task.isSuccessful()){
               setUser(mAuth.getCurrentUser(), email, password);
-              loginActivity.RunMain();
+
+              loginActivity.RunMain(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getDisplayName());
           }else{
-              Toast.makeText(loginActivity, "Error: " + task.getResult().toString() , Toast.LENGTH_SHORT).show();
+              Toast.makeText(loginActivity, "Error: " + task.getException().getMessage() , Toast.LENGTH_SHORT).show();
           }
         });
     }
@@ -48,9 +47,9 @@ public class CookMaster {
                             UserProfileChangeRequest cr = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
                             user.updateProfile(cr);
                             setUser(user, email, password);
+                            registerActivity.goLogin();
                         } else {
-
-                            Toast.makeText(registerActivity, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(registerActivity, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });

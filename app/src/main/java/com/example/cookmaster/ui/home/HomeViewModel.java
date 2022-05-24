@@ -18,7 +18,7 @@ public class HomeViewModel extends ViewModel {
 
     LiveData<GestorHomeReceptes> getGestorLive(){return gestorLive;}
 
-    public Receptes gestio(int dia, int apat){
+    public Receptes gestio(int apat, int dia){
         Receptes recepta;
         if(gestor.dayCheck(dia, apat)){
             recepta = gestor.getRecepta(dia, apat);

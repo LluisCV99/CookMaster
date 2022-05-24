@@ -1,11 +1,15 @@
 package com.example.cookmaster.ui.Login;
 
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.view.View;
 
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -29,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
         password = findViewById(R.id.password);
         email = findViewById(R.id.username);
+
         cookMaster = CookMaster.getInstance();
 
     }
@@ -47,15 +52,22 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void RunMain() {
-        startActivity(new Intent(this, MainActivity.class));
+    public void RunMain(String uid, String dn) {
+        Intent newAct = new Intent(this, MainActivity.class);
+        SharedPreferences settings = getSharedPreferences("USER", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("login", true);
+        editor.putString("user", uid);
+        editor.putString("dn", dn);
+        editor.apply();
+        startActivity(newAct);
+        this.finish();
     }
 
+
     public void RegisterActListener(View v) {
-        Bundle bundle = new Bundle();
-        if(!email.getText().toString().isEmpty()) {
-            bundle.putString("email", email.getText().toString());
-        }
-        startActivity(new Intent(this, RegisterActivity.class).putExtra("email", email.getText().toString()));
+        Intent newAct = new Intent(this, RegisterActivity.class);
+        startActivity(newAct);
+        finish();
     }
 }

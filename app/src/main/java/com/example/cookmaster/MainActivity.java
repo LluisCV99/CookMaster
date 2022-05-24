@@ -1,6 +1,7 @@
 package com.example.cookmaster;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,8 +23,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cookmaster.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.io.IOException;
 import java.util.HashMap;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,14 +40,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cookMaster = CookMaster.getInstance();
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         receptesDB = new GestorReceptes();
-        cookMaster = CookMaster.getInstance();
 
-        Intent switchActivityIntent = new Intent(getApplicationContext(), LoginActivity.class);
+        SharedPreferences settings = getSharedPreferences("USER", 0);
 
-        startActivity(switchActivityIntent);
+        boolean logged = settings.getBoolean("login", false);
+
+        if (!logged) {
+            Intent switchActivityIntent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(switchActivityIntent);
+        }else{
+            String welcome = "Welcome " + settings.getString("dn", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+            Toast.makeText(this, welcome, Toast.LENGTH_SHORT).show();
+        }
+
 
         setSupportActionBar(binding.appBarMain.toolbar);
 
