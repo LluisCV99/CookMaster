@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,16 +19,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-
 import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
-import com.example.cookmaster.data.dataStore;
 import com.example.cookmaster.databinding.NovaReceptaBinding;
 import com.example.cookmaster.ui.classes.Receptes;
 import com.example.cookmaster.ui.receptes.GestorReceptes;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.IOException;
 
 
 public class NovaReceptaFragment extends Fragment {
@@ -39,6 +35,7 @@ public class NovaReceptaFragment extends Fragment {
     private final int GALLERY_REQ_CODE = 1000;
     GestorReceptes llista;
     ImageView imgGallery;
+    Receptes recepta;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -63,6 +60,7 @@ public class NovaReceptaFragment extends Fragment {
         imgGallery = view.findViewById(R.id.image_recepta);
         Button btnGallery = view.findViewById(R.id.btnGallery);
 
+
         btnGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +79,8 @@ public class NovaReceptaFragment extends Fragment {
                 String nomRecepta = nomText.getText().toString();
                 String ingredientsRecepta = ingredientsText.getText().toString();
                 String preparacioRecepta = preparacioText.getText().toString();
-                Receptes recepta = new Receptes(nomRecepta,
+
+                recepta = new Receptes(nomRecepta,
                         ingredientsRecepta, preparacioRecepta, imgGallery);
                 llista.add(recepta);
                 Toast.makeText(getContext(), "S'ha desat correctament!", Toast.LENGTH_LONG).show();
