@@ -1,15 +1,12 @@
 package com.example.cookmaster.ui.Login;
 
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.view.View;
 
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
     private EditText email;
     private CookMaster cookMaster;
+    int count;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.username);
 
         cookMaster = CookMaster.getInstance();
+
+        count = 0;
 
     }
 
@@ -49,6 +49,12 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Fill Password", Toast.LENGTH_SHORT).show();
         }else{
             cookMaster.logIn(this, emailT, passwordT);
+        }
+    }
+    public void onBackPressed(){
+        count++;
+        if(count > 2) {
+            finishAffinity();
         }
     }
 

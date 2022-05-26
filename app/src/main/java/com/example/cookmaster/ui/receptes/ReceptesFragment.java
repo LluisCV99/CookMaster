@@ -22,9 +22,6 @@ import java.util.ArrayList;
 
 public class ReceptesFragment extends Fragment implements View.OnClickListener{
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     private FragmentReceptesBinding binding;
 
     RecyclerView recyclerView;

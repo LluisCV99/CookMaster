@@ -26,14 +26,14 @@
     <string name="rn_contrasenya">"Repeat new password"</string>
     <string name="r_contrasenya">"Repeat new password"</string>
     <string name="signup">"Sign Up"</string>
-    <string name="apply">"Apply changes"</string>
+    <string name="apply">"Change Password"</string>
     <string name="delete">"Delete account"</string>
     <string name="sortir">"L'usuari s'ha eliminat correctament"</string>
     <string name="Bsortir">"Surt de l'aplicació"</string>
     <string name="contrasenya_inc">"Error al canviar la contrasenya"</string>
     <string name="canvis">"Els canvis s'han aplicat correctament"</string>
     <string name="goback">"Go back"</string>
-    <string name="user">"Escriu nom d'usuari"</string>
+    <string name="user">"Escriu el nou nom d'usuari"</string>
 
     <string name="recepta">Recepta</string>
     <string name="preparacio">Preparació:</string>
@@ -55,4 +55,7 @@
     <string name="divendres">Divendres</string>
     <string name="dissabte">Dissabte</string>
     <string name="diumenge">Diumenge</string>
+
+    <string name="newusername">Change username</string>
+    <string name="logout">Log Out</string>
 </resources>

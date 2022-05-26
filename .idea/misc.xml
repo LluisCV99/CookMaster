@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/VSPC/AndroidStudioProjects/CookMaster/app/src/main/res/drawable/arrow.xml" value="0.2375" />
         <entry key="..\:/Users/VSPC/AndroidStudioProjects/CookMaster/app/src/main/res/drawable/cross.xml" value="0.33" />
         <entry key="..\:/Users/VSPC/AndroidStudioProjects/CookMaster/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
@@ -36,6 +37,7 @@
         <entry key="..\:/Users/pokem/AndroidStudioProjects/CookMaster2/app/src/main/res/layout/settings.xml" value="0.21467391304347827" />
         <entry key="..\:/Users/pokem/AndroidStudioProjects/CookMaster2/app/src/main/res/menu/activity_main_drawer.xml" value="0.1" />
         <entry key="..\:/Users/pokem/AndroidStudioProjects/CookMaster2/app/src/main/res/menu/main.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/arrow.xml" value="0.122" />
         <entry key="app/src/main/res/drawable/boto_dia.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/boto_dinar.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/boto_millora.xml" value="0.1885" />
@@ -61,6 +63,7 @@
         <entry key="app/src/main/res/layout/nova_recepta.xml" value="0.2980072463768116" />
         <entry key="app/src/main/res/layout/recepta_fragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recycler_view_item.xml" value="0.24818840579710144" />
+        <entry key="app/src/main/res/layout/settings.xml" value="0.33" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.17897435897435898" />
         <entry key="app/src/main/res/menu/main.xml" value="0.35625" />
       </map>

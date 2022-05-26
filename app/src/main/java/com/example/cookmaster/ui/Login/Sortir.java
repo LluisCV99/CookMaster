@@ -1,10 +1,10 @@
 package com.example.cookmaster.ui.Login;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.os.Process;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,13 +17,18 @@ public class Sortir extends AppCompatActivity {
 
         setContentView(R.layout.activity_sortir);
 
-        final EditText newusernameEditText = findViewById(R.id.missatgeSortida);
         final Button deleteButton = findViewById(R.id.bsortir);
+
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finishAffinity();
+                SharedPreferences settings = getSharedPreferences("USER", 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.clear().apply();
+                Intent newAct = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(newAct);
+                finish();
             }
         });
     }
