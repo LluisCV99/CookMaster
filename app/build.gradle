@@ -57,7 +57,11 @@ dependencies {
     // object to json
     implementation 'com.google.code.gson:gson:2.9.0'
 
-    //api json
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    //api
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation 'org.apache.commons:commons-lang3:3.4'
+
+
 }

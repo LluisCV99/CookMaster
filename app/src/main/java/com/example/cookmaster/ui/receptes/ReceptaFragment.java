@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
@@ -104,6 +105,7 @@ public class ReceptaFragment extends ReceptesFragment {
         nom.setText(recepta.getNom());
         ingredients.setText(recepta.getIngredients());
         preparacio.setText(recepta.getPreparacio());
+        Toast.makeText(getContext(), "Calories = " + recepta.getCalories(), Toast.LENGTH_LONG).show();
 
 
     }
