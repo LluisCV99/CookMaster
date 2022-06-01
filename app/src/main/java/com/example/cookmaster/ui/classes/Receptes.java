@@ -3,30 +3,38 @@ package com.example.cookmaster.ui.classes;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Receptes {
+    //front
     private String nom;
     private String ingredients;
     private String preparacio;
-    private String imgIdInt = "0";
     private String calories;
-    private boolean fetaPerUser = false;
+    private ImageView imgId;
 
-    private ImageView imgId=null;
+    //back
+    private String userID;
+    private String imageUrl;
+    private String id;
 
-    public Receptes(String nom, String ingredients, String preparacio, ImageView imgId, String calories){
+    public Receptes(String nom, String ingredients, String preparacio, ImageView imgId, String calories, String uid, String url){
         this.nom = nom;
         this.ingredients = ingredients;
         this.preparacio = preparacio;
         this.imgId = imgId;
         this.calories = calories;
-        this.fetaPerUser = true;
+        this.userID = uid;
+        this.imageUrl = url;
+        this.id = nom + uid;
+
     }
 
     public Receptes(String nom, String ingredients, String preparacio, String imgIdInt){
         this.nom = nom;
         this.ingredients = ingredients;
         this.preparacio = preparacio;
-        this.imgIdInt = imgIdInt;
     }
 
     public Receptes(String nom) {
@@ -47,18 +55,34 @@ public class Receptes {
         return imgId.getDrawable();
     }
 
-    public int getImgIdInt() { return Integer.parseInt(imgIdInt);}
+    public int getImgIdInt() { return Integer.parseInt("1");}
 
-    public boolean getFetaUser(){ return fetaPerUser;}
+    public boolean getFetaUser(){ return true;}
 
     public void setCalories(String caloria){ this.calories = caloria;}
 
     public String getCalories(){return calories;}
 
-    @Override
-    public String toString(){
-        return getNom() + ";" + getIngredients() + ";" + getPreparacio() + ";" + imgIdInt;
+    public void setUrl(String url){
+        this.imageUrl = url;
     }
 
+    public String getId(){return id;}
+    @Override
+    public String toString(){
+        return getNom() + ";" + getIngredients() + ";" + getPreparacio() + ";" + imageUrl;
+    }
 
+    public Map<String, Object> toMap(){
+        Map<String, Object> recepta = new HashMap<>();
+
+        //recepta.put("ID", id);
+        recepta.put("Nom", nom);
+        recepta.put("Ingredients", ingredients);
+        recepta.put("Preparacio", preparacio);
+        recepta.put("Creador",userID);
+        recepta.put("URI",imgId);
+
+        return recepta;
+    }
 }

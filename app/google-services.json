@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "42808691485",
+    "firebase_url": "https://cook-master-ub-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "cook-master-ub",
     "storage_bucket": "cook-master-ub.appspot.com"
   },
