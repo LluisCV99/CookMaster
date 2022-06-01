@@ -63,8 +63,10 @@ public class NovaReceptaFragment extends Fragment {
         private Uri uri;
         private String url;
         private imgUpload uploader;
+        private FirebaseDatabase database;
         private DatabaseReference mDatabaseRef;
         private StorageReference mStorageRef;
+        private StorageTask<UploadTask.TaskSnapshot> mUploadTask;
 
     //Receptes
     private GestorReceptes llista;
@@ -80,7 +82,8 @@ public class NovaReceptaFragment extends Fragment {
         binding = NovaReceptaBinding.inflate(inflater, container, false);
         uploader = new imgUpload();
         llista = ((MainActivity) requireActivity()).receptesDB;
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        database = FirebaseDatabase.getInstance();
+        mDatabaseRef = database.getReference("receptes");
         return binding.getRoot();
     }
 
@@ -128,12 +131,7 @@ public class NovaReceptaFragment extends Fragment {
                     SharedPreferences settings = getContext().getSharedPreferences("USER", 0);
                     String uid = settings.getString("user",null);
                     recepta = new Receptes(nomRecepta, ingredientsRecepta, preparacioRecepta,
-                            imgGallery, ingredients, uid, "url");
-                    if(url != null){
-
-                    }else{
-                        Toast.makeText(getContext(), "mt url", Toast.LENGTH_SHORT).show();
-                    }
+                            imgGallery, ingredients, uid, "");
 
 
 
@@ -150,24 +148,6 @@ public class NovaReceptaFragment extends Fragment {
         ContentResolver cr = requireContext().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(uri));
-    }
-
-    private void receptaDB(Receptes recepta){
-        String uploadId = mDatabaseRef.push().getKey();
-        if(uploadId.isEmpty()){
-            Toast.makeText(getContext(), "mt", Toast.LENGTH_SHORT).show();
-        }
-        mDatabaseRef.child(uploadId).setValue(recepta).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(getContext(), "S'ha desat correctament!", Toast.LENGTH_LONG).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
@@ -223,7 +203,29 @@ public class NovaReceptaFragment extends Fragment {
         return ingredients;
     }
 
-    private void test(UploadTask.TaskSnapshot taskSnapshot){
+
+    public boolean checkUploadInProgress(){
+            return mUploadTask != null && mUploadTask.isInProgress();
+        }
+
+    public void upup(Uri uri, String id){
+        StorageReference fileRef = mStorageRef.child(id);
+
+        mUploadTask = fileRef.putFile(uri);
+
+        mUploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+               uploadSuccesful(taskSnapshot);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "img upload Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void uploadSuccesful(UploadTask.TaskSnapshot taskSnapshot){
         if(taskSnapshot.getMetadata() != null){
             if(taskSnapshot.getMetadata().getReference() != null){
                 url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
@@ -232,46 +234,26 @@ public class NovaReceptaFragment extends Fragment {
                 llista.add(recepta);
                 receptaDB(recepta);
             }else {
-                Toast.makeText(getContext(), "reference", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error reference", Toast.LENGTH_SHORT).show();
             }
         }else{
-            Toast.makeText(getContext(), "metadata", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Error metadata", Toast.LENGTH_SHORT).show();
         }
     }
+    private void receptaDB(Receptes recepta) {
+        String uploadId = mDatabaseRef.push().getKey();
+        if (uploadId != null && uploadId.isEmpty()) {
+            Toast.makeText(getContext(), "mt", Toast.LENGTH_SHORT).show();
+        } else {
+            mDatabaseRef.child(uploadId).setValue(recepta);
+        }
+    }
+
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-
-        private StorageTask<UploadTask.TaskSnapshot> mUploadTask;
-
-
-        public boolean checkUploadInProgress(){
-            return mUploadTask != null && mUploadTask.isInProgress();
-        }
-
-        public void upup(Uri uri, String id){
-            StorageReference fileRef = mStorageRef.child(id);
-
-            String[] ret = new String[1];
-            mUploadTask = fileRef.putFile(uri);
-
-            mUploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                   test(taskSnapshot);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    url = e.getMessage();
-                    Toast.makeText(getContext(), "img upload Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
-
-
 }

@@ -12,7 +12,7 @@ public class Receptes {
     private String ingredients;
     private String preparacio;
     private String calories;
-    private ImageView imgId;
+    private String imgId;
 
     //back
     private String userID;
@@ -23,7 +23,7 @@ public class Receptes {
         this.nom = nom;
         this.ingredients = ingredients;
         this.preparacio = preparacio;
-        this.imgId = imgId;
+        this.imgId = imgId.toString();
         this.calories = calories;
         this.userID = uid;
         this.imageUrl = url;
@@ -51,8 +51,8 @@ public class Receptes {
 
     public String getPreparacio(){return preparacio + "\n\n\n";}
 
-    public Drawable getImgId() {
-        return imgId.getDrawable();
+    public String getImgId() {
+        return ""; //imgId.getDrawable();
     }
 
     public int getImgIdInt() { return Integer.parseInt("1");}
@@ -68,6 +68,8 @@ public class Receptes {
     }
 
     public String getId(){return id;}
+
+    public String getImageUrl(){return imageUrl;}
     @Override
     public String toString(){
         return getNom() + ";" + getIngredients() + ";" + getPreparacio() + ";" + imageUrl;

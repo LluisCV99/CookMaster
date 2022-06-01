@@ -47,7 +47,7 @@ public class ReceptaFragment extends ReceptesFragment {
         TextView preparacio = view.findViewById(R.id.preparacio_fill);
         ImageView img = view.findViewById(R.id.image_recepta);
         if(recepta.getFetaUser()){
-            img.setImageDrawable(recepta.getImgId());
+            //img.setImageDrawable(recepta.getImgId());
         }else {
 
             switch (recepta.getImgIdInt()) {
