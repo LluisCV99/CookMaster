@@ -36,7 +36,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
@@ -45,9 +44,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 
-import okhttp3.HttpUrl;
+import okhttp3.Call;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
@@ -119,7 +120,8 @@ public class NovaReceptaFragment extends Fragment {
                 String ingredientsRecepta = ingredientsText.getText().toString();
                 String preparacioRecepta = preparacioText.getText().toString();
 
-                 String ingredients = noSeriaMillorTenirUnMetodePerLAPI(ingredientsRecepta);
+                 String calories = getNutrients(ingredientsRecepta);
+                 Toast.makeText(getContext(), calories, Toast.LENGTH_LONG).show();
 
                 if(uri != null){
 
@@ -131,7 +133,7 @@ public class NovaReceptaFragment extends Fragment {
                     SharedPreferences settings = getContext().getSharedPreferences("USER", 0);
                     String uid = settings.getString("user",null);
                     recepta = new Receptes(nomRecepta, ingredientsRecepta, preparacioRecepta,
-                            imgGallery, ingredients, uid, "");
+                            imgGallery, calories, uid, "");
 
 
 
@@ -165,36 +167,46 @@ public class NovaReceptaFragment extends Fragment {
 
     }
 
-    public String noSeriaMillorTenirUnMetodePerLAPI(String ingredientsRecepta){
+    public String getNutrients(String ingredientsRecepta){
         String ingredients;
+        String ingr = "\"";
+        char c;
+        for (int i = 0; i <ingredientsRecepta.length (); i ++) {
+            c = ingredientsRecepta.charAt(i);
+            if (c == '\n'){
+                ingr = ingr + c + "\"";
+            }
+            else if(c==','){
+                ingr = ingr + "\""+ c;
+
+            }
+            else{ingr = ingr + c;}
+
+        }
+        ingr = ingr + "\"";
+        System.out.println(ingr);
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         OkHttpClient client = new OkHttpClient();
 
-                /*RequestBody formBody = new FormBody.Builder()
-                        .add("body", "100g chicken, 100g rice, 100g curry")
-                        .build();*/
+        String json = "{\"ingr\": ["+ingr+"]}";
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse("https://api.edamam.com/api/nutrition-data").newBuilder();
-        urlBuilder.addQueryParameter("app_id", api_id);
-        urlBuilder.addQueryParameter("app_key", api_key);
-        urlBuilder.addQueryParameter("ingr", ingredientsRecepta);
-        String url = urlBuilder.build().toString();
+        RequestBody body = RequestBody.create(
+                MediaType.parse("application/json"), json);
 
         Request request = new Request.Builder()
-                //.header("app_id", api_id)
-                //.header("app_key", api_key)
-                .url(url)
-                //.post(formBody)
+                .url("https://api.edamam.com/api/nutrition-details?app_id=b90cfa64&app_key=2f495c17b1c094d789d18e1ae84870ae")
+                .post(body)
                 .build();
         try {
-            Response response = client.newCall(request).execute();
+            Call call = client.newCall(request);
+            Response response = call.execute();
             ingredients = StringUtils.substringBetween(response.body().string(), "calories\":", ",");
 
+            //Toast.makeText(getContext(), ingredients, Toast.LENGTH_LONG).show();
 
-            Toast.makeText(getContext(), ingredients, Toast.LENGTH_LONG).show();
-            //recepta.setCalories(s);
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "api bad: "+ e.getMessage(), Toast.LENGTH_LONG).show();

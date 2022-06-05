@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:minHeight="48dp"
                 android:text="@string/ingredients"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -64,6 +65,21 @@
 
             <TextView
                 android:id="@+id/preparacio_fill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/calories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/calories"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/calories_fill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

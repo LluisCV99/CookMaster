@@ -45,6 +45,7 @@ public class ReceptaFragment extends ReceptesFragment {
         TextView nom = view.findViewById(R.id.nom);
         TextView ingredients = view.findViewById(R.id.ingredients_fill);
         TextView preparacio = view.findViewById(R.id.preparacio_fill);
+        TextView calories = view.findViewById(R.id.calories_fill);
         ImageView img = view.findViewById(R.id.image_recepta);
         if(recepta.getFetaUser()){
             //img.setImageDrawable(recepta.getImgId());
@@ -105,7 +106,7 @@ public class ReceptaFragment extends ReceptesFragment {
         nom.setText(recepta.getNom());
         ingredients.setText(recepta.getIngredients());
         preparacio.setText(recepta.getPreparacio());
-        Toast.makeText(getContext(), "Calories = " + recepta.getCalories(), Toast.LENGTH_LONG).show();
+        calories.setText(recepta.getCalories());
 
 
     }
