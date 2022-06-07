@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -27,7 +28,7 @@ public class ReceptesFragment extends Fragment implements View.OnClickListener{
     RecyclerView recyclerView;
     ArrayList<Receptes> llistaReceptes;
     boolean recepta;
-    int[] dia;
+    String dia;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class ReceptesFragment extends Fragment implements View.OnClickListener{
 
         if(getArguments()!= null){
             if(getArguments().containsKey("recepta")) this.recepta = getArguments().getBoolean("recepta");
-            if(getArguments().containsKey("dia")) this.dia = getArguments().getIntArray("dia");
+            if(getArguments().containsKey("dia")) this.dia = getArguments().getString("dia");
         }else {
             recepta = true;
             dia = null;

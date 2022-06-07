@@ -18,38 +18,38 @@ public class HomeViewModel extends ViewModel {
 
     LiveData<GestorHomeReceptes> getGestorLive(){return gestorLive;}
 
-    public Receptes gestio(int apat, int dia){
+    public Receptes gestio(String data){
         Receptes recepta;
-        if(gestor.dayCheck(dia, apat)){
-            recepta = gestor.getRecepta(dia, apat);
+        if(gestor.dayCheck(data)){
+            recepta = gestor.getRecepta(data);
             return recepta;
         }else{
             return null;
         }
     }
 
-    public void gestio(int dia, int apat, Receptes recepta){
-        gestor.setRecepta(dia, apat, recepta);
+    public void gestio(String dia, Receptes recepta){
+        gestor.setRecepta(dia, recepta);
         gestorLive.setValue(gestor);
     }
 
-    public String delete(int dia, int apat){
-        gestor.deleteRecepta(dia, apat);
+    public String delete(String data){
+        gestor.deleteRecepta(data);
         gestorLive.setValue(gestor);
-        if(!(gestor.dayCheck(dia, apat))){
+        if(gestor.dayCheck(data)){
             return "false";
         }
         String ret;
-        if(apat == 0){ ret = "dinar ";}
+        if(data.charAt(0) == 'd'){ ret = "dinar ";}
         else{ ret = "sopar ";}
-        switch (dia){
-            case 0: ret += "dilluns"; break;
-            case 1: ret += "dimarts"; break;
-            case 2: ret += "dimecres"; break;
-            case 3: ret += "dijous"; break;
-            case 4: ret += "divendres"; break;
-            case 5: ret += "dissabte"; break;
-            case 6: ret += "diumenge"; break;
+        switch (data.charAt(1)){
+            case 1: ret += "dilluns"; break;
+            case 2: ret += "dimarts"; break;
+            case 3: ret += "dimecres"; break;
+            case 4: ret += "dijous"; break;
+            case 5: ret += "divendres"; break;
+            case 6: ret += "dissabte"; break;
+            case 7: ret += "diumenge"; break;
         }
         return ret;
     }

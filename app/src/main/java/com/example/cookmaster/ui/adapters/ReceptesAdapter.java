@@ -25,13 +25,13 @@ import java.util.ArrayList;
 public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.ReceptesViewHolder>{
 
     ArrayList<Receptes> llistaReceptes;
-    int[] dia;
-    boolean recepta;
+    String dia;
+    boolean boolRecepta;
 
-    public ReceptesAdapter(ArrayList<Receptes> llistaReceptes, boolean recepta, int[] dia) {
+    public ReceptesAdapter(ArrayList<Receptes> llistaReceptes, boolean recepta, String dia) {
         this.llistaReceptes = llistaReceptes;
         this.dia = dia;
-        this.recepta = recepta;
+        this.boolRecepta = recepta;
     }
 
 
@@ -41,7 +41,6 @@ public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.Recept
     public ReceptesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-
         View view = inflater.inflate(R.layout.recycler_view_item, parent, false);
         return new ReceptesViewHolder(view);
     }
@@ -49,8 +48,9 @@ public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.Recept
     @Override
     public void onBindViewHolder(ReceptesViewHolder holder, int position) {
         holder.txtNom.setText(llistaReceptes.get(position).getNom());
-        holder.recepta = this.recepta;
-        if(!recepta){
+        holder.recepta = llistaReceptes.get(position);
+        holder.boolRecepta = this.boolRecepta;
+        if(!boolRecepta){
             holder.dia = this.dia;
         }
 
@@ -63,8 +63,9 @@ public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.Recept
 
     public static class ReceptesViewHolder extends RecyclerView.ViewHolder {
         Button txtNom;
-        int[] dia;
-        boolean recepta;
+        String dia;
+        boolean boolRecepta;
+        Receptes recepta;
 
         public ReceptesViewHolder(View itemView) {
             super(itemView);
@@ -73,11 +74,11 @@ public class ReceptesAdapter extends RecyclerView.Adapter<ReceptesAdapter.Recept
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("nomRecepta", txtNom.getText().toString());
-                    if (recepta) {
+                    bundle.putString("idRecepta", recepta.getId());
+                    if (boolRecepta) {
                         Navigation.findNavController(view).navigate(R.id.nav_recepta, bundle);
                     }else{
-                        bundle.putIntArray("dia", dia);
+                        bundle.putString("dia", dia);
                         Navigation.findNavController(view).navigate(R.id.nav_home, bundle);
                     }
                 }

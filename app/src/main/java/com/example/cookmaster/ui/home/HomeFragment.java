@@ -29,13 +29,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     private FragmentHomeBinding binding;
     private HomeViewModel homeViewModel;
 
-    private int[] dia;
+    private String dia;
     private String recepta;
     private boolean args;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        homeViewModel = new HomeViewModel();
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
@@ -43,9 +43,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
         if(getArguments() != null){
             this.args = true;
-            this.dia = getArguments().getIntArray("dia");
-            this.recepta = getArguments().getString("nomRecepta");
-        }else args = false;
+            this.dia = getArguments().getString("dia");
+            this.recepta = getArguments().getString("idRecepta");
+        }else{
+            args = false;
+        }
 
         return binding.getRoot();
     }
@@ -104,7 +106,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         share.setOnClickListener(this);
 
         if(args){
-            homeViewModel.gestio(dia[0], dia[1], ((MainActivity) requireActivity()).receptesDB.get(recepta));
+            Receptes rep = ((MainActivity) requireActivity()).receptesDB.get(recepta);
+            homeViewModel.gestio(dia, rep);
             this.dia = null;
             this.recepta = null;
         }
@@ -115,40 +118,44 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     @Override
     public void onClick(View v){
         Receptes recepta = null;
-        boolean rep = false;
-        int[] dia = new int[2];
+        boolean rep = true;
+        String data = "";
         switch (v.getId()){
             //Apat dia
-            case R.id.dinar_dill: rep = true; break;
-            case R.id.dinar_dim: dia[1] = 1; rep = true; break;
-            case R.id.dinar_dime: dia[1] = 2; rep = true; break;
-            case R.id.dinar_dij: dia[1] = 3; rep = true; break;
-            case R.id.dinar_div: dia[1] = 4; rep = true; break;
-            case R.id.dinar_dis: dia[1] = 5; rep = true; break;
-            case R.id.dinar_dium: dia[1] = 6; rep = true; break;
+            case R.id.dinar_dill: data = "d1"; break;
+            case R.id.dinar_dim: data = "d2"; break;
+            case R.id.dinar_dime: data = "d3";  break;
+            case R.id.dinar_dij: data = "d4"; break;
+            case R.id.dinar_div: data = "d5"; break;
+            case R.id.dinar_dis: data = "d6"; break;
+            case R.id.dinar_dium: data = "d7"; break;
 
-            case R.id.sopar_dill: dia[0] = 1; rep = true; break;
-            case R.id.sopar_dim: dia[0] = 1; dia[1] = 1; rep = true; break;
-            case R.id.sopar_dime: dia[0] = 1; dia[1] = 2; rep = true; break;
-            case R.id.sopar_dij: dia[0] = 1; dia[1] = 3; rep = true; break;
-            case R.id.sopar_div: dia[0] = 1; dia[1] = 4; rep = true; break;
-            case R.id.sopar_dis: dia[0] = 1; dia[1] = 5; rep = true; break;
-            case R.id.sopar_dium: dia[0] = 1; dia[1] = 6; rep = true; break;
+            case R.id.sopar_dill: data = "s1"; break;
+            case R.id.sopar_dim: data = "s2";  break;
+            case R.id.sopar_dime: data = "s3"; break;
+            case R.id.sopar_dij: data = "s4"; break;
+            case R.id.sopar_div: data = "s5"; break;
+            case R.id.sopar_dis: data = "s6"; break;
+            case R.id.sopar_dium: data = "s7"; break;
 
             case R.id.Boto_Share:
+                rep = false;
                 break;
             case R.id.Boto_millora:
+                rep = false;
                 break;
         }
         if (rep){
-            recepta = homeViewModel.gestio(dia[0], dia[1]);
+
+
+            recepta = homeViewModel.gestio(data);
             Bundle bundle = new Bundle();
             if(recepta == null){
                 bundle.putBoolean("recepta", false);
-                bundle.putIntArray("dia", dia);
+                bundle.putString("dia", data);
                 Navigation.findNavController(v).navigate(R.id.nav_receptes, bundle);
             }else {
-                bundle.putString("nomRecepta", recepta.getNom());
+                bundle.putString("idRecepta", recepta.getId());
                 Navigation.findNavController(v).navigate(R.id.nav_recepta, bundle);
             }
         }else{
@@ -165,21 +172,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         CharSequence error = "S'ha produit un error";
         CharSequence done = "S'ha eliminat correctament el\n";
         switch (view.getId()){
-            case R.id.dinar_dill: state = homeViewModel.delete(0, 0); break;
-            case R.id.dinar_dim: state = homeViewModel.delete(1,0); break;
-            case R.id.dinar_dime: state = homeViewModel.delete(2,0); break;
-            case R.id.dinar_dij: state = homeViewModel.delete(3,0); break;
-            case R.id.dinar_div: state = homeViewModel.delete(4, 0); break;
-            case R.id.dinar_dis: state = homeViewModel.delete(5,0); break;
-            case R.id.dinar_dium: state = homeViewModel.delete(6,0); break;
+            case R.id.dinar_dill: state = homeViewModel.delete("d1"); break;
+            case R.id.dinar_dim: state = homeViewModel.delete("d2"); break;
+            case R.id.dinar_dime: state = homeViewModel.delete("d3"); break;
+            case R.id.dinar_dij: state = homeViewModel.delete("d4"); break;
+            case R.id.dinar_div: state = homeViewModel.delete("d5"); break;
+            case R.id.dinar_dis: state = homeViewModel.delete("d6"); break;
+            case R.id.dinar_dium: state = homeViewModel.delete("d7"); break;
 
-            case R.id.sopar_dill: state = homeViewModel.delete(0,1); break;
-            case R.id.sopar_dim: state = homeViewModel.delete(1,1); break;
-            case R.id.sopar_dime: state = homeViewModel.delete(2, 1); break;
-            case R.id.sopar_dij: state = homeViewModel.delete(3,1); break;
-            case R.id.sopar_div: state = homeViewModel.delete(4,1); break;
-            case R.id.sopar_dis: state = homeViewModel.delete(5,1); break;
-            case R.id.sopar_dium: state = homeViewModel.delete(6,1); break;
+            case R.id.sopar_dill: state = homeViewModel.delete("s1"); break;
+            case R.id.sopar_dim: state = homeViewModel.delete("s2"); break;
+            case R.id.sopar_dime: state = homeViewModel.delete("s3"); break;
+            case R.id.sopar_dij: state = homeViewModel.delete("s4"); break;
+            case R.id.sopar_div: state = homeViewModel.delete("s5"); break;
+            case R.id.sopar_dis: state = homeViewModel.delete("s6"); break;
+            case R.id.sopar_dium: state = homeViewModel.delete("s7"); break;
         }
 
         if(!state.equals("false")){

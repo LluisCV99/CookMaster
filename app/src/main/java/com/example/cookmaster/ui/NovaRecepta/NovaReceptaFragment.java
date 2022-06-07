@@ -2,7 +2,6 @@ package com.example.cookmaster.ui.NovaRecepta;
 
 import static android.app.Activity.RESULT_OK;
 
-import static java.lang.Thread.sleep;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -26,7 +25,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
-import com.example.cookmaster.data.imgUpload;
+import com.example.cookmaster.data.dataStore;
 import com.example.cookmaster.databinding.NovaReceptaBinding;
 import com.example.cookmaster.ui.classes.Receptes;
 import com.example.cookmaster.ui.receptes.GestorReceptes;
@@ -60,14 +59,13 @@ public class NovaReceptaFragment extends Fragment {
     private final int GALLERY_REQ_CODE = 1000;
     private ImageView imgGallery;
 
-        //upload
-        private Uri uri;
-        private String url;
-        private imgUpload uploader;
-        private FirebaseDatabase database;
-        private DatabaseReference mDatabaseRef;
-        private StorageReference mStorageRef;
-        private StorageTask<UploadTask.TaskSnapshot> mUploadTask;
+    //upload
+    private Uri uri;
+    private String url;
+    private FirebaseDatabase database;
+    private DatabaseReference mDatabaseRef;
+    private StorageReference mStorageRef;
+    private StorageTask<UploadTask.TaskSnapshot> mUploadTask;
 
     //Receptes
     private GestorReceptes llista;
@@ -81,7 +79,6 @@ public class NovaReceptaFragment extends Fragment {
 
         mStorageRef = FirebaseStorage.getInstance().getReference("imatges");
         binding = NovaReceptaBinding.inflate(inflater, container, false);
-        uploader = new imgUpload();
         llista = ((MainActivity) requireActivity()).receptesDB;
         database = FirebaseDatabase.getInstance();
         mDatabaseRef = database.getReference("receptes");
@@ -120,8 +117,8 @@ public class NovaReceptaFragment extends Fragment {
                 String ingredientsRecepta = ingredientsText.getText().toString();
                 String preparacioRecepta = preparacioText.getText().toString();
 
-                 String calories = getNutrients(ingredientsRecepta);
-                 Toast.makeText(getContext(), calories, Toast.LENGTH_LONG).show();
+                String calories = getNutrients(ingredientsRecepta);
+                Toast.makeText(getContext(), calories, Toast.LENGTH_LONG).show();
 
                 if(uri != null){
 
@@ -133,7 +130,7 @@ public class NovaReceptaFragment extends Fragment {
                     SharedPreferences settings = getContext().getSharedPreferences("USER", 0);
                     String uid = settings.getString("user",null);
                     recepta = new Receptes(nomRecepta, ingredientsRecepta, preparacioRecepta,
-                            imgGallery, calories, uid, "");
+                            imgGallery.toString(), calories, uid, "");
 
 
 
@@ -215,11 +212,6 @@ public class NovaReceptaFragment extends Fragment {
         return ingredients;
     }
 
-
-    public boolean checkUploadInProgress(){
-            return mUploadTask != null && mUploadTask.isInProgress();
-        }
-
     public void upup(Uri uri, String id){
         StorageReference fileRef = mStorageRef.child(id);
 
@@ -228,7 +220,7 @@ public class NovaReceptaFragment extends Fragment {
         mUploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-               uploadSuccesful(taskSnapshot);
+                uploadSuccesful(taskSnapshot);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -244,7 +236,8 @@ public class NovaReceptaFragment extends Fragment {
 
                 recepta.setUrl(url);
                 llista.add(recepta);
-                receptaDB(recepta);
+                String res = dataStore.receptaDB(recepta);
+                Toast.makeText(getContext(), res, Toast.LENGTH_SHORT);
             }else {
                 Toast.makeText(getContext(), "Error reference", Toast.LENGTH_SHORT).show();
             }
@@ -252,16 +245,6 @@ public class NovaReceptaFragment extends Fragment {
             Toast.makeText(getContext(), "Error metadata", Toast.LENGTH_SHORT).show();
         }
     }
-    private void receptaDB(Receptes recepta) {
-        String uploadId = mDatabaseRef.push().getKey();
-        if (uploadId != null && uploadId.isEmpty()) {
-            Toast.makeText(getContext(), "mt", Toast.LENGTH_SHORT).show();
-        } else {
-            mDatabaseRef.child(uploadId).setValue(recepta);
-        }
-    }
-
-
 
     @Override
     public void onDestroyView() {

@@ -1,5 +1,7 @@
 package com.example.cookmaster.ui.classes;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
@@ -19,11 +21,11 @@ public class Receptes {
     private String imageUrl;
     private String id;
 
-    public Receptes(String nom, String ingredients, String preparacio, ImageView imgId, String calories, String uid, String url){
+    public Receptes(String nom, String ingredients, String preparacio, String imgId, String calories, String uid, String url){
         this.nom = nom;
         this.ingredients = ingredients;
         this.preparacio = preparacio;
-        this.imgId = imgId.toString();
+        this.imgId = imgId;
         this.calories = calories;
         this.userID = uid;
         this.imageUrl = url;
@@ -31,48 +33,30 @@ public class Receptes {
 
     }
 
-    public Receptes(String nom, String ingredients, String preparacio, String imgIdInt){
-        this.nom = nom;
-        this.ingredients = ingredients;
-        this.preparacio = preparacio;
-    }
-
-    public Receptes(String nom) {
-        this.nom = nom;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public String getIngredients() {
-        return ingredients;
-    }
-
+    /* Getters */
+    public String getNom(){return nom;}
+    public String getIngredients(){return ingredients;}
     public String getPreparacio(){return preparacio + "\n\n\n";}
-
-    public String getImgId() {
-        return ""; //imgId.getDrawable();
-    }
-
-    public int getImgIdInt() { return Integer.parseInt("1");}
-
-    public boolean getFetaUser(){ return true;}
-
-    public void setCalories(String caloria){ this.calories = caloria;}
-
     public String getCalories(){return calories;}
+    public String getImgId() {return "";} //imgId.getDrawable();    Temp
 
-    public void setUrl(String url){
-        this.imageUrl = url;
-    }
-
+    public String getUserId(){return userID;}
+    public String getImageUrl(){return imageUrl;}
     public String getId(){return id;}
 
-    public String getImageUrl(){return imageUrl;}
+    public int getImgIdInt() { return Integer.parseInt("1");} // Temp
+
+
+    /* Setters */
+    public void setCalories(String caloria){ this.calories = caloria;}
+    public void setUrl(String url){this.imageUrl = url;}
+
+
+    /* Converters */
     @Override
     public String toString(){
-        return getNom() + ";" + getIngredients() + ";" + getPreparacio() + ";" + imageUrl;
+        return getNom() + ";" + getIngredients() + ";" + getPreparacio() + ";" + getImgId() + ";"
+                + getCalories() + ";" + getUserId() + ";" + getImageUrl() + ";" + getId();
     }
 
     public Map<String, Object> toMap(){
@@ -86,5 +70,12 @@ public class Receptes {
         recepta.put("URI",imgId);
 
         return recepta;
+    }
+
+    /* Checker */
+    public boolean fetaPerUser(Context context){
+        SharedPreferences settings = context.getSharedPreferences("USER", 0);
+        String uid = settings.getString("user",null);
+        return uid.equals(userID);
     }
 }

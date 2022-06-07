@@ -2,9 +2,11 @@ package com.example.cookmaster.ui.home;
 
 import com.example.cookmaster.ui.classes.Receptes;
 
+import java.util.HashMap;
+
 public class GestorHomeReceptes {
     private static GestorHomeReceptes gestorHomeReceptes;
-    private final Receptes[][] receptes;
+    private final HashMap<String, Receptes> receptes;
 
 
     public static GestorHomeReceptes getInstance(){
@@ -14,28 +16,28 @@ public class GestorHomeReceptes {
         return gestorHomeReceptes;
     }
     private GestorHomeReceptes(){
-        this.receptes = new Receptes[2][7];
+        this.receptes = new HashMap<>();
     }
 
-    public GestorHomeReceptes(Receptes[][] receptes){
+    public GestorHomeReceptes(HashMap receptes){
         this.receptes = receptes;
     }
 
-    public Receptes[][] getReceptes(){return receptes;}
+    public HashMap<String, Receptes> getReceptes(){return receptes;}
 
-    public void setRecepta(int dia, int apat, Receptes recepta){
-        receptes[apat][dia] = recepta;
+    public void setRecepta(String apat, Receptes recepta){
+        receptes.put(apat, recepta);
     }
 
-    public Receptes getRecepta(int dia, int apat) {
-        return receptes[apat][dia];
+    public Receptes getRecepta(String apat){
+        return receptes.get(apat);
     }
 
-    public boolean dayCheck(int dia, int apat){
-        return !(receptes[apat][dia] == null);
+    public boolean dayCheck(String apat){
+        return receptes.containsKey(apat);
     }
 
-    public void deleteRecepta(int dia, int apat){
-        receptes[apat][dia] = null;
+    public void deleteRecepta(String apat){
+        receptes.remove(apat);
     }
 }

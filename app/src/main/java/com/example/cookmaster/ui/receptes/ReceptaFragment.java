@@ -30,7 +30,7 @@ public class ReceptaFragment extends ReceptesFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         receptaViewModel = new ViewModelProvider(this).get(ReceptaViewModel.class);
 
-        recepta = ((MainActivity) requireActivity()).receptesDB.get(getArguments().getString("nomRecepta"));
+        recepta = ((MainActivity) requireActivity()).receptesDB.get(getArguments().getString("idRecepta"));
 
         binding = ReceptaFragmentBinding.inflate(inflater, container, false);
 
@@ -47,61 +47,6 @@ public class ReceptaFragment extends ReceptesFragment {
         TextView preparacio = view.findViewById(R.id.preparacio_fill);
         TextView calories = view.findViewById(R.id.calories_fill);
         ImageView img = view.findViewById(R.id.image_recepta);
-        if(recepta.getFetaUser()){
-            //img.setImageDrawable(recepta.getImgId());
-        }else {
-
-            switch (recepta.getImgIdInt()) {
-
-                case 1:
-                    img.setImageResource(R.drawable.id1);
-                    break;
-
-                case 2:
-                    img.setImageResource(R.drawable.id2);
-                    break;
-
-                case 3:
-                    img.setImageResource(R.drawable.id3);
-                    break;
-
-                case 4:
-                    img.setImageResource(R.drawable.id4);
-                    break;
-
-                case 5:
-                    img.setImageResource(R.drawable.id5);
-                    break;
-
-                case 6:
-                    img.setImageResource(R.drawable.id6);
-                    break;
-
-                case 7:
-                    img.setImageResource(R.drawable.id7);
-                    break;
-
-                case 8:
-                    img.setImageResource(R.drawable.id8);
-                    break;
-
-                case 9:
-                    img.setImageResource(R.drawable.id9);
-                    break;
-
-                case 10:
-                    img.setImageResource(R.drawable.id10);
-                    break;
-
-                case 11:
-                    img.setImageResource(R.drawable.id11);
-                    break;
-
-                default:
-
-                    break;
-            }
-        }
 
         nom.setText(recepta.getNom());
         ingredients.setText(recepta.getIngredients());

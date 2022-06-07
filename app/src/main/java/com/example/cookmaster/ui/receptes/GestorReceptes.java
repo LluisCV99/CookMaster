@@ -1,17 +1,13 @@
 package com.example.cookmaster.ui.receptes;
 
-import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 
-import com.example.cookmaster.R;
 import com.example.cookmaster.ui.classes.Receptes;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 
 public class GestorReceptes implements Serializable {
     private HashMap<String,Receptes> llista;
@@ -32,7 +28,7 @@ public class GestorReceptes implements Serializable {
         String[] cont;
         for(String s : map.values()){
             cont = s.split(";");
-            this.add(new Receptes(cont[0], cont[1], cont[2], cont[3]));
+            this.add(new Receptes(cont[0], cont[1], cont[2], cont[3], cont[4], cont[5], cont[6]));
         }
     }
 
@@ -54,7 +50,7 @@ public class GestorReceptes implements Serializable {
 
     public boolean add(Receptes recepta){
         if(has(recepta)){return false; }
-        llista.put(recepta.getNom(), recepta);
+        llista.put(recepta.getId(), recepta);
         return true;
     }
 
@@ -79,12 +75,16 @@ public class GestorReceptes implements Serializable {
 
     private void inici(){
 
-        add(new Receptes("Amanida de cigrons", "—70g de cigró sec o 200g de cigró cuit per persona\n" +
+        add(new Receptes("Amanida de cigrons",
+
+                "—70g de cigró sec o 200g de cigró cuit per persona\n" +
                 "—2 tomàquets del tipus que us agradi: de la pera, raf, canari, cirerol, de branca… És millor que sigui de carn consistent, per poder tallar-lo a bocins petits sense que es desfaci\n" +
                 "—1 pebrot vermell\n" +
                 "—1 pebrot verd del tipus italià\n" +
                 "—1 llauna de tonyina en oli d’oliva\n" +
-                "—1 llauna d’olives farcides d’anxova o un grapat d’olives negres d’Aragó","Renteu totes les hortalisses i eixugueu-les.\n" +
+                "—1 llauna d’olives farcides d’anxova o un grapat d’olives negres d’Aragó",
+
+                "Renteu totes les hortalisses i eixugueu-les.\n" +
                 "\n" +
                 "Agafeu el pebrot vermell, obriu-lo pel mig i traieu-ne les llavors. Si el pebrot és gros, en tindreu prou amb la meitat i podeu desar el que no feu servir. El talleu a la juliana, en tires no gaire gruixudes però no gaire primes, i després talleu les tires a daus petits.\n" +
                 "\n" +
@@ -96,7 +96,16 @@ public class GestorReceptes implements Serializable {
                 "\n" +
                 "Poseu-hi les olives que hàgiu triat.\n" +
                 "\n" +
-                "Aboqueu-hi la tonyina i poseu-hi la quantitat que vulgueu de l’oli d’oliva de la llauna, que li donarà més gust i olor.", "1"));
+                "Aboqueu-hi la tonyina i poseu-hi la quantitat que vulgueu de l’oli d’oliva de la llauna, que li donarà més gust i olor.",
+
+                "1",
+
+                "Cal",
+
+                FirebaseAuth.getInstance().getUid(),
+
+                "nidea"
+                ));
         add(new Receptes("Amanida de llenties", "400 gr de llenties\n" +
                 "100 gr de pebrot vermell\n" +
                 "Mitja ceba\n" +
@@ -108,7 +117,12 @@ public class GestorReceptes implements Serializable {
                 "Sal i pebre al gust","Primer de tot, hem de ficar a bullir les llenties, o bé deixar-les en remull durant tota la nit. Quan l’aigua comenci a bullir, afegim les llenties i les deixem durant una hora aproximadament, o fins que veiem que estan fetes." +
                 "Una vegada estiguin fetes, les aboquem a un colador i deixem que corri una mica d’aigua freda pel damunt. Mentrestant, anem tallant els pebrots, la ceba, les olives, la pastanaga i el tomàquet.\n" +
                 "\n" +
-                "Una vegada estigui tot ben tallat i les llenties ja estiguin fredes, incorporem tots aquests ingredients juntament amb la llauna de tonyina i ho remenem bé. Afegim sal, oli i pebre al gust, i a menjar!", "2"));
+                "Una vegada estigui tot ben tallat i les llenties ja estiguin fredes, incorporem tots aquests ingredients juntament amb la llauna de tonyina i ho remenem bé. Afegim sal, oli i pebre al gust, i a menjar!", "2",
+                "Cal",
+
+                FirebaseAuth.getInstance().getUid(),
+
+                "nidea"));
         add(new Receptes("Amanida de pasta", "200 gramos de pasta\n" +
                 "1 lata de maíz\n" +
                 "3 latas de atún\n" +
@@ -124,7 +138,12 @@ public class GestorReceptes implements Serializable {
                 "\n" +
                 "3.- Ahora por otra parte cocemos los huevos en agua durante 10 minutos.\n" +
                 "\n" +
-                "4.- Seguidamente picamos el resto de ingredientes que haya que picar y sacamos de la lata el maíz, el atún etc… 5.- Mezclamos muy bien todo y aliñamos con aceite de oliva y vinagre. Ponemos las especias que más nos gusten.","3"));
+                "4.- Seguidamente picamos el resto de ingredientes que haya que picar y sacamos de la lata el maíz, el atún etc… 5.- Mezclamos muy bien todo y aliñamos con aceite de oliva y vinagre. Ponemos las especias que más nos gusten.","3",
+                "Cal",
+
+                FirebaseAuth.getInstance().getUid(),
+
+                "nidea"));
         add(new Receptes("Arros al curry amb pollastre", "- 1 ceba gran\n" +
                 "- 1 pebrot vermell\n" +
                 "- 2 pastanagues\n" +
@@ -149,7 +168,12 @@ public class GestorReceptes implements Serializable {
                 "3. Colem l'arròs i el remullem amb aigua freda.\n" +
                 "4. Tornem a posar l'arròs a l'olla amb un raig d'oli i l'escalfem per poder-lo servir.\n" +
                 "\n" +
-                "Per servir-lo, ho farem en un mateix plat: el pollastre amb el sofregit en un costat del plat, i a l'altre costat l'arròs. Posteriorment cadascú s'ho podrà remenar per integrar-ho.","4"));
+                "Per servir-lo, ho farem en un mateix plat: el pollastre amb el sofregit en un costat del plat, i a l'altre costat l'arròs. Posteriorment cadascú s'ho podrà remenar per integrar-ho.","4",
+                "Cal",
+
+                FirebaseAuth.getInstance().getUid(),
+
+                "nidea"));
         add(new Receptes("Canelons d'espinacs", "600 grams d’espinacs\n" +
                 "1/2 ceba\n" +
                 "150 grams de formatge fresc\n" +
@@ -165,7 +189,12 @@ public class GestorReceptes implements Serializable {
                 "En la mateixa paella, cuinem la ceba tallada ben petita fins que transparenti i aleshores li afegim els pinyons, fins que s’enrosseixin una mica, i després les panses, que saltegem un minut.\n" +
                 "Mentre es refreden els espinacs, preparem la salsa beixamel: en una cassola posem la mantega i quan s’hagi fos, afegim poc a poc la farina, remenant constantment fins que agafi una mica de color; aleshores comencem a afegir poc a poc la llet, que prèviament haurem escalfat, i continuarem remenant fins que quedin tot els ingredients ben lligats; afegim sal, un pèl de nou moscada i la mantenim a foc suau uns 15 minuts i ja estarà llesta per fer servir.\n" +
                 "En un bol posem els espinacs després d’haver-los escorregut molt bé amb les mans -deixaran anar força aigua, i així evitem que facin malbé el plat-; després afegim la ceba amb les panses i els pinyons, i després el formatge fresc i mesclem tot els ingredients; aboquem a la mescla 3 cullerades de salsa beixamel i tastem el farcit per ajustar-lo de sal i pebre.\n" +
-                "Encenem el forn a 200º i comencem a farcir la pasta de canelons. Posem els canelons farcits en una safata per anar al forn, els cobrim amb beixamel i per sobre repartim el formatge emmental ratllat i enfornem uns 15 minuts; passat aquest temps, posem el grill per gratinar el formatge, uns 5 minuts, però no us despisteu no sigui que es torrin massa. Servim calents.","5"));
+                "Encenem el forn a 200º i comencem a farcir la pasta de canelons. Posem els canelons farcits en una safata per anar al forn, els cobrim amb beixamel i per sobre repartim el formatge emmental ratllat i enfornem uns 15 minuts; passat aquest temps, posem el grill per gratinar el formatge, uns 5 minuts, però no us despisteu no sigui que es torrin massa. Servim calents.","5",
+                "Cal",
+
+                FirebaseAuth.getInstance().getUid(),
+
+                "nidea"));
         add(new Receptes("Ensaladilla russa", "2-3 patatas (450 g)\n" +
                 "4 zanahorias\n" +
                 "2 huevos\n" +
@@ -182,7 +211,12 @@ public class GestorReceptes implements Serializable {
                 "\n" +
                 "Corta las aceitunas por la mitad y después finamente.\n" +
                 "\n" +
-                "Pon la patata, el huevo, la zanahoria y las aceitunas en un cuenco grande, agrega los guisantes y el atún desmigado.Incorpora la mayonesa, mezcla suavemente. Prueba, pon a punto de sal y sirve. Adorna con una rama de perejil.", "6"));
+                "Pon la patata, el huevo, la zanahoria y las aceitunas en un cuenco grande, agrega los guisantes y el atún desmigado.Incorpora la mayonesa, mezcla suavemente. Prueba, pon a punto de sal y sirve. Adorna con una rama de perejil.", "6",
+                "Cal",
+
+                FirebaseAuth.getInstance().getUid(),
+
+                "nidea"));
         add(new Receptes("Pizza vegetariana", "1 cebolla mediana.\n" +
                 "1 calabacín.\n" +
                 "2 pimientos verdes.\n" +
@@ -203,7 +237,12 @@ public class GestorReceptes implements Serializable {
                 "Mezcla el resto de verduras y añádelas.\n" +
                 "Pon las tápenas y las olivas por encima, orégano al gusto, y el queso de mozzarella de búfala en tiritas.\n" +
                 "\n" +
-                "Mete la pizza con el papel en el horno a una altura media durante 10-12 minutos, hasta que el queso y la masa empiecen a dorarse.", "7"));
+                "Mete la pizza con el papel en el horno a una altura media durante 10-12 minutos, hasta que el queso y la masa empiecen a dorarse.", "7",
+                "Cal",
+
+                FirebaseAuth.getInstance().getUid(),
+
+                "nidea"));
         add(new Receptes("Lasanya", "Un paquet de pasta de lasanya fresca\n" +
                 "1 porro\n" +
                 "2 cebes tendres\n" +
@@ -227,7 +266,12 @@ public class GestorReceptes implements Serializable {
                 "Fem beixamel amb la barreja de mantega i farina. Quan estigui ben lligat, hi afegim la llet fresca i la nou moscada ratllada. Ho remenem.\n" +
                 "A tota aquesta barreja, hi afegirem la meitat de la barreja de la salsa aurora (salsa de tomàquet i beixamel). \n" +
                 "Fem capes posant una mica de salsa aurora i parmesà ratllat a la safata que anirà al forn, una làmina de pasta, una capa de carn, una capa de pasta, una altra de salsa aurora, més parmesà ratllat, una altra capa de pasta, una de carn, una de pasta, una de salsa aurora, formatge parmesà ratllat i mozzarella tallada a rodanxes. Al forn a 200º, 30 minuts. \n" +
-                "Ho servim amb alfàbrega tallada per sobre.", "8"));
+                "Ho servim amb alfàbrega tallada per sobre.", "8",
+                "Cal",
+
+                FirebaseAuth.getInstance().getUid(),
+
+                "nidea"));
         add(new Receptes("Sopa de peix", "Un quilo de peix de roca, uns crancs i un cap de rap.\n" +
                 "Sis gambes i 12 musclos.\n" +
                 "Unes avellanes i ametlles torrades.\n" +
@@ -248,7 +292,12 @@ public class GestorReceptes implements Serializable {
                 "Quan aquest sofregit estigui al punt, hi tirarem el brou que ja haurem colat bé, i les llesquetes de pa torrades, juntament amb les ametlles i avellanes, prèviament picades a la picadora o morter.\n" +
                 "Ho deixarem bullir una estona, mirant que no se'ns agafi a la cassola. Ho anirem remenant amb una batedora manual (no elèctrica), per desfer el pa.\n" +
                 "Hi afegirem finalment els musclos, les molletes de peix, i les gambes, i ho deixarem bullir uns dos minuts més.\n" +
-                "Per acabar, hi tirarem les gotetes d'anís, i ho taparem fins l'hora de servir-ho.","9"));
+                "Per acabar, hi tirarem les gotetes d'anís, i ho taparem fins l'hora de servir-ho.","9",
+                "Cal",
+
+                FirebaseAuth.getInstance().getUid(),
+
+                "nidea"));
         add(new Receptes("Macarrons boloñesa", "6 grapats de macarrons (200 g)\n" +
                 "4 cullerades soperes de salsa de tomàquet fregit (80 g)\n" +
                 "100 g de carn picada (mida aproximada a la d’una hamburguesa)\n" +
@@ -260,7 +309,12 @@ public class GestorReceptes implements Serializable {
                 "Poseu una paella al foc amb un raig d’oli i afegiu-hi la carn picada.\n" +
                 "Deixeu coure fins que estigui feta i remeneu de tant en tant perquè no es cremi.\n" +
                 "Un cop feta afegiu-hi la salsa de tomàquet i barregeu-la bé.\n" +
-                "Presenteu els macarrons al plat i pel damunt poseu-hi la salsa, un polsim d’orenga i el formatge ratllat.", "10"));
+                "Presenteu els macarrons al plat i pel damunt poseu-hi la salsa, un polsim d’orenga i el formatge ratllat.", "10",
+                "Cal",
+
+                FirebaseAuth.getInstance().getUid(),
+
+                "nidea"));
         add(new Receptes("Oliaigu amb figues", "2 cebes\n" +
                 "1/2 pebre vermell\n" +
                 "1 pebre verd\n" +
@@ -276,6 +330,11 @@ public class GestorReceptes implements Serializable {
                 "cocció.\n" +
                 "Convé que reposi un dia, és a dir, fer-ho el dia abans de menjar-ho. Quan es serveixi,\n" +
                 "posar les llesques de pa al fons del plat i posar-hi l'Oliaigua damunt. Es pot menjar\n" +
-                "amb figues, amb altres fruites (per exemple, meló) o amb patates fregides.", "11"));
+                "amb figues, amb altres fruites (per exemple, meló) o amb patates fregides.", "11",
+                "Cal",
+
+                FirebaseAuth.getInstance().getUid(),
+
+                "nidea"));
     }
 }

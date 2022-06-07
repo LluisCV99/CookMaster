@@ -3,6 +3,7 @@ package com.example.cookmaster.data;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -32,11 +33,16 @@ public class dataStore {
         fos.write(serializedMap.getBytes());
     }
 
-    public static String uploadRecepta(Receptes recepta){
-        DocumentReference doc = FirebaseFirestore.getInstance().collection("Recepta").document(recepta.getId());
-
-        doc.set(recepta.toMap());
-        return "";
+    public static String receptaDB(Receptes recepta) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference ref = db.getReference();
+        String uploadId = ref.push().getKey();
+        if (uploadId != null && uploadId.isEmpty()) {
+            return "Empty";
+        } else {
+            ref.child(uploadId).setValue(recepta);
+            return recepta.getNom() + " uploaded";
+        }
     }
 
 
