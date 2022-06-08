@@ -3,7 +3,10 @@ package com.example.cookmaster.ui.NovaRecepta;
 import static android.app.Activity.RESULT_OK;
 
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -32,6 +35,7 @@ import com.example.cookmaster.ui.receptes.GestorReceptes;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -88,6 +92,30 @@ public class NovaReceptaFragment extends Fragment {
         EditText nomText = view.findViewById(R.id.nom_text);
         EditText ingredientsText = view.findViewById(R.id.ingredients_text);
         EditText preparacioText = view.findViewById(R.id.preparacio_text);
+        Button ajuda = view.findViewById(R.id.help);
+        ajuda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setTitle("Entrada d'aliments");
+                alert.setMessage(
+                        "Per poder calcular les calories del plat, " +
+                                "els aliments s'han d'introduir en anglès i de la següent manera:\n" +
+                                "\n100g peas,\n"+
+                                "1 cup olive oil,\n"+
+                                "1L soda"
+                );
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                alert.create();
+                alert.show();
+            }
+        });
 
         imgGallery = view.findViewById(R.id.image_recepta);
         Button btnGallery = view.findViewById(R.id.btnGallery);
@@ -114,30 +142,32 @@ public class NovaReceptaFragment extends Fragment {
                 String url = "";
 
                 String calories = getNutrients(ingredientsRecepta);
-                Toast.makeText(getContext(), calories, Toast.LENGTH_LONG).show();
 
                 if(uri != null){
                     //Penjar imatge a bdd
                     String id = System.currentTimeMillis() + "." + getFileExtension(uri);
                     uploadImg(uri, id);
 
-                }else{
+                }else {
                     Toast.makeText(getContext(), "Imatge no trobada", Toast.LENGTH_SHORT).show();
-                    url = "com.google.android.gms.tasks.zzw@3ff1a0a";
+                    url = "imatges/1654696473902.jpg";
                 }
 
                 SharedPreferences settings = getContext().getSharedPreferences("USER", 0);
                 String uid = settings.getString("user",null);
-                recepta = new Receptes(nomRecepta, ingredientsRecepta, preparacioRecepta,
-                        imgGallery.toString(), calories, uid, url, "");
+                if(((MainActivity) requireActivity()).receptesDB.has(nomRecepta+uid)){
+                    Toast.makeText(getContext(), "Ja hi ha una recepta amb aquest nom", Toast.LENGTH_SHORT).show();
+                }else {
+                    recepta = new Receptes(nomRecepta, ingredientsRecepta, preparacioRecepta, calories, uid, url, "");
 
-                if(uri == null){
-                    llista.add(recepta);
-                    String res = dataStore.receptaDB(recepta);
-                    if(!res.equals("")){
-                        Toast.makeText(getContext(), res, Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getContext(), "Nova recepta " + recepta.getNom() + " creada", Toast.LENGTH_SHORT).show();
+                    if (uri == null) {
+                        llista.add(recepta);
+                        String res = dataStore.receptaDB(recepta);
+                        if (!res.equals("")) {
+                            Toast.makeText(getContext(), res, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Nova recepta " + recepta.getNom() + " creada", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
@@ -222,7 +252,7 @@ public class NovaReceptaFragment extends Fragment {
         mUploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                uploadSuccesful(taskSnapshot);
+                uploadSuccesful(taskSnapshot, id);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -231,10 +261,10 @@ public class NovaReceptaFragment extends Fragment {
             }
         });
     }
-    private void uploadSuccesful(UploadTask.TaskSnapshot taskSnapshot){
+    private void uploadSuccesful(UploadTask.TaskSnapshot taskSnapshot, String id){
         if(taskSnapshot.getMetadata() != null){
             if(taskSnapshot.getMetadata().getReference() != null){
-                url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                url = "imatges/" + id;
 
                 recepta.setImageUrl(url);
                 llista.add(recepta);
@@ -253,9 +283,11 @@ public class NovaReceptaFragment extends Fragment {
         }
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
 }

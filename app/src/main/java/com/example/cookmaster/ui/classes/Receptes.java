@@ -14,7 +14,6 @@ public class Receptes {
     private String ingredients;
     private String preparacio;
     private String calories;
-    private String imgId;
 
     //back
     private String userID;
@@ -23,11 +22,10 @@ public class Receptes {
 
     public Receptes(){}
 
-    public Receptes(String nom, String ingredients, String preparacio, String imgId, String calories, String uid, String url, String id){
+    public Receptes(String nom, String ingredients, String preparacio, String calories, String uid, String url, String id){
         this.nom = nom;
         this.ingredients = ingredients;
         this.preparacio = preparacio;
-        this.imgId = imgId;
         this.calories = calories;
         this.userID = uid;
         this.imageUrl = url;
@@ -41,13 +39,11 @@ public class Receptes {
     public String getIngredients(){return ingredients;}
     public String getPreparacio(){return preparacio + "\n\n\n";}
     public String getCalories(){return calories;}
-    public String getImgId() {return "";} //imgId.getDrawable();    Temp
 
     public String getUserId(){return userID;}
     public String getImageUrl(){return imageUrl;}
     public String getId(){return id;}
 
-    public int getImgIdInt() { return Integer.parseInt("1");} // Temp
 
 
     /* Setters */
@@ -55,32 +51,12 @@ public class Receptes {
     public void setIngredients(String ingredients){this.ingredients = ingredients;}
     public void setPreparacio(String preparacio){this.preparacio = preparacio;}
     public void setCalories(String calories){ this.calories = calories;}
-    public void setImgId(String imgId){this.imgId = imgId;}
 
     public void setUserId(String userId){this.userID = userId;}
     public void setImageUrl(String url){this.imageUrl = url;}
     public void setId(String id){this.id = id;}
 
 
-    /* Converters */
-    @Override
-    public String toString(){
-        return getNom() + ";" + getIngredients() + ";" + getPreparacio() + ";" + getImgId() + ";"
-                + getCalories() + ";" + getUserId() + ";" + getImageUrl() + ";" + getId();
-    }
-
-    public Map<String, Object> toMap(){
-        Map<String, Object> recepta = new HashMap<>();
-
-        //recepta.put("ID", id);
-        recepta.put("Nom", nom);
-        recepta.put("Ingredients", ingredients);
-        recepta.put("Preparacio", preparacio);
-        recepta.put("Creador",userID);
-        recepta.put("URI",imgId);
-
-        return recepta;
-    }
 
     /* Checker */
     public boolean fetaPerUser(Context context){
