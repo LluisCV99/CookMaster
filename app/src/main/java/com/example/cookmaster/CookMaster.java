@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class CookMaster {
     private static CookMaster cookMaster;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    
+
     public static CookMaster getInstance(){
         if(cookMaster == null) {
             cookMaster = new CookMaster();
@@ -28,28 +28,28 @@ public class CookMaster {
 
     public void logIn(LoginActivity loginActivity, String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-          if(task.isSuccessful()){
-              loginActivity.RunMain(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getDisplayName());
-          }else{
-              Toast.makeText(loginActivity, "Error: " + task.getException().getMessage() , Toast.LENGTH_SHORT).show();
-          }
+            if(task.isSuccessful()){
+                loginActivity.RunMain(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getDisplayName());
+            }else{
+                Toast.makeText(loginActivity, "Error: " + task.getException().getMessage() , Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
     public void signIn(RegisterActivity registerActivity, String username, String email, String password){
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            UserProfileChangeRequest cr = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
-                            user.updateProfile(cr);
-                            registerActivity.goLogin();
-                        } else {
-                            Toast.makeText(registerActivity, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    UserProfileChangeRequest cr = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
+                    user.updateProfile(cr);
+                    registerActivity.toMain(user.getUid(), username);
+                } else {
+                    Toast.makeText(registerActivity, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
 
