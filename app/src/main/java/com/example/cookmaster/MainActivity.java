@@ -121,10 +121,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+        if(HomeFragment.homeViewModel != null) {
+            dataStore.calendarDB(HomeFragment.homeViewModel.getGestor());}
+            dataStore.saveReceptes(receptesDB);
+            super.onStop();
 
-        dataStore.calendarDB(HomeFragment.homeViewModel.getGestor());
-        dataStore.saveReceptes(receptesDB);
-        super.onStop();
     }
 
 }
