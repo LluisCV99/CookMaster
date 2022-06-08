@@ -14,28 +14,56 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
+import com.example.cookmaster.data.dataLoad;
+import com.example.cookmaster.data.dataStore;
 import com.example.cookmaster.databinding.FragmentHomeBinding;
 import com.example.cookmaster.ui.classes.Receptes;
+import com.example.cookmaster.ui.receptes.GestorReceptes;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener {
 
     FragmentManager fragmentManager;
 
     private FragmentHomeBinding binding;
-    private HomeViewModel homeViewModel;
+    public static HomeViewModel homeViewModel;
 
     private String dia;
     private String recepta;
     private boolean args;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    private static Button dinar0;
+    private static Button dinar1;
+    private static Button dinar2;
+    private static Button dinar3;
+    private static Button dinar4;
+    private static Button dinar5;
+    private static Button dinar6;
+    private static Button sopar0;
+    private static Button sopar1;
+    private static Button sopar2;
+    private static Button sopar3;
+    private static Button sopar4;
+    private static Button sopar5;
+    private static Button sopar6;
+    private static Button valoracio;
+    private static ImageButton share;
 
-        homeViewModel = new HomeViewModel();
+
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
@@ -56,55 +84,56 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button dinar0 = view.findViewById(R.id.dinar_dill);
+        dinar0 = view.findViewById(R.id.dinar_dill);
         dinar0.setOnClickListener(this);
         dinar0.setOnLongClickListener(this);
-        Button dinar1 = view.findViewById(R.id.dinar_dim);
+        dinar1 = view.findViewById(R.id.dinar_dim);
         dinar1.setOnClickListener(this);
         dinar1.setOnLongClickListener(this);
-        Button dinar2 = view.findViewById(R.id.dinar_dime);
+        dinar2 = view.findViewById(R.id.dinar_dime);
         dinar2.setOnClickListener(this);
         dinar2.setOnLongClickListener(this);
-        Button dinar3 = view.findViewById(R.id.dinar_dij);
+        dinar3 = view.findViewById(R.id.dinar_dij);
         dinar3.setOnClickListener(this);
         dinar3.setOnLongClickListener(this);
-        Button dinar4 = view.findViewById(R.id.dinar_div);
+        dinar4 = view.findViewById(R.id.dinar_div);
         dinar4.setOnClickListener(this);
         dinar4.setOnLongClickListener(this);
-        Button dinar5 = view.findViewById(R.id.dinar_dis);
+        dinar5 = view.findViewById(R.id.dinar_dis);
         dinar5.setOnClickListener(this);
         dinar5.setOnLongClickListener(this);
-        Button dinar6 = view.findViewById(R.id.dinar_dium);
+        dinar6 = view.findViewById(R.id.dinar_dium);
         dinar6.setOnClickListener(this);
         dinar6.setOnLongClickListener(this);
 
-        Button sopar0 = view.findViewById(R.id.sopar_dill);
+        sopar0 = view.findViewById(R.id.sopar_dill);
         sopar0.setOnClickListener(this);
         sopar0.setOnLongClickListener(this);
-        Button sopar1 = view.findViewById(R.id.sopar_dim);
+        sopar1 = view.findViewById(R.id.sopar_dim);
         sopar1.setOnClickListener(this);
         sopar1.setOnLongClickListener(this);
-        Button sopar2 = view.findViewById(R.id.sopar_dime);
+        sopar2 = view.findViewById(R.id.sopar_dime);
         sopar2.setOnClickListener(this);
         sopar2.setOnLongClickListener(this);
-        Button sopar3 = view.findViewById(R.id.sopar_dij);
+        sopar3 = view.findViewById(R.id.sopar_dij);
         sopar3.setOnClickListener(this);
         sopar3.setOnLongClickListener(this);
-        Button sopar4 = view.findViewById(R.id.sopar_div);
+        sopar4 = view.findViewById(R.id.sopar_div);
         sopar4.setOnClickListener(this);
         sopar4.setOnLongClickListener(this);
-        Button sopar5 = view.findViewById(R.id.sopar_dis);
+        sopar5 = view.findViewById(R.id.sopar_dis);
         sopar5.setOnClickListener(this);
         sopar5.setOnLongClickListener(this);
-        Button sopar6 = view.findViewById(R.id.sopar_dium);
+        sopar6 = view.findViewById(R.id.sopar_dium);
         sopar6.setOnClickListener(this);
         sopar6.setOnLongClickListener(this);
 
-        Button valoracio = view.findViewById(R.id.Boto_millora);
+        valoracio = view.findViewById(R.id.Boto_millora);
         valoracio.setOnClickListener(this);
-        ImageButton share = view.findViewById(R.id.Boto_Share);
+        share = view.findViewById(R.id.Boto_Share);
         share.setOnClickListener(this);
 
+        setClickable(homeViewModel != null);
         if(args){
             Receptes rep = ((MainActivity) requireActivity()).receptesDB.get(recepta);
             homeViewModel.gestio(dia, rep);
@@ -112,6 +141,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
             this.recepta = null;
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(homeViewModel == null){
+            loadCalendar(getContext(),FirebaseAuth.getInstance().getUid());
+        }
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -146,9 +183,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 break;
         }
         if (rep){
-
-
-            recepta = homeViewModel.gestio(data);
+            GestorReceptes receptesDB = ((MainActivity) requireActivity()).receptesDB;
+            recepta = homeViewModel.gestio(data, receptesDB);
             Bundle bundle = new Bundle();
             if(recepta == null){
                 bundle.putBoolean("recepta", false);
@@ -159,7 +195,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 Navigation.findNavController(v).navigate(R.id.nav_recepta, bundle);
             }
         }else{
-            Toast.makeText(this.getContext(), "avam", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), "No implementat", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -204,5 +240,67 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+
     }
+
+    public static void loadCalendar(Context context, String uid){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("calendaris");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot post : snapshot.getChildren()){
+                    if(post.getKey().equals(uid)){
+
+                        GestorHomeReceptes ghr = new GestorHomeReceptes();
+                        String apat;
+                        String recepta;
+
+                        for(DataSnapshot calendari : post.getChildren()){
+                            for(DataSnapshot entrada : calendari.getChildren()){
+                                apat = entrada.getKey();
+                                recepta = (String) entrada.getValue();
+                                ghr.afegeixRecepta(apat, recepta);
+                            }
+                        }
+                        homeViewModel = new HomeViewModel(ghr);
+                        break;
+                    }
+
+
+                }
+                if(homeViewModel == null) homeViewModel = new HomeViewModel();
+                setClickable(true);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context, "Error " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                homeViewModel = new HomeViewModel();
+            }
+        });
+    }
+
+    public static void setClickable(boolean set){
+        dinar0.setClickable(set);
+        dinar1.setClickable(set);
+        dinar2.setClickable(set);
+        dinar3.setClickable(set);
+        dinar4.setClickable(set);
+        dinar5.setClickable(set);
+        dinar6.setClickable(set);
+
+        sopar0.setClickable(set);
+        sopar1.setClickable(set);
+        sopar2.setClickable(set);
+        sopar3.setClickable(set);
+        sopar4.setClickable(set);
+        sopar5.setClickable(set);
+        sopar6.setClickable(set);
+
+        valoracio.setClickable(set);
+        share.setClickable(set);
+    }
+
+
 }

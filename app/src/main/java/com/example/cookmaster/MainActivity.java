@@ -11,6 +11,9 @@ import com.example.cookmaster.data.dataStore;
 import com.example.cookmaster.data.*;
 import com.example.cookmaster.ui.Login.LoginActivity;
 import com.example.cookmaster.ui.Login.Settings;
+import com.example.cookmaster.ui.classes.Receptes;
+import com.example.cookmaster.ui.home.GestorHomeReceptes;
+import com.example.cookmaster.ui.home.HomeFragment;
 import com.example.cookmaster.ui.receptes.GestorReceptes;
 import com.google.android.material.navigation.NavigationView;
 
@@ -26,6 +29,7 @@ import com.example.cookmaster.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -34,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private Integer pos;
-    private CookMaster cookMaster;
+
     public GestorReceptes receptesDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cookMaster = CookMaster.getInstance();
+
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -78,13 +82,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        try{
-            HashMap<String, String> map = dataLoad.loadReceptes(getApplicationContext());
-            if(map != null) receptesDB.setReceptes(map);
+        dataLoad.loadReceptes(getApplicationContext(), this);
 
-        } catch (IOException | ClassNotFoundException ex) {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -122,11 +121,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+
+        dataStore.calendarDB(HomeFragment.homeViewModel.getGestor());
+        dataStore.saveReceptes(receptesDB);
         super.onStop();
-        try {
-           dataStore.saveReceptes(receptesDB, getApplicationContext());
-        } catch (IOException ex) {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
     }
+
 }

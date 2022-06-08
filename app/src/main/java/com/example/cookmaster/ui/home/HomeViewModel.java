@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.ui.classes.Receptes;
+import com.example.cookmaster.ui.receptes.GestorReceptes;
 
 public class HomeViewModel extends ViewModel {
 
@@ -18,10 +20,11 @@ public class HomeViewModel extends ViewModel {
 
     LiveData<GestorHomeReceptes> getGestorLive(){return gestorLive;}
 
-    public Receptes gestio(String data){
+
+    public Receptes gestio(String data, GestorReceptes receptesDB){
         Receptes recepta;
         if(gestor.dayCheck(data)){
-            recepta = gestor.getRecepta(data);
+            recepta = receptesDB.get(gestor.getRecepta(data));
             return recepta;
         }else{
             return null;
@@ -29,7 +32,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void gestio(String dia, Receptes recepta){
-        gestor.setRecepta(dia, recepta);
+        gestor.afegeixRecepta(dia, recepta);
         gestorLive.setValue(gestor);
     }
 
@@ -52,6 +55,10 @@ public class HomeViewModel extends ViewModel {
             case 7: ret += "diumenge"; break;
         }
         return ret;
+    }
+
+    public GestorHomeReceptes getGestor() {
+        return gestor;
     }
 
 }

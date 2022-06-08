@@ -1,12 +1,13 @@
 package com.example.cookmaster.ui.home;
 
 import com.example.cookmaster.ui.classes.Receptes;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.HashMap;
 
 public class GestorHomeReceptes {
     private static GestorHomeReceptes gestorHomeReceptes;
-    private final HashMap<String, Receptes> receptes;
+    private HashMap<String, String> receptes;
 
 
     public static GestorHomeReceptes getInstance(){
@@ -15,21 +16,35 @@ public class GestorHomeReceptes {
         }
         return gestorHomeReceptes;
     }
-    private GestorHomeReceptes(){
+    public GestorHomeReceptes(){
         this.receptes = new HashMap<>();
     }
 
-    public GestorHomeReceptes(HashMap receptes){
-        this.receptes = receptes;
+
+    public HashMap<String, String> getReceptes(){return receptes;}
+
+    public void setReceptes(String rep){
+        String s = rep.toString();
     }
 
-    public HashMap<String, Receptes> getReceptes(){return receptes;}
+    /*
+    public void setReceptes(HashMap<String, String> map){
+        this.receptes = map;
+    }
+     */
 
-    public void setRecepta(String apat, Receptes recepta){
+
+    public void afegeixRecepta(String apat, Receptes recepta){
+        receptes.put(apat, recepta.getId());
+    }
+
+    public void afegeixRecepta(String apat, String recepta){
         receptes.put(apat, recepta);
     }
 
-    public Receptes getRecepta(String apat){
+
+
+    public String getRecepta(String apat){
         return receptes.get(apat);
     }
 

@@ -32,8 +32,6 @@ import com.example.cookmaster.ui.receptes.GestorReceptes;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -62,8 +60,7 @@ public class NovaReceptaFragment extends Fragment {
     //upload
     private Uri uri;
     private String url;
-    private FirebaseDatabase database;
-    private DatabaseReference mDatabaseRef;
+
     private StorageReference mStorageRef;
     private StorageTask<UploadTask.TaskSnapshot> mUploadTask;
 
@@ -80,8 +77,6 @@ public class NovaReceptaFragment extends Fragment {
         mStorageRef = FirebaseStorage.getInstance().getReference("imatges");
         binding = NovaReceptaBinding.inflate(inflater, container, false);
         llista = ((MainActivity) requireActivity()).receptesDB;
-        database = FirebaseDatabase.getInstance();
-        mDatabaseRef = database.getReference("receptes");
         return binding.getRoot();
     }
 
@@ -116,28 +111,35 @@ public class NovaReceptaFragment extends Fragment {
                 String nomRecepta = nomText.getText().toString();
                 String ingredientsRecepta = ingredientsText.getText().toString();
                 String preparacioRecepta = preparacioText.getText().toString();
+                String url = "";
 
                 String calories = getNutrients(ingredientsRecepta);
                 Toast.makeText(getContext(), calories, Toast.LENGTH_LONG).show();
 
                 if(uri != null){
-
-
-                    //Penjar imatge a bdd, moure a un metode quan xuti
+                    //Penjar imatge a bdd
                     String id = System.currentTimeMillis() + "." + getFileExtension(uri);
-                    upup(uri, id);
-
-                    SharedPreferences settings = getContext().getSharedPreferences("USER", 0);
-                    String uid = settings.getString("user",null);
-                    recepta = new Receptes(nomRecepta, ingredientsRecepta, preparacioRecepta,
-                            imgGallery.toString(), calories, uid, "");
-
-
+                    uploadImg(uri, id);
 
                 }else{
                     Toast.makeText(getContext(), "Imatge no trobada", Toast.LENGTH_SHORT).show();
+                    url = "com.google.android.gms.tasks.zzw@3ff1a0a";
                 }
 
+                SharedPreferences settings = getContext().getSharedPreferences("USER", 0);
+                String uid = settings.getString("user",null);
+                recepta = new Receptes(nomRecepta, ingredientsRecepta, preparacioRecepta,
+                        imgGallery.toString(), calories, uid, url, "");
+
+                if(uri == null){
+                    llista.add(recepta);
+                    String res = dataStore.receptaDB(recepta);
+                    if(!res.equals("")){
+                        Toast.makeText(getContext(), res, Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getContext(), "Nova recepta " + recepta.getNom() + " creada", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 
@@ -212,7 +214,7 @@ public class NovaReceptaFragment extends Fragment {
         return ingredients;
     }
 
-    public void upup(Uri uri, String id){
+    public void uploadImg(Uri uri, String id){
         StorageReference fileRef = mStorageRef.child(id);
 
         mUploadTask = fileRef.putFile(uri);
@@ -234,10 +236,15 @@ public class NovaReceptaFragment extends Fragment {
             if(taskSnapshot.getMetadata().getReference() != null){
                 url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
 
-                recepta.setUrl(url);
+                recepta.setImageUrl(url);
                 llista.add(recepta);
                 String res = dataStore.receptaDB(recepta);
-                Toast.makeText(getContext(), res, Toast.LENGTH_SHORT);
+                if(!res.equals("")){
+                    Toast.makeText(getContext(), res, Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(), "Nova recepta " + recepta.getNom() + " creada", Toast.LENGTH_SHORT).show();
+                }
+
             }else {
                 Toast.makeText(getContext(), "Error reference", Toast.LENGTH_SHORT).show();
             }

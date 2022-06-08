@@ -21,7 +21,9 @@ public class Receptes {
     private String imageUrl;
     private String id;
 
-    public Receptes(String nom, String ingredients, String preparacio, String imgId, String calories, String uid, String url){
+    public Receptes(){}
+
+    public Receptes(String nom, String ingredients, String preparacio, String imgId, String calories, String uid, String url, String id){
         this.nom = nom;
         this.ingredients = ingredients;
         this.preparacio = preparacio;
@@ -29,7 +31,8 @@ public class Receptes {
         this.calories = calories;
         this.userID = uid;
         this.imageUrl = url;
-        this.id = nom + uid;
+        if(id.trim().isEmpty()){this.id = nom + uid;}
+        else this.id = id;
 
     }
 
@@ -48,8 +51,15 @@ public class Receptes {
 
 
     /* Setters */
-    public void setCalories(String caloria){ this.calories = caloria;}
-    public void setUrl(String url){this.imageUrl = url;}
+    public void setNom(String nom){this.nom = nom;}
+    public void setIngredients(String ingredients){this.ingredients = ingredients;}
+    public void setPreparacio(String preparacio){this.preparacio = preparacio;}
+    public void setCalories(String calories){ this.calories = calories;}
+    public void setImgId(String imgId){this.imgId = imgId;}
+
+    public void setUserId(String userId){this.userID = userId;}
+    public void setImageUrl(String url){this.imageUrl = url;}
+    public void setId(String id){this.id = id;}
 
 
     /* Converters */

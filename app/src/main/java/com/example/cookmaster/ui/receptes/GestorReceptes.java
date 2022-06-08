@@ -10,66 +10,87 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GestorReceptes implements Serializable {
-    private HashMap<String,Receptes> llista;
+    private HashMap<String,Receptes> llistaNom;
+    private HashMap<String,Receptes> llistaId;
     public GestorReceptes(){
-        llista = new HashMap<>();
-        inici();
+        llistaNom = new HashMap<>();
+        llistaId = new HashMap<>();
+        //inici();
     }
 
-    public HashMap<String, String> get(){
-        HashMap<String, String> map = new HashMap<>();
-        for(Receptes rep : llista.values()){
-            map.put(rep.getNom(), rep.toString());
+    public void setReceptes(ArrayList<Receptes> list){
+
+        for (Receptes r : list){
+            llistaNom.put(r.getNom(), r);
+            llistaId.put(r.getId(), r);
         }
-        return map;
+
     }
 
-    public void setReceptes(HashMap<String, String> map){
-        String[] cont;
-        for(String s : map.values()){
-            cont = s.split(";");
-            this.add(new Receptes(cont[0], cont[1], cont[2], cont[3], cont[4], cont[5], cont[6]));
+    public void set(HashMap<String, Receptes> map){
+        ArrayList<Receptes> temp = new ArrayList<>(map.values());
+        if(map.containsKey(temp.get(0).getId())){
+            llistaId = map;
+
+            for(Receptes r : temp){
+                llistaNom.put(r.getNom(), r);
+            }
+        }else if(map.containsKey(temp.get(0).getNom())){
+            llistaNom = map;
+
+            for(Receptes r : temp){
+                llistaId.put(r.getId(), r);
+            }
         }
     }
-
-    public void set(HashMap<String, Receptes> map){this.llista = map;}
 
     public int getSize(){
-        return llista.size();
+        return llistaNom.size();
     }
 
     public void clear(){
-        llista.clear();
+        llistaNom.clear();
+        llistaId.clear();
     }
     public boolean has(@NonNull Receptes recepta){
-        return llista.containsKey(recepta.getNom());
+        return llistaNom.containsKey(recepta.getNom());
     }
     public boolean has(String recepta){
-        return llista.containsKey(recepta);
+        return llistaNom.containsKey(recepta) || llistaId.containsKey(recepta);
     }
 
     public boolean add(Receptes recepta){
         if(has(recepta)){return false; }
-        llista.put(recepta.getId(), recepta);
+        llistaNom.put(recepta.getNom(), recepta);
+        llistaId.put(recepta.getId(), recepta);
         return true;
     }
 
     public void remove(@NonNull Receptes recepta){
-        llista.remove(recepta.getNom());
+        llistaNom.remove(recepta.getNom());
+        llistaId.remove(recepta.getId());
     }
     public void remove(String recepta){
-        llista.remove(recepta);
+        if(llistaId.containsKey(recepta)){
+            llistaNom.remove(llistaId.get(recepta).getNom());
+            llistaId.remove(recepta);
+        }else if(llistaNom.containsKey(recepta)){
+            llistaId.remove(llistaNom.get(recepta).getId());
+            llistaNom.remove(recepta);
+        }
     }
 
     public Receptes get(String recepta){
-        if(has(recepta)){
-            return llista.get(recepta);
+        if(llistaNom.containsKey(recepta)){
+            return llistaNom.get(recepta);
+        }else if(llistaId.containsKey(recepta)){
+            return llistaId.get(recepta);
         }
         return null;
     }
 
     public ArrayList<Receptes> getAll(){
-        return new ArrayList<>(llista.values());
+        return new ArrayList<>(llistaNom.values());
     }
 
 
@@ -104,7 +125,7 @@ public class GestorReceptes implements Serializable {
 
                 FirebaseAuth.getInstance().getUid(),
 
-                "nidea"
+                "nidea", ""
                 ));
         add(new Receptes("Amanida de llenties", "400 gr de llenties\n" +
                 "100 gr de pebrot vermell\n" +
@@ -122,7 +143,7 @@ public class GestorReceptes implements Serializable {
 
                 FirebaseAuth.getInstance().getUid(),
 
-                "nidea"));
+                "nidea", ""));
         add(new Receptes("Amanida de pasta", "200 gramos de pasta\n" +
                 "1 lata de maíz\n" +
                 "3 latas de atún\n" +
@@ -143,7 +164,7 @@ public class GestorReceptes implements Serializable {
 
                 FirebaseAuth.getInstance().getUid(),
 
-                "nidea"));
+                "nidea", ""));
         add(new Receptes("Arros al curry amb pollastre", "- 1 ceba gran\n" +
                 "- 1 pebrot vermell\n" +
                 "- 2 pastanagues\n" +
@@ -173,7 +194,7 @@ public class GestorReceptes implements Serializable {
 
                 FirebaseAuth.getInstance().getUid(),
 
-                "nidea"));
+                "nidea", ""));
         add(new Receptes("Canelons d'espinacs", "600 grams d’espinacs\n" +
                 "1/2 ceba\n" +
                 "150 grams de formatge fresc\n" +
@@ -194,7 +215,7 @@ public class GestorReceptes implements Serializable {
 
                 FirebaseAuth.getInstance().getUid(),
 
-                "nidea"));
+                "nidea", ""));
         add(new Receptes("Ensaladilla russa", "2-3 patatas (450 g)\n" +
                 "4 zanahorias\n" +
                 "2 huevos\n" +
@@ -216,7 +237,7 @@ public class GestorReceptes implements Serializable {
 
                 FirebaseAuth.getInstance().getUid(),
 
-                "nidea"));
+                "nidea",""));
         add(new Receptes("Pizza vegetariana", "1 cebolla mediana.\n" +
                 "1 calabacín.\n" +
                 "2 pimientos verdes.\n" +
@@ -242,7 +263,7 @@ public class GestorReceptes implements Serializable {
 
                 FirebaseAuth.getInstance().getUid(),
 
-                "nidea"));
+                "nidea", ""));
         add(new Receptes("Lasanya", "Un paquet de pasta de lasanya fresca\n" +
                 "1 porro\n" +
                 "2 cebes tendres\n" +
@@ -271,7 +292,7 @@ public class GestorReceptes implements Serializable {
 
                 FirebaseAuth.getInstance().getUid(),
 
-                "nidea"));
+                "nidea", ""));
         add(new Receptes("Sopa de peix", "Un quilo de peix de roca, uns crancs i un cap de rap.\n" +
                 "Sis gambes i 12 musclos.\n" +
                 "Unes avellanes i ametlles torrades.\n" +
@@ -297,7 +318,7 @@ public class GestorReceptes implements Serializable {
 
                 FirebaseAuth.getInstance().getUid(),
 
-                "nidea"));
+                "nidea", ""));
         add(new Receptes("Macarrons boloñesa", "6 grapats de macarrons (200 g)\n" +
                 "4 cullerades soperes de salsa de tomàquet fregit (80 g)\n" +
                 "100 g de carn picada (mida aproximada a la d’una hamburguesa)\n" +
@@ -314,7 +335,7 @@ public class GestorReceptes implements Serializable {
 
                 FirebaseAuth.getInstance().getUid(),
 
-                "nidea"));
+                "nidea" ,""));
         add(new Receptes("Oliaigu amb figues", "2 cebes\n" +
                 "1/2 pebre vermell\n" +
                 "1 pebre verd\n" +
@@ -335,6 +356,6 @@ public class GestorReceptes implements Serializable {
 
                 FirebaseAuth.getInstance().getUid(),
 
-                "nidea"));
+                "nidea", ""));
     }
 }
