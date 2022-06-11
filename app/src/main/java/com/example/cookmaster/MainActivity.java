@@ -82,8 +82,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        dataLoad.loadReceptes(getApplicationContext(), this);
+        SharedPreferences settings = getSharedPreferences("USER", 0);
+        boolean logged = settings.getBoolean("login", false);
+        if (!logged) {
+            Intent switchActivityIntent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(switchActivityIntent);
+        }else{
+            String welcome = "Welcome " + settings.getString("dn", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+            Toast.makeText(this, welcome, Toast.LENGTH_SHORT).show();
+            dataLoad.loadReceptes(getApplicationContext(), this);
+        }
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences settings = getSharedPreferences("USER", 0);
+        boolean logged = settings.getBoolean("login", false);
+        if (!logged) {
+            Intent switchActivityIntent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(switchActivityIntent);
+        }else {
+            String welcome = "Welcome " + settings.getString("dn", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+            Toast.makeText(this, welcome, Toast.LENGTH_SHORT).show();
+            dataLoad.loadReceptes(getApplicationContext(), this);
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -123,8 +146,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         if(HomeFragment.homeViewModel != null) {
             dataStore.calendarDB(HomeFragment.homeViewModel.getGestor());}
-            dataStore.saveReceptes(receptesDB);
-            super.onStop();
+        dataStore.saveReceptes(receptesDB);
+        super.onStop();
 
     }
 
