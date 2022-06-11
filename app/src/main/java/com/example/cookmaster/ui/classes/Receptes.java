@@ -39,7 +39,7 @@ public class Receptes {
     public String getIngredients(){return ingredients;}
     public String getPreparacio(){return preparacio.trim();}
     public String getCalories(){return calories.trim();}
-    public int getCaloriesInt(){return Integer.parseInt(getCalories());}
+    //public int getCaloriesInt(){return Integer.parseInt(getCalories());}
 
     public String getUserId(){return userID;}
     public String getImageUrl(){return imageUrl;}
