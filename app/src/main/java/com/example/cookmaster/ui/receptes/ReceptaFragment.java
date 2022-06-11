@@ -59,7 +59,7 @@ public class ReceptaFragment extends ReceptesFragment {
         nom.setText(recepta.getNom());
         ingredients.setText(recepta.getIngredients());
         preparacio.setText(recepta.getPreparacio());
-        calories.setText(recepta.getCalories());
+        calories.setText(recepta.getCalories()+"\n\n\n");
 
         gsReference = FirebaseStorage.getInstance().getReference();
 

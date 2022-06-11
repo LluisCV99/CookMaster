@@ -44,6 +44,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     private String dia;
     private String recepta;
     private boolean args;
+    private int caloriesTotals=0;
 
     private static Button dinar0;
     private static Button dinar1;
@@ -176,8 +177,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
             case R.id.sopar_dium: data = "s7"; break;
 
             case R.id.Boto_Share:
-                rep = false;
-                break;
             case R.id.Boto_millora:
                 rep = false;
                 break;
@@ -186,16 +185,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
             GestorReceptes receptesDB = ((MainActivity) requireActivity()).receptesDB;
             recepta = homeViewModel.gestio(data, receptesDB);
             Bundle bundle = new Bundle();
+
             if(recepta == null){
                 bundle.putBoolean("recepta", false);
                 bundle.putString("dia", data);
                 Navigation.findNavController(v).navigate(R.id.nav_receptes, bundle);
+
             }else {
                 bundle.putString("idRecepta", recepta.getId());
                 Navigation.findNavController(v).navigate(R.id.nav_recepta, bundle);
             }
         }else{
-            Toast.makeText(this.getContext(), "No implementat", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), caloriesTotals, Toast.LENGTH_SHORT).show();
         }
     }
 

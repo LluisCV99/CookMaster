@@ -1,301 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
-
-
-    <TableLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
-            <Space
-                android:id="@+id/espai1"
-                android:layout_width="wrap_content"
-                android:layout_height="75dp" />
-        </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                style="@style/titol"
-                android:layout_weight="33"
-                android:id="@+id/dia_txt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/dia" />
-
-            <TextView
-                style="@style/titol"
-                android:layout_weight="33"
-                android:id="@+id/dinar_txt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/dinar" />
-
-            <TextView
-                style="@style/titol"
-                android:layout_weight="33"
-                android:id="@+id/sopar_txt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/sopar" />
-        </TableRow>
-
-        <TableRow
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Space
-                android:id="@+id/espai2"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp" />
-        </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+                <Space
+                    android:id="@+id/espai1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="75dp" />
+            </TableRow>
 
-            <Button
-                style="@style/boto_dia"
-                android:id="@+id/dilluns_btn"
-                android:layout_weight="33"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/dilluns" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-            <Button
-                style="@style/boto_dinar"
-                android:id="@+id/dinar_dill"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/dinar" />
+                <TextView
+                    style="@style/titol"
+                    android:layout_weight="33"
+                    android:id="@+id/dia_txt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dia" />
 
-            <Button
-                style="@style/boto_sopar"
-                android:id="@+id/sopar_dill"
-                android:layout_weight="33"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/sopar" />
-        </TableRow>
+                <TextView
+                    style="@style/titol"
+                    android:layout_weight="33"
+                    android:id="@+id/dinar_txt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dinar" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+                <TextView
+                    style="@style/titol"
+                    android:layout_weight="33"
+                    android:id="@+id/sopar_txt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sopar" />
+            </TableRow>
 
-            <Button
-                style="@style/boto_dia"
-                android:id="@+id/dimarts_btn"
-                android:layout_weight="33"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/dimarts" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Button
-                style="@style/boto_dinar"
-                android:id="@+id/dinar_dim"
-                android:layout_weight="33"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/dinar" />
+                <Space
+                    android:id="@+id/espai2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp" />
+            </TableRow>
 
-            <Button
-                style="@style/boto_sopar"
-                android:id="@+id/sopar_dim"
-                android:layout_weight="33"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/sopar" />
-        </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+                <Button
+                    style="@style/boto_dia"
+                    android:id="@+id/dilluns_btn"
+                    android:layout_weight="33"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dilluns" />
 
-            <Button
-                style="@style/boto_dia"
-                android:id="@+id/dimecres_btn"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/dimecres" />
+                <Button
+                    style="@style/boto_dinar"
+                    android:id="@+id/dinar_dill"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dinar" />
 
-            <Button
-                style="@style/boto_dinar"
-                android:id="@+id/dinar_dime"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/dinar" />
+                <Button
+                    style="@style/boto_sopar"
+                    android:id="@+id/sopar_dill"
+                    android:layout_weight="33"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sopar" />
+            </TableRow>
 
-            <Button
-                style="@style/boto_sopar"
-                android:id="@+id/sopar_dime"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/sopar" />
-        </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+                <Button
+                    style="@style/boto_dia"
+                    android:id="@+id/dimarts_btn"
+                    android:layout_weight="33"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dimarts" />
 
-            <Button
-                style="@style/boto_dia"
-                android:id="@+id/dijous_btn"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/dijous" />
+                <Button
+                    style="@style/boto_dinar"
+                    android:id="@+id/dinar_dim"
+                    android:layout_weight="33"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dinar" />
 
-            <Button
-                style="@style/boto_dinar"
-                android:id="@+id/dinar_dij"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/dinar" />
+                <Button
+                    style="@style/boto_sopar"
+                    android:id="@+id/sopar_dim"
+                    android:layout_weight="33"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sopar" />
+            </TableRow>
 
-            <Button
-                style="@style/boto_sopar"
-                android:id="@+id/sopar_dij"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/sopar" />
-        </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
+                <Button
+                    style="@style/boto_dia"
+                    android:id="@+id/dimecres_btn"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dimecres" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+                <Button
+                    style="@style/boto_dinar"
+                    android:id="@+id/dinar_dime"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dinar" />
 
-            <Button
-                style="@style/boto_dia"
-                android:id="@+id/divendres_btn"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/divendres" />
+                <Button
+                    style="@style/boto_sopar"
+                    android:id="@+id/sopar_dime"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sopar" />
+            </TableRow>
 
-            <Button
-                style="@style/boto_dinar"
-                android:id="@+id/dinar_div"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/dinar" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-            <Button
-                style="@style/boto_sopar"
-                android:id="@+id/sopar_div"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/sopar" />
-        </TableRow>
+                <Button
+                    style="@style/boto_dia"
+                    android:id="@+id/dijous_btn"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dijous" />
 
+                <Button
+                    style="@style/boto_dinar"
+                    android:id="@+id/dinar_dij"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dinar" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <Button
-                style="@style/boto_dia"
-                android:id="@+id/dissabte_btn"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/dissabte" />
-
-            <Button
-                style="@style/boto_dinar"
-                android:id="@+id/dinar_dis"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/dinar" />
-
-            <Button
-                style="@style/boto_sopar"
-                android:id="@+id/sopar_dis"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/sopar" />
-        </TableRow>
+                <Button
+                    style="@style/boto_sopar"
+                    android:id="@+id/sopar_dij"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sopar" />
+            </TableRow>
 
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-            <Button
-                style="@style/boto_dia"
-                android:id="@+id/diumenge_btn"
-                android:layout_weight="33"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/diumenge" />
+                <Button
+                    style="@style/boto_dia"
+                    android:id="@+id/divendres_btn"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/divendres" />
 
-            <Button
-                style="@style/boto_dinar"
-                android:id="@+id/dinar_dium"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/dinar" />
+                <Button
+                    style="@style/boto_dinar"
+                    android:id="@+id/dinar_div"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dinar" />
 
-            <Button
-                style="@style/boto_sopar"
-                android:id="@+id/sopar_dium"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/sopar" />
-        </TableRow>
+                <Button
+                    style="@style/boto_sopar"
+                    android:id="@+id/sopar_div"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sopar" />
+            </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="184dp">
 
-            <Space
-                android:id="@+id/Espai3"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp" />
-        </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-        <TableRow
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
+                <Button
+                    style="@style/boto_dia"
+                    android:id="@+id/dissabte_btn"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dissabte" />
 
-            <Button
-                android:id="@+id/Boto_millora"
-                style="@style/boto_millora"
-                android:layout_height="40dp"
-                android:layout_weight="66"
-                android:text="Placeholder" />
-            <!--El text es placeholder, ja que aquest s'haura d'actualitzar des de la classe -->
+                <Button
+                    style="@style/boto_dinar"
+                    android:id="@+id/dinar_dis"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dinar" />
 
-            <ImageButton
-                android:id="@+id/Boto_Share"
-                style="@style/boto_millora"
-                android:layout_weight="33"
-                android:layout_height="40dp"
-                android:src="@drawable/share"/>
-        </TableRow>
-    </TableLayout>
+                <Button
+                    style="@style/boto_sopar"
+                    android:id="@+id/sopar_dis"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sopar" />
+            </TableRow>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <Button
+                    style="@style/boto_dia"
+                    android:id="@+id/diumenge_btn"
+                    android:layout_weight="33"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/diumenge" />
+
+                <Button
+                    style="@style/boto_dinar"
+                    android:id="@+id/dinar_dium"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dinar" />
+
+                <Button
+                    style="@style/boto_sopar"
+                    android:id="@+id/sopar_dium"
+                    android:layout_width="0dp"
+                    android:layout_weight="33"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sopar" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="184dp">
+
+                <Space
+                    android:id="@+id/Espai3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <Button
+                    android:id="@+id/Boto_millora"
+                    style="@style/boto_millora"
+                    android:layout_height="40dp"
+                    android:layout_weight="66"
+                    android:text="Placeholder" />
+                <!--El text es placeholder, ja que aquest s'haura d'actualitzar des de la classe -->
+
+                <ImageButton
+                    android:id="@+id/Boto_Share"
+                    style="@style/boto_millora"
+                    android:layout_weight="33"
+                    android:layout_height="40dp"
+                    android:src="@drawable/share"/>
+            </TableRow>
+        </TableLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</ScrollView>

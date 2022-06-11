@@ -37,8 +37,9 @@ public class Receptes {
     /* Getters */
     public String getNom(){return nom;}
     public String getIngredients(){return ingredients;}
-    public String getPreparacio(){return preparacio + "\n\n\n";}
-    public String getCalories(){return calories;}
+    public String getPreparacio(){return preparacio.trim();}
+    public String getCalories(){return calories.trim();}
+    public int getCaloriesInt(){return Integer.parseInt(getCalories());}
 
     public String getUserId(){return userID;}
     public String getImageUrl(){return imageUrl;}
