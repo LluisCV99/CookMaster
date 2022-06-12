@@ -290,7 +290,7 @@
                     style="@style/boto_millora"
                     android:layout_height="40dp"
                     android:layout_weight="66"
-                    android:text="Placeholder" />
+                    android:text="CAlcular calories" />
                 <!--El text es placeholder, ja que aquest s'haura d'actualitzar des de la classe -->
 
                 <ImageButton

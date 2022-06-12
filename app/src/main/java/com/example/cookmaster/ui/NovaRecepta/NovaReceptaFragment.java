@@ -25,6 +25,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 
 import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
@@ -44,6 +46,7 @@ import com.google.firebase.storage.UploadTask;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -140,39 +143,61 @@ public class NovaReceptaFragment extends Fragment {
                 String ingredientsRecepta = ingredientsText.getText().toString();
                 String preparacioRecepta = preparacioText.getText().toString();
                 String url = "";
+                String calories;
 
-                String calories = getNutrients(ingredientsRecepta);
 
-                if(uri != null){
-                    //Penjar imatge a bdd
-                    String id = System.currentTimeMillis() + "." + getFileExtension(uri);
-                    uploadImg(uri, id);
-
+                if(nomRecepta.isEmpty()){
+                    Toast.makeText(getContext(), "La recepta està buida.", Toast.LENGTH_SHORT).show();
+                }else if(ingredientsRecepta.isEmpty()) {
+                    Toast.makeText(getContext(), "Els ingredients estan buits.", Toast.LENGTH_SHORT).show();
+                }else if(preparacioRecepta.isEmpty()){
+                    Toast.makeText(getContext(), "La preparació està buida.", Toast.LENGTH_SHORT).show();
+                }else if(nomRecepta.contains("\n")){
+                    Toast.makeText(getContext(), "El nom de la recepta no pot contenir salts de linia", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(getContext(), "Imatge no trobada", Toast.LENGTH_SHORT).show();
-                    url = "imatges/1654696473902.jpg";
-                }
+                    calories = getNutrients(ingredientsRecepta);
+                    if (calories.equals("")) {
+                        Toast.makeText(getContext(), "Ingredients mal introduits", Toast.LENGTH_SHORT).show();
+                    } else {
+                        puja(nomRecepta, ingredientsRecepta, preparacioRecepta, calories);
+                        Navigation.findNavController(view).navigate(R.id.nav_home);
 
-                SharedPreferences settings = getContext().getSharedPreferences("USER", 0);
-                String uid = settings.getString("user",null);
-                if(((MainActivity) requireActivity()).receptesDB.has(nomRecepta+uid)){
-                    Toast.makeText(getContext(), "Ja hi ha una recepta amb aquest nom", Toast.LENGTH_SHORT).show();
-                }else {
-                    recepta = new Receptes(nomRecepta, ingredientsRecepta, preparacioRecepta, calories, uid, url, "");
-
-                    if (uri == null) {
-                        llista.add(recepta);
-                        String res = dataStore.receptaDB(recepta);
-                        if (!res.equals("")) {
-                            Toast.makeText(getContext(), res, Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), "Nova recepta " + recepta.getNom() + " creada", Toast.LENGTH_SHORT).show();
-                        }
                     }
                 }
+
+
             }
         });
+    }
 
+    private void puja(String nomRecepta, String ingredientsRecepta, String preparacioRecepta, String calories){
+        if(uri != null){
+            //Penjar imatge a bdd
+            String id = System.currentTimeMillis() + "." + getFileExtension(uri);
+            uploadImg(uri, id);
+
+        }else {
+            Toast.makeText(getContext(), "Imatge no trobada", Toast.LENGTH_SHORT).show();
+            url = "imatges/1654696473902.jpg";
+        }
+
+        SharedPreferences settings = getContext().getSharedPreferences("USER", 0);
+        String uid = settings.getString("user",null);
+        if(((MainActivity) requireActivity()).receptesDB.has(nomRecepta+uid)){
+            Toast.makeText(getContext(), "Ja hi ha una recepta amb aquest nom", Toast.LENGTH_SHORT).show();
+        }else {
+            recepta = new Receptes(nomRecepta, ingredientsRecepta, preparacioRecepta, calories, uid, url, "");
+
+            if (uri == null) {
+                llista.add(recepta);
+                String res = dataStore.receptaDB(recepta);
+                if (!res.equals("")) {
+                    Toast.makeText(getContext(), res, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Nova recepta " + recepta.getNom() + " creada", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
     private String getFileExtension(Uri uri){
@@ -196,31 +221,41 @@ public class NovaReceptaFragment extends Fragment {
 
     }
 
-    public String getNutrients(String ingredientsRecepta){
-        String ingredients;
-        String ingr = "\"";
-        char c;
-        for (int i = 0; i <ingredientsRecepta.length (); i ++) {
-            c = ingredientsRecepta.charAt(i);
-            if (c == '\n'){
-                ingr = ingr + c + "\"";
-            }
-            else if(c==','){
-                ingr = ingr + "\""+ c;
-
-            }
-            else{ingr = ingr + c;}
-
+    private String reconf(String ingredients){
+        String[] tornada;
+        String temp = "";
+        if(ingredients.contains(",")){
+            tornada = ingredients.split(",");
+        }else if(ingredients.contains(";")){
+            tornada = ingredients.split(";");
+        }else if(ingredients.contains(".")){
+            tornada = ingredients.split(".");
+        } else if(ingredients.contains("\n")) {
+            tornada = ingredients.split("\n");
+        }else{
+            return temp;
         }
-        ingr = ingr + "\"";
-        System.out.println(ingr);
+
+
+        for(int i = 0; i < tornada.length-1; i++){
+            temp += "\"" + tornada[i].trim() + "\",\n";
+        }
+        temp += "\"" + tornada[tornada.length-1].trim() + "\"";
+        return temp;
+    }
+
+    public String getNutrients(String ingredientsRecepta){
+        ingredientsRecepta = reconf(ingredientsRecepta);
+        String ingredients = "";
+        if(ingredientsRecepta.equals("")) return ingredients;
+
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         OkHttpClient client = new OkHttpClient();
 
-        String json = "{\"ingr\": ["+ingr+"]}";
+        String json = "{\"ingr\": ["+ingredientsRecepta+"]}";
 
         RequestBody body = RequestBody.create(
                 MediaType.parse("application/json"), json);
@@ -232,9 +267,11 @@ public class NovaReceptaFragment extends Fragment {
         try {
             Call call = client.newCall(request);
             Response response = call.execute();
-            ingredients = StringUtils.substringBetween(response.body().string(), "calories\":", ",");
-
-            //Toast.makeText(getContext(), ingredients, Toast.LENGTH_LONG).show();
+            if(response.code() != 200){
+                ingredients = "";
+            }else {
+                ingredients = StringUtils.substringBetween(response.body().string(), "calories\":", ",");
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

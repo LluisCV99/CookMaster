@@ -44,23 +44,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     private String dia;
     private String recepta;
     private boolean args;
-    private int caloriesTotals=0;
 
-    private static Button dinar0;
-    private static Button dinar1;
-    private static Button dinar2;
-    private static Button dinar3;
-    private static Button dinar4;
-    private static Button dinar5;
-    private static Button dinar6;
-    private static Button sopar0;
-    private static Button sopar1;
-    private static Button sopar2;
-    private static Button sopar3;
-    private static Button sopar4;
-    private static Button sopar5;
-    private static Button sopar6;
-    private static Button valoracio;
+
+    private static Button dinar0, dinar1, dinar2, dinar3, dinar4, dinar5, dinar6,
+            sopar0, sopar1, sopar2, sopar3, sopar4, sopar5, sopar6, valoracio;
     private static ImageButton share;
 
 
@@ -141,7 +128,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
             this.dia = null;
             this.recepta = null;
         }
-
     }
 
     @Override
@@ -181,8 +167,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 rep = false;
                 break;
         }
+        GestorReceptes receptesDB = ((MainActivity) requireActivity()).receptesDB;
         if (rep){
-            GestorReceptes receptesDB = ((MainActivity) requireActivity()).receptesDB;
             recepta = homeViewModel.gestio(data, receptesDB);
             Bundle bundle = new Bundle();
 
@@ -196,7 +182,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 Navigation.findNavController(v).navigate(R.id.nav_recepta, bundle);
             }
         }else{
-            Toast.makeText(this.getContext(), caloriesTotals, Toast.LENGTH_SHORT).show();
+            String cal = homeViewModel.getCalories(receptesDB);
+            Toast.makeText(this.getContext(), cal, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -228,9 +215,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
         if(!state.equals("false")){
             done += state;
-            Toast.makeText(context, done, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, done, Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(context, error, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
         }
 
         view.findViewById(view.getId());

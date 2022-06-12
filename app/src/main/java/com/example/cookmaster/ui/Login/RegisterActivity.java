@@ -83,9 +83,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onBackPressed(){
-        count++;
-        if(count > 2) {
-            finishAffinity();
-        }
+        Intent back = new Intent(this, LoginActivity.class);
+        startActivity(back);
+        finish();
     }
 }

@@ -93,13 +93,13 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageButton
-            android:id="@+id/button4"
+            android:id="@+id/buttonElimina"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:scaleType="fitCenter"
-            android:src="@drawable/cor"
+            android:src="@drawable/baseline_delete_24"
             app:backgroundTint="@null" />
 
         <ImageButton

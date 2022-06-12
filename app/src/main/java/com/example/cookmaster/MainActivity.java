@@ -18,6 +18,7 @@ import com.example.cookmaster.ui.receptes.GestorReceptes;
 import com.google.android.material.navigation.NavigationView;
 
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -57,11 +59,7 @@ public class MainActivity extends AppCompatActivity {
         if (!logged) {
             Intent switchActivityIntent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(switchActivityIntent);
-        }else{
-            String welcome = "Welcome " + settings.getString("dn", FirebaseAuth.getInstance().getCurrentUser().getEmail());
-            Toast.makeText(this, welcome, Toast.LENGTH_SHORT).show();
         }
-
 
         setSupportActionBar(binding.appBarMain.toolbar);
 

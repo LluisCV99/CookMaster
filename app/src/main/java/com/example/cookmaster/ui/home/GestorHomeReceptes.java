@@ -1,7 +1,6 @@
 package com.example.cookmaster.ui.home;
 
 import com.example.cookmaster.ui.classes.Receptes;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.HashMap;
 
@@ -27,12 +26,6 @@ public class GestorHomeReceptes {
         String s = rep.toString();
     }
 
-    /*
-    public void setReceptes(HashMap<String, String> map){
-        this.receptes = map;
-    }
-     */
-
 
     public void afegeixRecepta(String apat, Receptes recepta){
         receptes.put(apat, recepta.getId());
@@ -55,4 +48,5 @@ public class GestorHomeReceptes {
     public void deleteRecepta(String apat){
         receptes.remove(apat);
     }
+
 }

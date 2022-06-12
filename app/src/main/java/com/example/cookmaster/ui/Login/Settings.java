@@ -18,12 +18,16 @@ import com.example.cookmaster.CookMaster;
 import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Settings extends AppCompatActivity {
 
@@ -159,6 +163,17 @@ public class Settings extends AppCompatActivity {
     private void delete(String pw){
         FirebaseUser fUser = mAuth.getCurrentUser();
         AuthCredential credential = EmailAuthProvider.getCredential(fUser.getEmail(), pw);
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference ref = db.getReference("calendaris");
+        ref = ref.child(fUser.getUid());
+
+        ref.removeValue().addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Settings.this, "Error " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
         fUser.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -172,6 +187,11 @@ public class Settings extends AppCompatActivity {
                         }else{
                             Toast.makeText(Settings.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Settings.this, "Error " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

@@ -8,6 +8,8 @@ import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.ui.classes.Receptes;
 import com.example.cookmaster.ui.receptes.GestorReceptes;
 
+import java.util.Map;
+
 public class HomeViewModel extends ViewModel {
 
     private static final MutableLiveData<GestorHomeReceptes> gestorLive = new MutableLiveData<>();
@@ -61,4 +63,13 @@ public class HomeViewModel extends ViewModel {
         return gestor;
     }
 
+    public String getCalories(GestorReceptes receptesDB) {
+        int sum = 0;
+        Map<String, String> receptes = gestor.getReceptes();
+        for(String r : receptes.values()){
+            sum += Integer.parseInt(receptesDB.get(r).getCalories());
+        }
+        String ret = "" + sum;
+        return ret;
+    }
 }

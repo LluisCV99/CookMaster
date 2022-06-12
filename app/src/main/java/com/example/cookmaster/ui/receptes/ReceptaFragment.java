@@ -1,5 +1,6 @@
 package com.example.cookmaster.ui.receptes;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.net.Uri;
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,7 +22,11 @@ import com.example.cookmaster.MainActivity;
 import com.example.cookmaster.R;
 import com.example.cookmaster.databinding.ReceptaFragmentBinding;
 import com.example.cookmaster.ui.classes.Receptes;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -28,7 +34,8 @@ public class ReceptaFragment extends ReceptesFragment {
 
     private ReceptaViewModel receptaViewModel;
     private ReceptaFragmentBinding binding;
-    private Receptes recepta;
+    private static Receptes recepta;
+    private ImageButton elimina;
 
     private ImageView img;
 
@@ -55,6 +62,7 @@ public class ReceptaFragment extends ReceptesFragment {
         TextView preparacio = view.findViewById(R.id.preparacio_fill);
         TextView calories = view.findViewById(R.id.calories_fill);
         img = view.findViewById(R.id.image_recepta);
+        elimina = view.findViewById(R.id.buttonElimina);
 
         nom.setText(recepta.getNom());
         ingredients.setText(recepta.getIngredients());
@@ -70,6 +78,13 @@ public class ReceptaFragment extends ReceptesFragment {
             }
         });
 
+        elimina.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteRecepta(view);
+            }
+        });
+
     }
 
     private void setImage(Uri uri){
@@ -82,4 +97,56 @@ public class ReceptaFragment extends ReceptesFragment {
         binding = null;
     }
 
+    public void deleteRecepta(View view) {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        StorageReference refImg = FirebaseStorage.getInstance().getReference().child("imatges");
+        String rid = recepta.getUserId();
+
+        if(uid.equals(rid)){
+
+            //Pot ser que necesitem el nom de la imatge, enlloc de l'url
+            //caldria modificar la recepta per guardar el nom de l'imatge
+            String img = recepta.getImageUrl();
+            if(!img.equals("imatges/1654696473902.jpg")) {
+                refImg = refImg.child(img);
+
+                refImg.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(view.getContext(), "Error " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            DatabaseReference ref = db.getReference("receptes");
+
+            ref = ref.child(recepta.getId());
+            ref.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    receptaEliminada();
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    fm.popBackStack();
+                    Toast.makeText(view.getContext(), "Recepta eliminada correctament.", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(view.getContext(), "Error " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }else{
+            Toast.makeText(view.getContext(),"Només pots eliminar les teves receptes.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void receptaEliminada(){
+        ((MainActivity) requireActivity()).receptesDB.remove(recepta);
+    }
 }
